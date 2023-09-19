@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mafqod/core/utilis/assets.dart';
+import 'package:mafqood/core/utilis/assets.dart';
 
 class BottomPartOfSplashScreen extends StatelessWidget {
 

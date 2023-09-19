@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mafqod/splash_screen/widgets/bottom_part_of_splash_screen.dart';
-import 'package:mafqod/splash_screen/widgets/top_part_of_splash_screen.dart';
+import 'package:mafqood/splash_screen/widgets/bottom_part_of_splash_screen.dart';
+import 'package:mafqood/splash_screen/widgets/top_part_of_splash_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   @override

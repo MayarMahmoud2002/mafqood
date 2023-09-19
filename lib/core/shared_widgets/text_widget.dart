@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mafqod/core/utilis/styles.dart';
 
 class TextWidget extends StatelessWidget {
  final String text  ;

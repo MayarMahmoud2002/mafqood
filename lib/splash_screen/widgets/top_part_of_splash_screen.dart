@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mafqod/core/shared_widgets/text_widget.dart';
-import 'package:mafqod/core/utilis/styles.dart';
-import 'package:mafqod/splash_screen/widgets/signup_widget.dart';
+import 'package:mafqood/core/shared_widgets/text_widget.dart';
+import 'package:mafqood/core/utilis/styles.dart';
+import 'package:mafqood/splash_screen/widgets/signup_widget.dart';
 
 
 class TopPartOfSplashScreen extends StatelessWidget {
