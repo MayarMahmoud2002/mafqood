@@ -14,7 +14,7 @@ class TopPartOfSplashScreen extends StatelessWidget {
         child: Container(
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
                   TextWidget(
@@ -24,7 +24,7 @@ class TopPartOfSplashScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 45.0),
                     child: Row(
                       children: [
-                        SignupAndLoginWidget(),
+                        SignupWidget(),
                         SizedBox(
                           width: 10.0,
                         ),

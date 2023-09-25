@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mafqood/core/shared_widgets/text_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
+import 'package:mafqood/signup_screen/presentation/views/screens/sign_up_screen_1.dart';
 
-class SignupAndLoginWidget extends StatelessWidget {
+import '../../signup_screen/presentation/views/screens/signup_screen.dart';
+
+class SignupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,10 @@ class SignupAndLoginWidget extends StatelessWidget {
       child: Center(
         child: MaterialButton(
           onPressed: () {
-
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  SignUpScreen1()),
+            );
           },
           child: TextWidget(text: 'Sign up', textStyle: Styles.textStyle1,
 
@@ -36,3 +42,4 @@ class SignupAndLoginWidget extends StatelessWidget {
 
   }
 }
+

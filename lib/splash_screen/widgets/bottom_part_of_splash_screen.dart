@@ -17,14 +17,14 @@ class BottomPartOfSplashScreen extends StatelessWidget {
               fit: BoxFit.fill,
               image:  AssetImage(Images.earthImage),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 56.0),
-              child: Container(
-                child: Image(
-                  image: AssetImage(
-                    Images.lightImage,
-                  ),
+            Container(
+              height: double.infinity,
+              // color: Colors.yellow,
+              child: Image(
+                image: AssetImage(
+                  Images.lightImage,
                 ),
+                fit: BoxFit.cover,
               ),
             ),
 
