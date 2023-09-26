@@ -5,7 +5,6 @@ import '../../../../core/shared_widgets/title.dart';
 import '../../../../core/utilis/styles.dart';
 
 class OTPScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +49,61 @@ class OTPScreen extends StatelessWidget {
                 SizedBox(
                   height: 40.0,
                 ),
+                Row(
+                  children: [
+                    Container(
+                      height: 75,
+                      width: 65.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
 
+                        borderRadius: BorderRadius.circular(15.0),
+
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 75,
+                      width: 65.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+
+                        borderRadius: BorderRadius.circular(15.0),
+
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 75,
+                      width: 65.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+
+                        borderRadius: BorderRadius.circular(15.0),
+
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 75,
+                      width: 65.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+
+                        borderRadius: BorderRadius.circular(15.0),
+
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 40.0,
+                ),
                 TextWidget(
                     text: 'Edit Phone number ?', textStyle: Styles.textStyle1),
                 SizedBox(
                   height: 15.0,
                 ),
-
-
                 TextWidget(
                     text: 'Resend code via SMS', textStyle: Styles.textStyle1),
                 SizedBox(
@@ -65,14 +111,9 @@ class OTPScreen extends StatelessWidget {
                 ),
                 TextWidget(text: 'Resend code via Voice call',
                     textStyle: Styles.textStyle1),
-
-
               ],
             ),
           ),
-
-
-
         ],
       ),
 

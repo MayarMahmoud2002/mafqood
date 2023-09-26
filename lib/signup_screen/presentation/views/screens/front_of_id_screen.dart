@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mafqood/core/shared_widgets/title.dart';
+
 import '../../../../core/shared_widgets/container_line.dart';
 import '../../../../core/shared_widgets/continue_button.dart';
-import '../widgets/body_of_signup_screen4.dart';
+import '../../../../core/shared_widgets/text_widget.dart';
+import '../../../../core/shared_widgets/title.dart';
+import '../../../../core/utilis/styles.dart';
 
-class SignUpScreen4 extends StatelessWidget {
+class FrontOfIdScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
+
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
@@ -36,11 +40,46 @@ class SignUpScreen4 extends StatelessWidget {
             height: 35.0,
           ),
           ContainerLineWidget(),
-          BodyOfSignUpScreen4(),
+          Padding(
+            padding:
+            const EdgeInsets.only(left: 15.0, right: 15.0, top: 35.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget(
+                  text: 'Take a photo of your front of id',
+                  textStyle: Styles.textStyle1,
+                ),
+                SizedBox(
+                  height: 25.0,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  height: 180,
+                  width: double.infinity,
+                ),
+
+
+
+
+
+              ],
+            ),
+          ),
           Spacer(),
-          ContinueButtonWidget(text: 'Continue',),
+          ContinueButtonWidget(text: 'Take a Photo',)
+
+
+
+
         ],
       ),
+
+
+
     );
   }
 }

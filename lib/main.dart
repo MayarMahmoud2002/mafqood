@@ -1,7 +1,9 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mafqood/signup_screen/presentation/views/screens/otp_screen.dart';
 import 'package:mafqood/signup_screen/presentation/views/screens/signup_screen.dart';
+import 'package:mafqood/signup_screen/presentation/views/screens/signup_screen_4.dart';
 
 import 'splash_screen/splash_screen.dart';
 
@@ -98,7 +100,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: SignUpScreen4(),
     );
   }
 }

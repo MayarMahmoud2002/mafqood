@@ -7,16 +7,15 @@ import 'package:mafqood/core/shared_widgets/text_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
 import 'package:mafqood/signup_screen/presentation/views/screens/otp_screen.dart';
 import '../../../../core/shared_widgets/container_line.dart';
+import '../../../../core/shared_widgets/continue_button.dart';
 import '../../../../core/shared_widgets/title.dart';
 
 class SignUpScreen3 extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
         resizeToAvoidBottomInset: false,
-
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
@@ -44,84 +43,75 @@ class SignUpScreen3 extends StatelessWidget {
             ),
             ContainerLineWidget(),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 35.0),
+              padding:
+                  const EdgeInsets.only(left: 15.0, right: 15.0, top: 35.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(text: 'Phone Number', textStyle: Styles.textStyle1,),
+                  TextWidget(
+                    text: 'Phone Number',
+                    textStyle: Styles.textStyle1,
+                  ),
                   SizedBox(
                     height: 40.0,
                   ),
-                                              IntlPhoneField(
-              pickerDialogStyle: PickerDialogStyle(
-                searchFieldCursorColor: Colors.black87,
-              ),
-              autofocus: true,
-              dropdownTextStyle: TextStyle(
-                color: Colors.white,
-              ),
-              cursorColor: Colors.white,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                labelText: 'Enter your Phone Number',
-                labelStyle: TextStyle(
-                    color: Color.fromRGBO(109, 102, 114, 1.0),
-                    fontSize: 12.0
-                ),
-
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(),
-                ),              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(
-                  color: Color.fromRGBO(109, 102, 114, 1.0),
-                ),
-
-              ),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(109, 102, 114, 1.0),
-                    )
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(
-                    color: Color.fromRGBO(109, 102, 114, 1.0),
+                  IntlPhoneField(
+                    pickerDialogStyle: PickerDialogStyle(
+                      searchFieldCursorColor: Colors.black87,
+                    ),
+                    autofocus: true,
+                    dropdownTextStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    cursorColor: Colors.white,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    decoration: InputDecoration(
+                      labelText: 'Enter your Phone Number',
+                      labelStyle: TextStyle(
+                          color: Color.fromRGBO(109, 102, 114, 1.0),
+                          fontSize: 12.0),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Color.fromRGBO(109, 102, 114, 1.0),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(109, 102, 114, 1.0),
+                          )),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Color.fromRGBO(109, 102, 114, 1.0),
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.red)),
+                      focusedBorder: GradientOutlineInputBorder(
+                          gradient: LinearGradient(colors: [
+                        Color.fromRGBO(177, 104, 79, 1.0),
+                        Color.fromRGBO(88, 45, 92, 1.0),
+                      ])),
+                    ),
+                    initialCountryCode: 'IN',
+                    onChanged: (phone) {
+                      print(phone.completeNumber);
+                    },
                   ),
-
-                ),
-                errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide(color: Colors.red)),
-                focusedBorder: GradientOutlineInputBorder(
-                    gradient: LinearGradient(colors: [     Color.fromRGBO(177, 104, 79, 1.0),
-                      Color.fromRGBO(88, 45, 92, 1.0),
-                    ])
-                ),
-              ),
-              initialCountryCode: 'IN',
-              onChanged: (phone) {
-                print(phone.completeNumber);
-              },
-            ),
-
-
-
-
                 ],
               ),
             ),
 
-
             Spacer(),
-            Padding(
-              padding:
-              const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 25.0),
-              child: GestureDetector(
+            GestureDetector(
                 onTap: ()
                 {
                   Navigator.push(
@@ -130,30 +120,7 @@ class SignUpScreen3 extends StatelessWidget {
                   );
 
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color.fromRGBO(88, 45, 92, 1.0),
-                        Color.fromRGBO(177, 104, 79, 1.0),
-                      ],
-                    ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  child: Center(
-                    child: TextWidget(
-                      text: 'Send the code',
-                      textStyle: Styles.textStyle1,
-                    ),
-                  ),
-                  height: 55.0,
-                  width: double.infinity,
-                ),
-              ),
-            ),
+                child: ContinueButtonWidget(text: 'Send Code')),
 
             // ContinueButtonWidget(),
 
@@ -163,8 +130,5 @@ class SignUpScreen3 extends StatelessWidget {
             // ContinueButtonWidget(),
           ],
         ));
-
   }
 }
-
-

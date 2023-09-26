@@ -6,6 +6,7 @@ import 'package:mafqood/signup_screen/presentation/views/screens/sign_up_screen_
 import 'package:mafqood/signup_screen/presentation/views/widgets/app_par_widget.dart';
 
 import '../../../../core/shared_widgets/container_line.dart';
+import '../../../../core/shared_widgets/continue_button.dart';
 import '../../../../core/shared_widgets/title.dart';
 
 class SignUpScreen2 extends StatelessWidget {
@@ -43,37 +44,6 @@ class SignUpScreen2 extends StatelessWidget {
               height: 35.0,
             ),
             ContainerLineWidget(),
-            // SignUpScreen2(),
-            // SignUpScreen1(),
-            // Padding(
-            //   padding:
-            //   const EdgeInsets.only(left: 15.0, right: 15.0, top: 35.0),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       TextWidget(
-            //         text: 'Full Legal Name&National Id',
-            //         textStyle: Styles.textStyle1,
-            //       ),
-            //       SizedBox(
-            //         height: 40.0,
-            //       ),
-            //       TextFormFieldWidget(
-            //         text: 'Enter Your Full Name',
-            //         textInputAction: TextInputAction.next,
-            //         textInputType: TextInputType.text,
-            //       ),
-            //       SizedBox(
-            //         height: 25.0,
-            //       ),
-            //       TextFormFieldWidget(
-            //         text: 'Enter Your National Id',
-            //         textInputAction: TextInputAction.done,
-            //         textInputType: TextInputType.number,
-            //       ),
-            //     ],
-            //   ),
-            // )
             Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 35.0),
@@ -103,10 +73,7 @@ class SignUpScreen2 extends StatelessWidget {
 
 
             Spacer(),
-            Padding(
-              padding:
-              const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 25.0),
-              child: GestureDetector(
+            InkWell(
                 onTap: ()
                 {
                   Navigator.push(
@@ -115,30 +82,7 @@ class SignUpScreen2 extends StatelessWidget {
                   );
 
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color.fromRGBO(88, 45, 92, 1.0),
-                        Color.fromRGBO(177, 104, 79, 1.0),
-                      ],
-                    ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  child: Center(
-                    child: TextWidget(
-                      text: 'Continue',
-                      textStyle: Styles.textStyle1,
-                    ),
-                  ),
-                  height: 55.0,
-                  width: double.infinity,
-                ),
-              ),
-            ),
+                child: ContinueButtonWidget(text: 'Continue')),
 
             // ContinueButtonWidget(),
 

@@ -42,8 +42,6 @@ class SignUpScreen1 extends StatelessWidget {
               height: 35.0,
             ),
             ContainerLineWidget(),
-            // SignUpScreen2(),
-            // SignUpScreen1(),
             Padding(
               padding:
                   const EdgeInsets.only(left: 15.0, right: 15.0, top: 35.0),
@@ -73,12 +71,8 @@ class SignUpScreen1 extends StatelessWidget {
                 ],
               ),
             ),
-
             Spacer(),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 25.0),
-              child: GestureDetector(
+            InkWell(
                 onTap: ()
                 {
                   Navigator.push(
@@ -87,37 +81,7 @@ class SignUpScreen1 extends StatelessWidget {
                   );
 
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color.fromRGBO(88, 45, 92, 1.0),
-                        Color.fromRGBO(177, 104, 79, 1.0),
-                      ],
-                    ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  child: Center(
-                    child: TextWidget(
-                      text: 'Continue',
-                      textStyle: Styles.textStyle1,
-                    ),
-                  ),
-                  height: 55.0,
-                  width: double.infinity,
-                ),
-              ),
-            ),
-
-            // ContinueButtonWidget(),
-
-            // TextFor
-            // mFieldOfSignUp(),
-            // Spacer(),
-            // ContinueButtonWidget(),
+                child: ContinueButtonWidget(text: 'Continue')),
           ],
         ));
   }
