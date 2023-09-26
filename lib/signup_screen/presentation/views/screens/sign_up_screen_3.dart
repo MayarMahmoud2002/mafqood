@@ -5,6 +5,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mafqood/core/shared_widgets/text_form_field.dart';
 import 'package:mafqood/core/shared_widgets/text_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
+import 'package:mafqood/signup_screen/presentation/views/screens/otp_screen.dart';
 import '../../../../core/shared_widgets/container_line.dart';
 import '../../../../core/shared_widgets/title.dart';
 
@@ -125,7 +126,7 @@ class SignUpScreen3 extends StatelessWidget {
                 {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  SignUpScreen3()),
+                    MaterialPageRoute(builder: (context) =>  OTPScreen()),
                   );
 
                 },
@@ -144,7 +145,7 @@ class SignUpScreen3 extends StatelessWidget {
                   ),
                   child: Center(
                     child: TextWidget(
-                      text: 'Continue',
+                      text: 'Send the code',
                       textStyle: Styles.textStyle1,
                     ),
                   ),
