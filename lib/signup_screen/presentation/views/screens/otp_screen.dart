@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mafqood/core/shared_widgets/container_line.dart';
+import '../../../../core/shared_widgets/continue_button.dart';
 import '../../../../core/shared_widgets/text_widget.dart';
 import '../../../../core/shared_widgets/title.dart';
 import '../../../../core/utilis/styles.dart';
+import '../../../../home_screen/presentation/views/screen/home_screen.dart';
 
 class OTPScreen extends StatelessWidget {
   @override
@@ -29,7 +31,7 @@ class OTPScreen extends StatelessWidget {
             height: 30.0,
           ),
           TitleOfScreen(
-            text: 'Create New Account',
+            text: 'Create new account',
             number: '3/4',
           ),
           SizedBox(
@@ -111,6 +113,18 @@ class OTPScreen extends StatelessWidget {
                 ),
                 TextWidget(text: 'Resend code via Voice call',
                     textStyle: Styles.textStyle1),
+                SizedBox(
+                  height: 70.0,
+                ),
+                GestureDetector(
+                    onTap: ()
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  HomeScreen()),
+                      );
+                    },
+                    child: ContinueButtonWidget(text: 'Continue')),
               ],
             ),
           ),

@@ -28,8 +28,7 @@ class SignupWidget extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>  SignUpScreen1()),
-            );
+              MaterialPageRoute(builder: (context) =>  SignUpScreen1()),);
           },
           child: TextWidget(text: 'Sign up', textStyle: Styles.textStyle1,
 

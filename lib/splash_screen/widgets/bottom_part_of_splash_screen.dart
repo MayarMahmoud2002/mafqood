@@ -27,8 +27,6 @@ class BottomPartOfSplashScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-
-
           ],
 
         ),

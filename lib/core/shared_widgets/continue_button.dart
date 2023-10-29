@@ -33,7 +33,7 @@ ContinueButtonWidget({required this.text});
             textStyle: Styles.textStyle1,
           ),
         ),
-        height: 55.0,
+        height: 48.0,
         width: double.infinity,
       ),
     );
