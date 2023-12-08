@@ -5,12 +5,12 @@ import '../../../core/shared_widgets/text_form_field.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
 
-class AddPostScreen extends StatefulWidget {
+class LostPostScreen extends StatefulWidget {
   @override
-  State<AddPostScreen> createState() => _AddPostScreenState();
+  State<LostPostScreen> createState() => _LostPostScreenState();
 }
 
-class _AddPostScreenState extends State<AddPostScreen> {
+class _LostPostScreenState extends State<LostPostScreen> {
   final List<String> items = [
     'less than 1 year',
     '2 - 15 year',
@@ -90,7 +90,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         color: Colors.white,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
+                        padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0 , bottom: 26.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -107,7 +107,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               heightOfTextFormField: 50.0,
                             ),
                             SizedBox(
-                              height: 15.0,
+                              height: 25.0,
                             ),
                             TextWidget(text: 'Enter location', textStyle: Styles.textStyle5),
                             SizedBox(
@@ -121,14 +121,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               color: Colors.black87,
                               heightOfTextFormField: 50.0,
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: 40),
                             Row(
                               children: [
                                 InkWell(
                                   child: Container(
                                     child: Center(
                                       child: TextWidget(
-                                        text: 'Attach files',
+                                        text: 'Select Image',
                                         textStyle: Styles.textStyle6,
                                       ),
                                     ),
@@ -137,22 +137,23 @@ class _AddPostScreenState extends State<AddPostScreen> {
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 0.3,
-                                          color: Color.fromRGBO(109, 102, 114, 1.0)),
-                                      color: Color.fromRGBO(217, 217, 217, 1.0),
+                                          color: Color.fromRGBO(
+                                              217, 217, 217, 1.0)),
+                                      color: Color.fromRGBO(248, 248, 248, 1.0),
                                     ),
                                   ),
                                 ),
                                 SizedBox(width: 15),
                                 Expanded(
                                   child: TextWidget(
-                                    text: 'Drag & drop any images or \n documents. ',
+                                    text: 'Choose a picture of the missing person.',
                                     textStyle: Styles.textStyle7,
                                   ),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: 15.0,
+                              height: 40.0,
                             ),
                             TextWidget(text: 'Gender', textStyle: Styles.textStyle5),
                             SizedBox(
@@ -182,9 +183,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               ],
                             ),
                             SizedBox(
-                              height: 15.0,
+                              height: 25.0,
                             ),
-                            TextWidget(text: 'Description', textStyle: Styles.textStyle5),
+                            Row(
+                              children: [
+                                TextWidget(text: 'Description', textStyle: Styles.textStyle5),
+                                TextWidget(text: ' (optional)', textStyle: Styles.textStyle5),
+                              ],
+                            ),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -205,7 +211,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               // heightOfTextFormField: 500.0,
                             ),
                             SizedBox(
-                              height: 10.0,
+                              height: 25.0,
                             ),
                             TextWidget(text: 'What is the age of the person you lost are required?', textStyle: Styles.textStyle5),
                             SizedBox(
@@ -308,7 +314,27 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               height: 40.0,
                             ),
 
-                            ContinueButtonWidget(text: 'Create'),
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    Color.fromRGBO(88, 45, 92, 1.0),
+                                    Color.fromRGBO(177, 104, 79, 1.0),
+                                  ],
+                                ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(6.0),
+                              ),
+                              child: Center(
+                                child: TextWidget(
+                                  textStyle: Styles.textStyle1, text: 'Create',
+                                ),
+                              ),
+                              height: 48.0,
+                              width: double.infinity,
+                            ),
                           ],
                         ),
                       ),
