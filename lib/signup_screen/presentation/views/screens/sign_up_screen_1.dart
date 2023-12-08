@@ -58,7 +58,7 @@ class SignUpScreen1 extends StatelessWidget {
                   TextFormFieldWidget(
                     text: 'Enter Your Full Name',
                     textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.text, hidePassword: false,
+                    textInputType: TextInputType.text, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,
                   ),
                   SizedBox(
                     height: 25.0,
@@ -66,7 +66,7 @@ class SignUpScreen1 extends StatelessWidget {
                   TextFormFieldWidget(
                     text: 'Enter Your National Id',
                     textInputAction: TextInputAction.done,
-                    textInputType: TextInputType.number, hidePassword: false,
+                    textInputType: TextInputType.number, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,
                   ),
                 ],
               ),

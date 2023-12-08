@@ -130,5 +130,5 @@ class SignUpScreen3 extends StatelessWidget {
             // ContinueButtonWidget(),
           ],
         ));
-  }
-}
+  }}
+

@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mafqood/core/utilis/assets.dart';
 
 class BottomPartOfSplashScreen extends StatelessWidget {
-
+  
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-
         height: 250,
         width: double.infinity,
-
         child:Stack(
           children: [
             Image(
@@ -28,10 +26,8 @@ class BottomPartOfSplashScreen extends StatelessWidget {
               ),
             ),
           ],
-
         ),
       ),
     );
-
   }
 }

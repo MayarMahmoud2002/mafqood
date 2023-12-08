@@ -56,7 +56,7 @@ class SignUpScreen2 extends StatelessWidget {
                   ),
                   TextFormFieldWidget(text: 'Enter Your Password',
                     textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.text, hidePassword: true,),
+                    textInputType: TextInputType.text, hidePassword: true, color: Colors.white, heightOfTextFormField: 50.0,),
                   SizedBox(
                     height: 25.0,
                   ),
@@ -64,7 +64,7 @@ class SignUpScreen2 extends StatelessWidget {
                   TextFormFieldWidget(
                     text: 'Confirm your password',
                     textInputAction: TextInputAction.done,
-                    textInputType: TextInputType.text, hidePassword: true,),
+                    textInputType: TextInputType.text, hidePassword: true, color: Colors.white, heightOfTextFormField: 50.0,),
 
 
                 ],
