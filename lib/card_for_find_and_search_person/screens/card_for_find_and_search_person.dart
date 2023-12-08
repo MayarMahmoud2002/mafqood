@@ -21,11 +21,14 @@ class _CardCustomState extends State<CardCustom> {
             borderRadius: BorderRadius.circular(10.0),
             color: Color.fromRGBO(255, 255, 255, 1.0),
           ),
-          height: 476,
+          height: 500,
           width: double.infinity,
           child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(right: 19.0, top: 22.0, left: 19.0, bottom: 22.0),
+              padding: const EdgeInsets.only(right: 19.0, top: 22.0, left: 19.0, bottom: 5.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

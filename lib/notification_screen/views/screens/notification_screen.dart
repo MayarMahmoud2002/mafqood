@@ -17,7 +17,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       child: Scaffold(
         backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
         body: Padding(
-          padding: const EdgeInsets.symmetric( vertical: 25),
+          padding: const EdgeInsets.only( top: 33),
           child:Stack(
             children: [
               Column(
@@ -81,12 +81,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               Row(
                                 children: [
                                   TextWidget(text:' Click here to find out more.' , textStyle: Styles.textStyle4),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   Row(
                                     children: [
                                       CircleAvatar(
-                                        radius: 5.0,
+                                        radius: 3.5,
+                                       backgroundColor: Color.fromRGBO(
+                                           0, 160, 255, 1.0),
                                       ),
-                                      TextWidget(text: '2 hours ago', textStyle: Styles.textStyle1),
+                                      SizedBox(
+                                        width: 3.0,
+                                      ),
+                                      TextWidget(text: '2 hours ago', textStyle: TextStyle(
+                                        fontSize: 10.0,
+                                        color: Colors.white,
+                                      )),
                                     ],
                                   ),
                                 ],
