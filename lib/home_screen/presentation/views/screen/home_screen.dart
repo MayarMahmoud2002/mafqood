@@ -57,376 +57,374 @@ class _HomeScreenState extends State<HomeScreen> {
         //
         // ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-          child: Expanded(
-            child: ListView(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                              // color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(55.0),
-                              border: Border.all(color: Colors.white30),
-                            ),
+          padding: const EdgeInsets.only(left: 20.0,right: 20.0, top: 40.0),
+          child: ListView(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            // color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(55.0),
+                            border: Border.all(color: Colors.white30),
                           ),
                         ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
+                      ),
+                      Spacer(),
+                      InkWell(
+                        onTap: () {
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => NotificationScreen()),
-                            );
-                          },
-                          child: Container(
-                            child: Icon(
-                              Icons.notifications_active_outlined,
-                              color: Colors.white,
-                            ),
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                              // color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(55.0),
-                              border: Border.all(color: Colors.white30),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NotificationScreen()),
+                          );
+                        },
+                        child: Container(
+                          child: Icon(
+                            Icons.notifications_active_outlined,
+                            color: Colors.white,
+                          ),
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            // color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(55.0),
+                            border: Border.all(color: Colors.white30),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25.0,
+                  ),
+                  TextWidget(
+                    text: 'Browse',
+                    textStyle: Styles.textStyle1,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25.0),
+                            child: Image.asset(
+                              'assets/images/humanphoto.jpg',
+                              fit: BoxFit.cover,
                             ),
                           ),
+                          height: 40,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: 'Mayar Mahmoud',
+                              textStyle: Styles.textStyle1,
+                            ),
+                            Text(
+                              '1h',
+                              style: TextStyle(color: Colors.white54),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.more_horiz,
+                          color: Colors.white,
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 25.0,
+                  ),
+                  Text(
+                    'I found This child, he is from cairo,Egypt.\nhis name is Ali ',
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    TextWidget(
-                      text: 'Browse',
-                      textStyle: Styles.textStyle1,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25.0),
-                              child: Image.asset(
-                                'assets/images/humanphoto.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            height: 40,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: 'Mayar Mahmoud',
-                                textStyle: Styles.textStyle1,
-                              ),
-                              Text(
-                                '1h',
-                                style: TextStyle(color: Colors.white54),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.more_horiz,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      'I found This child, he is from cairo,Egypt.\nhis name is Ali ',
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '...see more',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.white70,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '...see more',
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        'assets/images/missedchild1.jpg',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(
-                      height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          'assets/images/missedchild1.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      height: 180,
-                      width: double.infinity,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25.0),
-                              child: Icon(
-                                Icons.local_hospital_outlined,
-                                color: Colors.red,
-                              ),
-                              //Image.asset(
-                              //                             'assets/images/humanphoto.jpg',
-                              //                             fit: BoxFit.cover,
-                              //                           ),
+                    height: 180,
+                    width: double.infinity,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25.0),
+                            child: Icon(
+                              Icons.local_hospital_outlined,
+                              color: Colors.red,
                             ),
-                            height: 40,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(25.0),
+                            //Image.asset(
+                            //                             'assets/images/humanphoto.jpg',
+                            //                             fit: BoxFit.cover,
+                            //                           ),
+                          ),
+                          height: 40,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: 'Damerdash Hospital',
+                              textStyle: Styles.textStyle1,
                             ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: 'Damerdash Hospital',
-                                textStyle: Styles.textStyle1,
-                              ),
-                              Text(
-                                '1h',
-                                style: TextStyle(color: Colors.white54),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.more_horiz,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
+                            Text(
+                              '1h',
+                              style: TextStyle(color: Colors.white54),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.more_horiz,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
-                    Text(
-                      'we found This man,in cairo,Egypt. ',
+                  ),
+                  Text(
+                    'we found This man,in cairo,Egypt. ',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '...see more',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.white70,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '...see more',
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        'assets/images/manmissed.jpg',
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    SizedBox(
-                      height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          'assets/images/manmissed.jpg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      height: 180,
-                      width: double.infinity,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25.0),
-                              child: Image.asset(
-                                'assets/images/humanphoto.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            height: 40,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(25.0),
+                    height: 180,
+                    width: double.infinity,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25.0),
+                            child: Image.asset(
+                              'assets/images/humanphoto.jpg',
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          SizedBox(
-                            width: 10.0,
+                          height: 40,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(25.0),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: 'Mayar Mahmoud',
-                                textStyle: Styles.textStyle1,
-                              ),
-                              Text(
-                                '1h',
-                                style: TextStyle(color: Colors.white54),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.more_horiz,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: 'Mayar Mahmoud',
+                              textStyle: Styles.textStyle1,
+                            ),
+                            Text(
+                              '1h',
+                              style: TextStyle(color: Colors.white54),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.more_horiz,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
-                    Text(
-                      'I found This child, she is from cairo,Egypt. ',
+                  ),
+                  Text(
+                    'I found This child, she is from cairo,Egypt. ',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '...see more',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.white70,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '...see more',
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        'assets/images/34702-اطغال.jpg',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(
-                      height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          'assets/images/34702-اطغال.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      height: 180,
-                      width: double.infinity,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25.0),
-                              child: Image.asset(
-                                'assets/images/humanphoto.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            height: 40,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              borderRadius: BorderRadius.circular(25.0),
+                    height: 180,
+                    width: double.infinity,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25.0),
+                            child: Image.asset(
+                              'assets/images/humanphoto.jpg',
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          SizedBox(
-                            width: 10.0,
+                          height: 40,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow,
+                            borderRadius: BorderRadius.circular(25.0),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextWidget(
-                                text: 'Mayar Mahmoud',
-                                textStyle: Styles.textStyle1,
-                              ),
-                              Text(
-                                '1h',
-                                style: TextStyle(color: Colors.white54),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.more_horiz,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: 'Mayar Mahmoud',
+                              textStyle: Styles.textStyle1,
+                            ),
+                            Text(
+                              '1h',
+                              style: TextStyle(color: Colors.white54),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.more_horiz,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
-                    Text(
-                      'I found This man, he is from cairo,Egypt.\nhis name is mohamed ',
+                  ),
+                  Text(
+                    'I found This man, he is from cairo,Egypt.\nhis name is mohamed ',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '...see more',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.white70,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '...see more',
-                        style: TextStyle(
-                          color: Colors.white70,
-                        ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        'assets/images/oldermanmissed.png',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(
-                      height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          'assets/images/oldermanmissed.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      height: 180,
-                      width: double.infinity,
-                    ),
-                  ],
-                ),
+                    height: 180,
+                    width: double.infinity,
+                  ),
+                ],
+              ),
 
-              ],
-            ),
+            ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(

@@ -8,23 +8,42 @@ import '../../../../core/shared_widgets/text_form_field.dart';
 import '../../../../core/shared_widgets/text_widget.dart';
 import '../../../../core/shared_widgets/title.dart';
 import '../../../../core/utilis/styles.dart';
+import '../../../../splash_screen/splash_screen.dart';
 
 class SignUpScreen1 extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-
     backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
           leading: Padding(
-            padding: const EdgeInsets.only(top: 25.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.white,
+            padding: const EdgeInsets.only(top: 25.0 , left: 23),
+            child: InkWell(
+              onTap: ()
+              {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  SplashScreen()),);
+              },
+              child: Container(
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    width: 0.5,
+                    color: Color.fromRGBO(109, 102, 114, 1.0),
+                  ),
+                ),
+                height: 33,
+                width: 33,
+              ),
             ),
           ),
         ),
@@ -58,16 +77,16 @@ class SignUpScreen1 extends StatelessWidget {
                   TextFormFieldWidget(
                     text: 'Enter Your Full Name',
                     textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.text, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,
-                  ),
+                    textInputType: TextInputType.text, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,),
+
                   SizedBox(
                     height: 25.0,
                   ),
                   TextFormFieldWidget(
                     text: 'Enter Your National Id',
                     textInputAction: TextInputAction.done,
-                    textInputType: TextInputType.number, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,
-                  ),
+                    textInputType: TextInputType.number, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,)
+
                 ],
               ),
             ),
@@ -75,6 +94,7 @@ class SignUpScreen1 extends StatelessWidget {
             InkWell(
                 onTap: ()
                 {
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>  SignUpScreen2()),

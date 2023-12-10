@@ -1,6 +1,7 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import '../../../core/shared_widgets/continue_button.dart';
+import '../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
 import '../../../core/shared_widgets/text_form_field.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
@@ -50,7 +51,11 @@ class _LostPostScreenState extends State<LostPostScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: ()
+                            {
+                              Navigator.pop(context);
+
+                            },
                             child: Container(
                               child: Icon(
                                 Icons.arrow_back_sharp,
@@ -99,7 +104,7 @@ class _LostPostScreenState extends State<LostPostScreen> {
                               height: 10.0,
                             ),
                             TextFormFieldWidget(
-                              text: 'Enter the Full name of the person',
+                              text: 'Enter the Full name of the person you lost',
                               textInputAction: TextInputAction.next,
                               textInputType: TextInputType.text,
                               hidePassword: false,
@@ -109,49 +114,95 @@ class _LostPostScreenState extends State<LostPostScreen> {
                             SizedBox(
                               height: 25.0,
                             ),
-                            TextWidget(text: 'Enter location', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'Enter Country', textStyle: Styles.textStyle5),
                             SizedBox(
                               height: 10.0,
                             ),
                             TextFormFieldWidget(
-                              text: 'Enter the location where you lost the person',
+                              text: 'Enter the country where you lost the person',
                               textInputAction: TextInputAction.next,
                               textInputType: TextInputType.text,
                               hidePassword: true,
                               color: Colors.black87,
                               heightOfTextFormField: 50.0,
                             ),
-                            SizedBox(height: 40),
-                            Row(
-                              children: [
-                                InkWell(
-                                  child: Container(
-                                    child: Center(
-                                      child: TextWidget(
-                                        text: 'Select Image',
-                                        textStyle: Styles.textStyle6,
-                                      ),
-                                    ),
-                                    height: 34,
-                                    width: 111,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 0.3,
-                                          color: Color.fromRGBO(
-                                              217, 217, 217, 1.0)),
-                                      color: Color.fromRGBO(248, 248, 248, 1.0),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 15),
-                                Expanded(
-                                  child: TextWidget(
-                                    text: 'Choose a picture of the missing person.',
-                                    textStyle: Styles.textStyle7,
-                                  ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 25.0,
                             ),
+
+
+                            TextWidget(text: 'Enter City', textStyle: Styles.textStyle5),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            TextFormFieldWidget(
+                              text: 'Enter the city where you lost the person',
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              hidePassword: true,
+                              color: Colors.black87,
+                              heightOfTextFormField: 50.0,
+                            ),
+                            SizedBox(
+                              height: 25.0,
+                            ),
+
+
+                            TextWidget(text: 'Enter State', textStyle: Styles.textStyle5),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            TextFormFieldWidget(
+                              text: 'Enter the state where you lost the person',
+                              textInputAction: TextInputAction.next,
+                              textInputType: TextInputType.text,
+                              hidePassword: true,
+                              color: Colors.black87,
+                              heightOfTextFormField: 50.0,
+                            ),
+
+                            SizedBox(height: 40),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: DottedBorder(
+                                color: Color.fromRGBO(217, 217, 217, 1.0),
+                                strokeWidth: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        child: Container(
+                                          child: Center(
+                                            child: TextWidget(
+                                              text: 'Select Image',
+                                              textStyle: Styles.textStyle6,
+                                            ),
+                                          ),
+                                          height: 34,
+                                          width: 111,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 0.3,
+                                                color: Color.fromRGBO(
+                                                    217, 217, 217, 1.0)),
+                                            color: Color.fromRGBO(248, 248, 248, 1.0),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15),
+                                      Expanded(
+                                        child: TextWidget(
+                                          text: 'Choose a picture of the missing person.',
+                                          textStyle: Styles.textStyle7,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+
                             SizedBox(
                               height: 40.0,
                             ),

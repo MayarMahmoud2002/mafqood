@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../addPost_screen/views/screens/find_post_screen.dart';
+import '../../addPost_screen/views/screens/lost_post_screen.dart';
 import '../../core/shared_widgets/text_widget.dart';
 
 class CardCustom extends StatefulWidget {
@@ -28,7 +30,8 @@ class _CardCustomState extends State<CardCustom> {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(right: 19.0, top: 22.0, left: 19.0, bottom: 5.0),
+              padding: const EdgeInsets.only(
+                  right: 19.0, top: 22.0, left: 19.0, bottom: 5.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,29 +82,42 @@ class _CardCustomState extends State<CardCustom> {
                     ),
                     Row(
                       children: [
-                        Container(
-                          child: Center(
-                            child: TextWidget(
-                              text: 'Find a person',
-                              textStyle: TextStyle(
-                                fontSize: 15.0,
-                                color: Color.fromRGBO(255, 255, 255, 1.0),
+                        InkWell(
+                          onTap: ()
+                          {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>  FindPostScreen()),);
+                          },
+                          child: Container(
+                            child: Center(
+                              child: TextWidget(
+                                text: 'Find a person',
+                                textStyle: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Color.fromRGBO(255, 255, 255, 1.0),
+                                ),
                               ),
                             ),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(47, 27, 58, 1.0),
+                              borderRadius: BorderRadius.circular(6.0),
+                            ),
+                            height: 48.0,
+                            width: 142,
                           ),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(47, 27, 58, 1.0),
-                            borderRadius: BorderRadius.circular(6.0),
-                          ),
-                          height: 48.0,
-                          width: 142,
                         ),
                         SizedBox(
                           width: 22.0,
                         ),
                         Flexible(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: ()
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  LostPostScreen()),);
+                            },
                             child: Container(
                               child: Center(
                                 child: TextWidget(
@@ -115,7 +131,8 @@ class _CardCustomState extends State<CardCustom> {
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(255, 255, 255, 1.0),
                                 borderRadius: BorderRadius.circular(6.0),
-                                border: Border.all(color: Color.fromRGBO(217, 217, 217, 1.0)),
+                                border: Border.all(
+                                    color: Color.fromRGBO(217, 217, 217, 1.0)),
                               ),
                               height: 48.0,
                               // Adjust width as needed

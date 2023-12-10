@@ -22,11 +22,28 @@ class SignUpScreen2 extends StatelessWidget {
           elevation: 0.0,
           backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
           leading: Padding(
-            padding: const EdgeInsets.only(top: 25.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.white,
+            padding: const EdgeInsets.only(top: 25.0 , left: 23),
+            child: InkWell(
+              onTap: ()
+              {
+                Navigator.pop(context);
+
+              },
+              child: Container(
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    width: 0.5,
+                    color: Color.fromRGBO(109, 102, 114, 1.0),
+                  ),
+                ),
+                height: 33,
+                width: 33,
+              ),
             ),
           ),
         ),
@@ -76,6 +93,7 @@ class SignUpScreen2 extends StatelessWidget {
             InkWell(
                 onTap: ()
                 {
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>  SignUpScreen3()),

@@ -9,6 +9,7 @@ import 'package:mafqood/signup_screen/presentation/views/screens/otp_screen.dart
 import '../../../../core/shared_widgets/container_line.dart';
 import '../../../../core/shared_widgets/continue_button.dart';
 import '../../../../core/shared_widgets/title.dart';
+import '../../../../splash_screen/splash_screen.dart';
 
 class SignUpScreen3 extends StatelessWidget {
   @override
@@ -20,11 +21,27 @@ class SignUpScreen3 extends StatelessWidget {
           elevation: 0.0,
           backgroundColor: Color.fromRGBO(24, 13, 31, 1.0),
           leading: Padding(
-            padding: const EdgeInsets.only(top: 25.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_back_ios),
-              color: Colors.white,
+            padding: const EdgeInsets.only(top: 25.0 , left: 23),
+            child: InkWell(
+              onTap: ()
+              {
+                Navigator.pop(context);
+              },
+              child: Container(
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    width: 0.5,
+                    color: Color.fromRGBO(109, 102, 114, 1.0),
+                  ),
+                ),
+                height: 33,
+                width: 33,
+              ),
             ),
           ),
         ),
@@ -116,7 +133,7 @@ class SignUpScreen3 extends StatelessWidget {
                 {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  OTPScreen()),
+                    MaterialPageRoute(builder: (context) =>  OtpScreen()),
                   );
 
                 },

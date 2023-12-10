@@ -8,6 +8,8 @@ abstract class Styles {
   static const textStyle5 = TextStyle(fontSize: 15, color: Colors.black87 ,fontFamily : 'Lato' );
   static const textStyle6 = TextStyle(fontSize: 12, color: Colors.black87  );
   static const textStyle7 = TextStyle(fontSize: 10, color: Colors.black87  );
+  static const textStyle8 = TextStyle(fontSize: 12, color: Colors.white , fontFamily: 'Lato');
+
 
 
 

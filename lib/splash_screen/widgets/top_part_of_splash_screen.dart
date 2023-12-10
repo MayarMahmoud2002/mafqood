@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mafqood/core/shared_widgets/text_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
+import 'package:mafqood/splash_screen/splash_screen.dart';
 import 'package:mafqood/splash_screen/widgets/signup_widget.dart';
+
+import '../../signin_screen/presentation/views/screen/signin_screen.dart';
 
 
 class TopPartOfSplashScreen extends StatelessWidget {
@@ -28,7 +31,12 @@ class TopPartOfSplashScreen extends StatelessWidget {
                         SizedBox(
                           width: 10.0,
                         ),
-                        TextButton(onPressed: (){}, child:TextWidget(text: 'Login', textStyle: Styles.textStyle1,),
+                        TextButton(onPressed: ()
+                        {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  LoginScreen()),);
+                        }, child:TextWidget(text: 'Login', textStyle: Styles.textStyle1,),
                         )
                       ],
                     ),

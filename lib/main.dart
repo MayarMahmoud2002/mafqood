@@ -1,9 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mafqood/addPost_screen/views/screens/lost_post_screen.dart';
-import 'package:mafqood/home_screen/presentation/views/screen/home_screen.dart';
-import 'package:mafqood/notification_screen/views/screens/notification_screen.dart';
+import 'package:mafqood/signin_screen/presentation/views/screen/signin_screen.dart';
 import 'package:mafqood/splash_screen/splash_screen.dart';
 
 import 'addPost_screen/views/screens/find_post_screen.dart';
@@ -101,7 +99,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FindPostScreen(),
+      home: SplashScreen(),
     );
   }
 }
