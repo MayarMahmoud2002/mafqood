@@ -17,9 +17,9 @@ class TitleOfScreen extends StatelessWidget {
       child: Row(
         children: [
           TextWidget(
-              text: '${text}', textStyle: Styles.textStyle2),
+              text: '${text}', textStyle: Styles.textStyle25White),
           Spacer(),
-          TextWidget(text: '${number}', textStyle: Styles.textStyle1)
+          TextWidget(text: '${number}', textStyle: Styles.textStyle15White)
         ],
       ),
     );

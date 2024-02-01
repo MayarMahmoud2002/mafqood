@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import '../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
-import '../../../core/shared_widgets/text_form_field.dart';
+import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -74,13 +74,13 @@ class _FindPostScreenState extends State<FindPostScreen> {
                           SizedBox(
                             height: 25.0,
                           ),
-                          TextWidget(text: 'Create a post', textStyle: Styles.textStyle3),
+                          TextWidget(text: 'Create a post', textStyle: Styles.textStyle20Black),
                           SizedBox(
                             height: 10,
                           ),
                           TextWidget(
                             text: 'Please enter the details below to help us find the family for the person you found',
-                            textStyle: Styles.textStyle4,
+                            textStyle: Styles.textStyle13White,
                           ),
                         ],
                       ),
@@ -100,8 +100,8 @@ class _FindPostScreenState extends State<FindPostScreen> {
                           children: [
                             Row(
                               children: [
-                                TextWidget(text: 'Full Name', textStyle: Styles.textStyle5),
-                                TextWidget(text: ' (optional)', textStyle: Styles.textStyle5),
+                                TextWidget(text: 'Full Name', textStyle: Styles.textStyle15Grey),
+                                TextWidget(text: ' (optional)', textStyle: Styles.textStyle15Grey),
                               ],
                             ),
                             SizedBox(
@@ -119,7 +119,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                               height: 25.0,
                             ),
 
-                            TextWidget(text: 'Enter Country', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'Enter Country', textStyle: Styles.textStyle15Grey),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -136,7 +136,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                             ),
 
 
-                            TextWidget(text: 'Enter City', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'Enter City', textStyle: Styles.textStyle15Grey),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -153,7 +153,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                             ),
 
 
-                            TextWidget(text: 'Enter State', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'Enter State', textStyle: Styles.textStyle15Grey),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -170,7 +170,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                             ),
 
 
-                            TextWidget(text: 'Police Station', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'Police Station', textStyle: Styles.textStyle15Grey),
                             TextWidget(text: 'Please enter the name of the police department where you will receive the person you found',textStyle:TextStyle(
                               fontSize: 13.0,)),
 
@@ -202,7 +202,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                           child: Center(
                                             child: TextWidget(
                                               text: 'Open Camera',
-                                              textStyle: Styles.textStyle6,
+                                              textStyle: Styles.textStyle13Black,
                                             ),
                                           ),
                                           height: 34,
@@ -220,7 +220,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                       Expanded(
                                         child: TextWidget(
                                           text: 'Pictures of the person you found missing.',
-                                          textStyle: Styles.textStyle7,
+                                          textStyle: Styles.textStyle10Black,
                                         ),
                                       ),
                                     ],
@@ -232,7 +232,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                             SizedBox(
                               height: 40.0,
                             ),
-                            TextWidget(text: 'Gender', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'Gender', textStyle: Styles.textStyle15Grey),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -246,7 +246,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                 SizedBox(
                                   width: 3.0,
                                 ),
-                                TextWidget(text: 'Female', textStyle: Styles.textStyle6),
+                                TextWidget(text: 'Female', textStyle: Styles.textStyle13Black),
                                 SizedBox(
                                   width: 10.0,
                                 ),
@@ -257,7 +257,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                 SizedBox(
                                   width: 3.0,
                                 ),
-                                TextWidget(text: 'Male', textStyle: Styles.textStyle6),
+                                TextWidget(text: 'Male', textStyle: Styles.textStyle13Black),
                               ],
                             ),
                             SizedBox(
@@ -265,8 +265,8 @@ class _FindPostScreenState extends State<FindPostScreen> {
                             ),
                             Row(
                               children: [
-                                TextWidget(text: 'Description', textStyle: Styles.textStyle5),
-                                TextWidget(text: ' (optional)', textStyle: Styles.textStyle5),
+                                TextWidget(text: 'Description', textStyle: Styles.textStyle15Grey),
+                                TextWidget(text: ' (optional)', textStyle: Styles.textStyle15Grey),
                               ],
                             ),
                             SizedBox(
@@ -291,7 +291,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                             SizedBox(
                               height: 25.0,
                             ),
-                            TextWidget(text: 'What is the age of the person you lost are required?', textStyle: Styles.textStyle5),
+                            TextWidget(text: 'What is the age of the person you lost are required?', textStyle: Styles.textStyle15Grey),
                             SizedBox(
                               height: 10.0,
                             ),
@@ -407,7 +407,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                               ),
                               child: Center(
                                 child: TextWidget(
-                                  textStyle: Styles.textStyle1, text: 'Create',
+                                  textStyle: Styles.textStyle15White, text: 'Create',
                                 ),
                               ),
                               height: 48.0,

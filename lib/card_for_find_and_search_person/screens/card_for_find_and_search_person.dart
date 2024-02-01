@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../addPost_screen/views/screens/find_post_screen.dart';
 import '../../addPost_screen/views/screens/lost_post_screen.dart';
 import '../../core/shared_widgets/text_widget.dart';
+
 
 class CardCustom extends StatefulWidget {
   @override
@@ -45,10 +45,16 @@ class _CardCustomState extends State<CardCustom> {
                               isCardVisible = false;
                             });
                           },
-                          child: Icon(
-                            Icons.close_sharp,
-                            size: 35.0,
-                            color: Colors.black87,
+                          child: InkWell(
+                            onTap: ()
+                            {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.close_sharp,
+                              size: 35.0,
+                              color: Colors.black87,
+                            ),
                           ),
                         ),
                       ],
