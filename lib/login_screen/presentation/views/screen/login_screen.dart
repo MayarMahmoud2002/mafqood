@@ -40,16 +40,13 @@ class LoginScreen extends StatelessWidget {
               ContainerLineWidget(),
               LoginBodyWidget(),
               Spacer(),
-              ContinueButtonWidget(text: 'Continue' , routeName: 'homeScreen',),
+              ContinueButtonWidget(text: 'Continue' , routeName: 'mainScreen',),
               Padding(
                 padding: const EdgeInsets.only(bottom: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextWidget(text: 'Don\'t have an account?', textStyle:TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.white,
-                    ) ),
+                    TextWidget(text: 'Don\'t have an account?', textStyle:Styles.textStyle10White ),
                     SizedBox(
                       width: 3.0,
                     ),

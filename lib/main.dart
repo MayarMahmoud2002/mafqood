@@ -8,6 +8,8 @@ import 'package:mafqood/signup_screens/presentation/views/screens/otp_screen/otp
 import 'package:mafqood/signup_screens/presentation/views/screens/signup2_screen/sign_up_screen_2.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup3_screen/sign_up_screen_3.dart';
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
+import 'addPost_screen/views/screens/find_post_screen.dart';
+import 'home_screen/presentation/views/screen/home_screen.dart';
 import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
 
@@ -97,15 +99,21 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes:
       {
+
         'splashScreen': (context) => SplashScreen(),
         'loginScreen': (context) => LoginScreen(),
         'signUpScreen2': (context) => SignUpScreen2(),
         'signUpScreen3': (context) => SignUpScreen3(),
         'otpScreen': (context) => OtpScreen(),
-        'homeScreen': (context) => HomeScreen(),
         'frontOfIdScreen': (context) => FrontOfIdScreen(),
         'backOfIdScreen': (context) =>  BackOfIdScreen(),
         'signUpScreen1': (context) =>  SignUpScreen1(),
+        'findPostScreen': (context) =>   FindPostScreen(),
+        'homeScreen': (context) =>    HomeScreen(),
+        'mainScreen': (context) => MainScreen(),
+
+
+
 
 
 

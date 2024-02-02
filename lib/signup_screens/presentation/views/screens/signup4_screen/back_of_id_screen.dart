@@ -56,7 +56,7 @@ class BackOfIdScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            ContinueButtonWidget(text: 'Continue', routeName: 'homeScreen',)
+            ContinueButtonWidget(text: 'Continue', routeName: 'mainScreen',)
           ],
         ),
       ),

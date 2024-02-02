@@ -4,11 +4,11 @@ import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dar
 import '../../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
 import 'home_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _MainScreenState createState() => _MainScreenState();
 }
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0; // Index of the selected tab
 
   @override
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           focusColor: Color(30),
           child: Icon(Icons.add,
           size: 30.0,
-            color:  Color.fromRGBO(24, 13, 31, 1.0),  // Set your desired color
+            color:  ScreensColors.primaryColor,
           ),
             onPressed: ()
             {
@@ -41,12 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
             }),
         body:tabs[_currentIndex],
         bottomNavigationBar: BottomAppBar(
-
-          color:  Color.fromRGBO(24, 13, 31, 1.0),  // Set your desired color
+          color:  ScreensColors.primaryColor,  // Set your desired color
           shape: CircularNotchedRectangle(),
           notchMargin: 2.0,
           child: BottomNavigationBar(
-
             currentIndex: _currentIndex,
             onTap: (index) {
               setState(() {
@@ -54,10 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             backgroundColor: Colors.transparent,
-            // backgroundColor: Color.fromRGBO(24, 13, 31, 1.0), // Set the background color here
-            selectedItemColor: Color.fromRGBO(224, 136, 72, 1.0), // Set the selected item color
-            unselectedItemColor: Color.fromRGBO(159, 159, 159, 1.0), // Set the unselected item color
-            type: BottomNavigationBarType.fixed, // Set the type to fixed
+            selectedItemColor: ScreensColors.orangeColor,
+            unselectedItemColor: ScreensColors.greyColor,
+            type: BottomNavigationBarType.fixed,
             iconSize: 20,
             selectedLabelStyle: TextStyle(fontSize: 10.0),
             unselectedLabelStyle: TextStyle(fontSize: 10.0),
@@ -76,6 +73,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  List <Widget> tabs = [HomeScreen(), profileScreen()];
-}
-
+  List <Widget> tabs = [HomeScreen(), ProfileScreen()];
+ }
