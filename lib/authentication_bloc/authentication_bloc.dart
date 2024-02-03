@@ -15,20 +15,10 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       yield AuthenticationLoading();
 
       try {
-        Dio dio = Dio();
-        final response = await dio.post('https://project-mafqoud.000webhostapp.com/api/auth/login', data: {
-          'phone': event.phone,
-          'password': event.password,
-        });
-
-        if (response.statusCode == 200) {
-          yield AuthenticationSuccess(token: response.data['token']);
-        } else {
-          yield AuthenticationFailure(error: 'Authentication failed');
-        }
+        final token = await authenticationRepository.signIn(phone: event.phone,password: event.password,);
+        yield AuthenticationSuccess(token: token);
       } catch (e) {
-        yield AuthenticationFailure(error: 'An error occurred');
-      }
+        yield AuthenticationFailure(error: 'An error occurred: $e');}
     }
   }
 }
@@ -38,8 +28,7 @@ class AuthenticationRepository {
 
   Future<String> signIn({required String phone, required String password}) async {
     try {
-      // Replace the URL with your actual API endpoint
-      final response = await _dio.post('https://project-mafqoud.000webhostapp.com/api/auth/login', data: {
+      final response = await _dio.post('loginPath', data: {
         'phone': phone,
         'password': password,
       });

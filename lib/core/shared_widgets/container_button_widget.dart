@@ -3,10 +3,8 @@ import 'package:mafqood/core/shared_widgets/text_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
 
 class ContinueButtonWidget extends StatelessWidget {
-
 final String text;
 final String? routeName;
-
 
 ContinueButtonWidget({required this.text, this.routeName,});
 

@@ -13,7 +13,7 @@ abstract class Styles {
   static const textStyle13White = TextStyle(fontSize: 13, color: Colors.white );
   static const textStyle13Black = TextStyle(fontSize: 13, color: Colors.black87  );
   static const textStyle10Black = TextStyle(fontSize: 10, color: Colors.black87  );
-  static const textStyle10Orange = TextStyle(fontSize: 10, color: Colors.black87  );
+  static const textStyle10Orange = TextStyle(fontSize: 10, color: Colors.orange  );
   static const textStyle10White = TextStyle(fontSize: 10, color: Colors.white  );
   static const textStyle8White = TextStyle(fontSize: 8, color: Colors.white , fontFamily: 'Lato');
 
