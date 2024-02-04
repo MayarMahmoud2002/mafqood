@@ -12,6 +12,7 @@ import 'package:mafqood/signup_screens/presentation/views/screens/signup5_screen
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
 import 'addPost_screen/views/screens/find_post_screen.dart';
 import 'authentication_bloc/authentication_bloc.dart';
+import 'authentication_bloc/authentication_repository.dart';
 import 'home_screen/presentation/views/screen/home_screen.dart';
 import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
@@ -119,6 +120,7 @@ class MyApp extends StatelessWidget {
             'homeScreen': (context) => HomeScreen(),
             'mainScreen': (context) => MainScreen(),
             'signUpScreen5' : (context) => SignUpScreen5(),
+
           },
           localizationsDelegates: const [
             CountryLocalizations.delegate,

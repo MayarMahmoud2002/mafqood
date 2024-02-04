@@ -39,7 +39,7 @@ class SignUpScreen3 extends StatelessWidget {
                   height: 35.0,
                 ),
                 ContainerLineWidget(),
-                BodyForSignup5ScreenWidget(),
+                BodyForSignup3ScreenWidget(),
                 SizedBox(
                   height: 35.0,
                 ),

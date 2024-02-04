@@ -5,7 +5,7 @@ import '../../../../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../../../../core/shared_widgets/text_widget.dart';
 import '../../../../../../core/utilis/styles.dart';
 
-class BodyForSignup5ScreenWidget extends StatelessWidget {
+class BodyForSignup3ScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
