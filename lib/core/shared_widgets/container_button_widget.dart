@@ -13,10 +13,11 @@ ContinueButtonWidget({required this.text, this.routeName,});
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 25.0),
       child: InkWell(
-        onTap: ()
-        {
+        onTap: routeName != null
+            ? () {
           Navigator.pushNamed(context, routeName!);
-        },
+        }
+            : null,
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -40,6 +41,7 @@ ContinueButtonWidget({required this.text, this.routeName,});
           width: double.infinity,
         ),
       ),
+
     );
   }
 }

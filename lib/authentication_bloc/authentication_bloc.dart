@@ -12,6 +12,10 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is SignInEvent) {
+      if (event.phone.isEmpty || event.password.isEmpty) {
+        yield AuthenticationFailure(error: 'Phone and password cannot be empty');
+        return;
+      }
       yield AuthenticationLoading();
 
       try {
