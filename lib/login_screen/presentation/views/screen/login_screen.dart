@@ -12,6 +12,7 @@ import '../../../../core/shared_widgets/title.dart';
 import '../../../../core/utilis/styles.dart';
 
 class LoginScreen extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -28,6 +29,7 @@ class LoginScreen extends StatelessWidget {
         }
         return SafeArea(
           child: Scaffold(
+            key:_scaffoldKey,
             resizeToAvoidBottomInset: false,
             backgroundColor: ScreensColors.primaryColor,
             appBar: AppBar(
@@ -71,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                       TextFormFieldWidget(
                         text: 'Enter Your Phone',
                         textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.text,
+                        textInputType: TextInputType.phone,
                         hidePassword: false,
                         color: Colors.white,
                         heightOfTextFormField: 50.0,

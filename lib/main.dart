@@ -8,6 +8,7 @@ import 'package:mafqood/signup_screens/presentation/views/screens/signup2_screen
 import 'package:mafqood/signup_screens/presentation/views/screens/signup3_screen/sign_up_screen_3.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup4_screen/back_of_id_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup4_screen/front_of_id_screen.dart';
+import 'package:mafqood/signup_screens/presentation/views/screens/signup5_screen/sign_up_screen_5.dart';
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
 import 'addPost_screen/views/screens/find_post_screen.dart';
 import 'authentication_bloc/authentication_bloc.dart';
@@ -117,6 +118,7 @@ class MyApp extends StatelessWidget {
             'findPostScreen': (context) => FindPostScreen(),
             'homeScreen': (context) => HomeScreen(),
             'mainScreen': (context) => MainScreen(),
+            'signUpScreen5' : (context) => SignUpScreen5(),
           },
           localizationsDelegates: const [
             CountryLocalizations.delegate,

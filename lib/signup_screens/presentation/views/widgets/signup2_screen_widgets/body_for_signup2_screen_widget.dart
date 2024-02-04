@@ -14,20 +14,28 @@ class BodyForSignup2ScreenWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextWidget(text: 'Password', textStyle: Styles.textStyle15White,),
+          TextWidget(text: 'country & City & State', textStyle: Styles.textStyle15White,),
           SizedBox(
             height: 40.0,
           ),
-          TextFormFieldWidget(text: 'Enter Your Password',
+          TextFormFieldWidget(text: 'Enter Your Country',
             textInputAction: TextInputAction.next,
-            textInputType: TextInputType.text, hidePassword: true, color: Colors.white, heightOfTextFormField: 50.0,),
+            textInputType: TextInputType.text, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,),
           SizedBox(
             height: 25.0,
           ),
           TextFormFieldWidget(
-            text: 'Confirm your password',
+            text: 'Confirm your City',
             textInputAction: TextInputAction.done,
-            textInputType: TextInputType.text, hidePassword: true, color: Colors.white, heightOfTextFormField: 50.0,),
+            textInputType: TextInputType.text, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,),
+          SizedBox(
+            height: 25.0,
+          ),
+          TextFormFieldWidget(
+            text: 'Confirm your State',
+            textInputAction: TextInputAction.done,
+            textInputType: TextInputType.text, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,),
+
 
 
         ],

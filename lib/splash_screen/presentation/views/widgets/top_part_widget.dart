@@ -14,22 +14,24 @@ class TopPartWidget extends StatelessWidget {
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: [
-                  TitleWidget(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 45.0),
-                    child: Row(
-                      children: [
-                        SignupWidget(),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        LoginWidget(),
-                      ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TitleWidget(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 45.0),
+                      child: Row(
+                        children: [
+                          SignupWidget(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          LoginWidget(),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )),
       ),

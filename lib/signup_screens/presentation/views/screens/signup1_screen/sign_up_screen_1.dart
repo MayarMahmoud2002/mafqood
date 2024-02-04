@@ -30,7 +30,7 @@ class SignUpScreen1 extends StatelessWidget {
               ),
               TitleOfScreen(
                 text: 'Create New Account',
-                number: '1/4',
+                number: '1/5',
               ),
               SizedBox(
                 height: 35.0,

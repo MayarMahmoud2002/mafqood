@@ -15,7 +15,7 @@ class BodyForSignup1Widget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextWidget(
-            text: 'Full Legal Name&National Id',
+            text: 'Full Legal Name & Password',
             textStyle: Styles.textStyle15White,
           ),
           SizedBox(
@@ -28,10 +28,16 @@ class BodyForSignup1Widget extends StatelessWidget {
           SizedBox(
             height: 25.0,
           ),
+          TextFormFieldWidget(text: 'Enter Your Password',
+            textInputAction: TextInputAction.next,
+            textInputType: TextInputType.text, hidePassword: true, color: Colors.white, heightOfTextFormField: 50.0,),
+          SizedBox(
+            height: 25.0,
+          ),
           TextFormFieldWidget(
-            text: 'Enter Your National Id',
+            text: 'Confirm your password',
             textInputAction: TextInputAction.done,
-            textInputType: TextInputType.number, hidePassword: false, color: Colors.white, heightOfTextFormField: 50.0,)
+            textInputType: TextInputType.text, hidePassword: true, color: Colors.white, heightOfTextFormField: 50.0,),
         ],
       ),
     );

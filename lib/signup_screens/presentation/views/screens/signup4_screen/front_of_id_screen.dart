@@ -31,7 +31,7 @@ class FrontOfIdScreen extends StatelessWidget {
           ),
           TitleOfScreen(
             text: 'Create New Account',
-            number: '4/4',
+            number: '4/5',
           ),
           SizedBox(
             height: 35.0,

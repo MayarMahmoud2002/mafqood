@@ -32,7 +32,7 @@ class BackOfIdScreen extends StatelessWidget {
             ),
             TitleOfScreen(
               text: 'Create New Account',
-              number: '4/4',
+              number: '',
             ),
             SizedBox(
               height: 35.0,
@@ -56,7 +56,7 @@ class BackOfIdScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            ContinueButtonWidget(text: 'Continue', routeName: 'mainScreen',)
+            ContinueButtonWidget(text: 'Continue', routeName: 'signUpScreen5',)
           ],
         ),
       ),

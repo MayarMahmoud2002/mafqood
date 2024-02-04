@@ -11,6 +11,7 @@ import '../../../../../core/utilis/styles.dart';
 import '../../../../../home_screen/presentation/views/screen/main_screen.dart';
 import '../../../../../splash_screen/presentation/views/screens/splash_screen.dart';
 import '../signup3_screen/sign_up_screen_3.dart';
+import '../signup5_screen/sign_up_screen_5.dart';
 
 class OtpScreen extends StatelessWidget {
 
@@ -35,7 +36,7 @@ class OtpScreen extends StatelessWidget {
             ),
             TitleOfScreen(
               text: 'Create New Account',
-              number: '3/4',
+              number: '',
             ),
             SizedBox(
               height: 35.0,
@@ -289,7 +290,7 @@ class OtpScreen extends StatelessWidget {
                     {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen3()),);
+                        MaterialPageRoute(builder: (context) => SignUpScreen5()),);
                     },
                     child: TextWidget(
                         text: 'Edit Phone number ?', textStyle: Styles.textStyle8White),
@@ -308,7 +309,7 @@ class OtpScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            ContinueButtonWidget(text: 'Continue' , routeName: 'frontOfIdScreen',),
+            ContinueButtonWidget(text: 'Continue' , routeName: 'mainScreen',),
           ],
         ));
   }

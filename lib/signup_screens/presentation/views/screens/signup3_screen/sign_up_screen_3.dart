@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mafqood/core/shared_widgets/back_button_widget.dart';
-import 'package:mafqood/core/shared_widgets/text_widget.dart';
 import 'package:mafqood/core/utilis/colors.dart';
-import 'package:mafqood/core/utilis/styles.dart';
 import '../../../../../core/shared_widgets/container_line_widget.dart';
 import '../../../../../core/shared_widgets/container_button_widget.dart';
 import '../../../../../core/shared_widgets/title.dart';
-import '../../widgets/signup3_screen_widgets/phone_field_widget.dart';
+import '../../widgets/signup5_screen_widgets/body_for_signup5_screen_widget.dart';
 
 class SignUpScreen3 extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: ScreensColors.primaryColor,
           resizeToAvoidBottomInset: false,
+
+          backgroundColor: ScreensColors.primaryColor,
+
           appBar: AppBar(
             elevation: 0.0,
             backgroundColor: ScreensColors.primaryColor,
@@ -23,41 +24,31 @@ class SignUpScreen3 extends StatelessWidget {
               child: BackButtonWidget(),
             ),
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 30.0,
-              ),
-              TitleOfScreen(
-                text: 'Create New Account',
-                number: '3/4',
-              ),
-              SizedBox(
-                height: 35.0,
-              ),
-              ContainerLineWidget(),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 15.0, right: 15.0, top: 35.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                      text: 'Phone Number',
-                      textStyle: Styles.textStyle15White,
-                    ),
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    PhoneFieldWidget(),
-                  ],
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 30.0,
                 ),
-              ),
-              Spacer(),
-              ContinueButtonWidget(text: 'Send Code' , routeName: 'otpScreen',),
-            ],
+                TitleOfScreen(
+                  text: 'Create New Account',
+                  number: '3/5',
+                ),
+                SizedBox(
+                  height: 35.0,
+                ),
+                ContainerLineWidget(),
+                BodyForSignup5ScreenWidget(),
+                SizedBox(
+                  height: 35.0,
+                ),
+                ContinueButtonWidget(text: 'Continue',routeName: 'frontOfIdScreen', ),
+
+              ],
+            ),
           )),
     );
-  }}
 
+  }
+}
