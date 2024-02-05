@@ -17,7 +17,11 @@ import '../signup5_screen/sign_up_screen_5.dart';
 
 class OtpScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController checkOtpController = TextEditingController();
+  final TextEditingController checkOtp1Controller = TextEditingController();
+  final TextEditingController checkOtp2Controller = TextEditingController();
+  final TextEditingController checkOtp3Controller = TextEditingController();
+  final TextEditingController checkOtp4Controller = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,7 @@ class OtpScreen extends StatelessWidget {
                               width: 54, // Set the desired width
                               height: 54, // Set the desired height
                               child: TextFormField(
-                                controller: checkOtpController,
+                                controller: checkOtp1Controller,
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -136,7 +140,7 @@ class OtpScreen extends StatelessWidget {
                               width: 54, // Set the desired width
                               height: 54, // Set the desired height
                               child: TextFormField(
-                                controller: checkOtpController,
+                                controller: checkOtp2Controller,
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -193,7 +197,7 @@ class OtpScreen extends StatelessWidget {
                               width: 54, // Set the desired width
                               height: 54, // Set the desired height
                               child: TextFormField(
-                                controller: checkOtpController,
+                                controller: checkOtp3Controller,
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -250,7 +254,7 @@ class OtpScreen extends StatelessWidget {
                               width: 54, // Set the desired width
                               height: 54, // Set the desired height
                               child: TextFormField(
-                                controller: checkOtpController,
+                                controller: checkOtp4Controller,
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -339,7 +343,19 @@ class OtpScreen extends StatelessWidget {
                   {
                     var authBloc = BlocProvider.of<AuthenticationBloc>(context);
                     authBloc.add(
-                      CheckOTPEvent(otp: checkOtpController.text,
+                      CheckOTPEvent(otp: checkOtp1Controller.text,
+                      ),);
+
+                    authBloc.add(
+                      CheckOTPEvent(otp: checkOtp2Controller.text,
+                      ),);
+
+                    authBloc.add(
+                      CheckOTPEvent(otp: checkOtp3Controller.text,
+                      ),);
+
+                    authBloc.add(
+                      CheckOTPEvent(otp: checkOtp4Controller.text,
                       ),);
                   },
                   child: ContinueButtonWidget(

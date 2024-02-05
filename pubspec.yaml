@@ -45,6 +45,7 @@ dependencies:
   custom_calender_picker: ^0.1.1
   flutter_bloc: ^8.1.3
   dio: ^5.4.0
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:

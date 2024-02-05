@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'authentication_repository.dart';
 part 'authentication_event.dart';
@@ -62,15 +63,15 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
           emit(AuthenticationFailure(error: 'An error occurred: $e'));
         }
       },);
-    on<RegisterProfileEvent>((event, emit) async {
-        if (event.profileImage.isEmpty || event.gender.isEmpty ) {
-          emit(AuthenticationFailure(error: 'profileImage and gender cannot be empty'));
+    on<RegisterGenderAndImageProfileEvent>((event, emit) async {
+        if (event.gender.isEmpty  || event.gender.isEmpty) {
+          emit(AuthenticationFailure(error: 'Gender or Profile Image cannot be empty'));
           return;
         }
         emit(AuthenticationLoading());
 
         try {
-          final token = await authenticationRepository.registerProfile(profileImage: event.profileImage,gender: event.gender);
+          final token = await authenticationRepository.registerGenderAndImageProfile(imageProfile: event.imageProfile, gender: event.gender);
           emit(AuthenticationSuccess(token: token));
         } catch (e) {
           emit(AuthenticationFailure(error: 'An error occurred: $e'));
@@ -121,6 +122,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     );
   }
 }
+
+
 
 
 

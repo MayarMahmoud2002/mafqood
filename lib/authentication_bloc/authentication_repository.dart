@@ -70,11 +70,25 @@ class AuthenticationRepository {
       throw Exception('An error occurred: $error');
     }
   }
-  Future<String> registerProfile({required String profileImage,required String gender}) async {
+  Future<String> registerGenderAndImageProfile({required String gender , required String imageProfile}) async {
+    try {
+      final response = await _dio.post(AppContances.registerPath, data: {
+        'gender': gender,
+        'profile_image': imageProfile,
+      });
+      if (response.statusCode == 200) {
+        return response.data['token'];
+      } else {
+        throw Exception('Authentication failed');
+      }
+    } catch (error) {
+      throw Exception('An error occurred: $error');
+    }
+  }
+  Future<String> registerProfileImage({required String profileImage}) async {
     try {
       final response = await _dio.post(AppContances.registerPath, data: {
         'profile_image': profileImage,
-        'gender': gender,
       });
       if (response.statusCode == 200) {
         return response.data['token'];

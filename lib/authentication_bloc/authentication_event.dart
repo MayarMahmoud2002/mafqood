@@ -10,7 +10,6 @@ class SignInEvent extends AuthenticationEvent
 
   SignInEvent({required this.phone,required this.password});
 }
-
 class RegisterNamePasswordEvent extends AuthenticationEvent
 {
   final String name;
@@ -24,11 +23,6 @@ class RegisterResetPasswordEvent extends AuthenticationEvent
 
   RegisterResetPasswordEvent({required this.password,});
 }
-
-
-
-
-
 class RegisterLocationEvent extends AuthenticationEvent
 {
   final String country;
@@ -37,14 +31,13 @@ class RegisterLocationEvent extends AuthenticationEvent
 
   RegisterLocationEvent({required this.country, required this.state, required this.city});
 }
-class RegisterProfileEvent extends AuthenticationEvent
+class RegisterGenderAndImageProfileEvent extends AuthenticationEvent
 {
-  final String profileImage;
   final String gender;
+  final String imageProfile;
 
-  RegisterProfileEvent({required this.profileImage, required this.gender});
+  RegisterGenderAndImageProfileEvent({required this.imageProfile, required this.gender});
 }
-
 class RegisterIdImagesEvent extends AuthenticationEvent
 {
   final String nationalIdFrontImage;
@@ -58,13 +51,20 @@ class GenerateOTPEvent  extends AuthenticationEvent
 
   GenerateOTPEvent({required this.phone});
 }
-
 class CheckOTPEvent   extends AuthenticationEvent
 {
   final String otp;
 
   CheckOTPEvent({required this.otp});
 }
+class SelectPhotoEvent    extends AuthenticationEvent
+{
+  final ImageSource source;
+
+  SelectPhotoEvent({required this.source});
+}
+
+
 
 
 

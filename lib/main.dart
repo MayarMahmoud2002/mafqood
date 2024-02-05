@@ -6,7 +6,6 @@ import 'package:mafqood/signup_screens/presentation/views/screens/otp_screen/otp
 import 'package:mafqood/signup_screens/presentation/views/screens/signup1_screen/sign_up_screen_1.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup2_screen/sign_up_screen_2.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup3_screen/sign_up_screen_3.dart';
-import 'package:mafqood/signup_screens/presentation/views/screens/signup4_screen/back_of_id_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup4_screen/front_of_id_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup5_screen/sign_up_screen_5.dart';
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
@@ -113,13 +112,13 @@ class MyApp extends StatelessWidget {
             'signUpScreen2': (context) => SignUpScreen2(),
             'signUpScreen3': (context) => SignUpScreen3(),
             'otpScreen': (context) => OtpScreen(),
-            'frontOfIdScreen': (context) => FrontOfIdScreen(),
-            'backOfIdScreen': (context) => BackOfIdScreen(),
             'signUpScreen1': (context) => SignUpScreen1(),
             'findPostScreen': (context) => FindPostScreen(),
             'homeScreen': (context) => HomeScreen(),
             'mainScreen': (context) => MainScreen(),
             'signUpScreen5' : (context) => SignUpScreen5(),
+            'idImagesScreen' : (context) => IdImagesScreen(),
+
 
           },
           localizationsDelegates: const [
@@ -132,7 +131,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: SplashScreen(),
+          home: IdImagesScreen(),
         ),
       ),
     );
