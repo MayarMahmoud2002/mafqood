@@ -20,19 +20,19 @@ class AuthenticationFailure extends AuthenticationState {
 }
 
 //*****************************************************************************
-abstract class ProfileState{}
-class ProfileLoading extends ProfileState{}
-class ProfileLoaded extends ProfileState {
-  final Map <String , dynamic> profileData;
-
-  ProfileLoaded(this.profileData);
-}
-class ProfileDeleted extends ProfileState{}
-class ProfileError extends ProfileState{
-  final String error;
-
-  ProfileError({required this.error});
-}
+// abstract class ProfileState{}
+// class ProfileLoading extends ProfileState{}
+// class ProfileLoaded extends ProfileState {
+//   final Map <String , dynamic> profileData;
+//
+//   ProfileLoaded(this.profileData);
+// }
+// class ProfileDeleted extends ProfileState{}
+// class ProfileError extends ProfileState{
+//   final String error;
+//
+//   ProfileError({required this.error});
+// }
 
 
 

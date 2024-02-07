@@ -125,47 +125,47 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 }
 //************************************************************************************************
 
-class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final ProfileRepository profileRepository;
-
-  ProfileBloc(this.profileRepository) : super(ProfileLoading());
-
-  @override
-  Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
-    if (event is FetchProfileEvent) {
-      yield* _mapFetchProfileDataToState();
-    } else if (event is UpdateProfileEvent) {
-      yield* _mapUpdateProfileDataToState(event.updatedData);
-    } else if (event is DeleteProfileEvent) {
-      yield* _mapDeleteProfileDataToState();
-    }
-  }
-  Stream<ProfileState> _mapFetchProfileDataToState() async* {
-    try {
-      final profileData = await profileRepository.fetchProfile();
-      yield ProfileLoaded(profileData);
-    } catch (e) {
-      yield ProfileError(error: 'Failed to fetch profile data');
-    }
-  }
-  Stream<ProfileState> _mapUpdateProfileDataToState(Map<String, dynamic> updatedData) async* {
-    try {
-      await profileRepository.updateProfile(updatedData);
-      final profileData = await profileRepository.fetchProfile();
-      yield ProfileLoaded(profileData);
-    } catch (e) {
-      yield ProfileError(error: 'Failed to update profile data');
-    }
-  }
-  Stream<ProfileState> _mapDeleteProfileDataToState() async* {
-    try {
-      await profileRepository.deleteProfile();
-      yield ProfileDeleted();
-    } catch (e) {
-      yield ProfileError(error: 'Failed to delete profile');
-    }
-  }
-}
+// class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+//   final ProfileRepository profileRepository;
+//
+//   ProfileBloc(this.profileRepository) : super(ProfileLoading());
+//
+//   @override
+//   Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
+//     if (event is FetchProfileEvent) {
+//       yield* _mapFetchProfileDataToState();
+//     } else if (event is UpdateProfileEvent) {
+//       yield* _mapUpdateProfileDataToState(event.updatedData);
+//     } else if (event is DeleteProfileEvent) {
+//       yield* _mapDeleteProfileDataToState();
+//     }
+//   }
+//   Stream<ProfileState> _mapFetchProfileDataToState() async* {
+//     try {
+//       final profileData = await profileRepository.fetchProfile();
+//       yield ProfileLoaded(profileData);
+//     } catch (e) {
+//       yield ProfileError(error: 'Failed to fetch profile data');
+//     }
+//   }
+//   Stream<ProfileState> _mapUpdateProfileDataToState(Map<String, dynamic> updatedData) async* {
+//     try {
+//       await profileRepository.updateProfile(updatedData);
+//       final profileData = await profileRepository.fetchProfile();
+//       yield ProfileLoaded(profileData);
+//     } catch (e) {
+//       yield ProfileError(error: 'Failed to update profile data');
+//     }
+//   }
+//   Stream<ProfileState> _mapDeleteProfileDataToState() async* {
+//     try {
+//       await profileRepository.deleteProfile();
+//       yield ProfileDeleted();
+//     } catch (e) {
+//       yield ProfileError(error: 'Failed to delete profile');
+//     }
+//   }
+// }
 
 
 

@@ -3,6 +3,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
+import 'package:mafqood/profile_bloc/profile_bloc.dart';
 import 'package:mafqood/profile_screen/presentation/views/screens/profile_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/otp_screen/otp_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup1_screen/sign_up_screen_1.dart';
