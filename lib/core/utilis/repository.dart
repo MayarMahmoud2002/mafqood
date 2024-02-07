@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
-import '../core/utilis/app_contances.dart';
+import 'app_contances.dart';
+
 
 class AuthenticationRepository {
 
@@ -26,8 +27,6 @@ class AuthenticationRepository {
       final response = await _dio.post(AppContances.registerPath, data: {
         'phone': name,
         'password': password,
-
-
 
       });
       if (response.statusCode == 200) {
@@ -142,4 +141,44 @@ class AuthenticationRepository {
       throw Exception('An error occurred: $error');
     }
   }
+}
+//***************************************
+class ProfileRepository {
+  final Dio _dio = Dio();
+  Future <Map <String , dynamic>> fetchProfile() async {
+    try {
+      final response = await _dio.get('${AppContances.profilePath}/get');
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to fetch profile');
+      }
+    } catch (error) {
+      throw Exception('An error occurred: $error');
+    }
+
+
+  }
+  Future<void> updateProfile  (Map <String , dynamic> updatedData) async {
+    try {
+      await _dio.post('${AppContances.updateProfilePath}/get' , data:updatedData);
+    } catch (error) {
+      throw Exception('An error occurred: $error');
+    }
+
+
+  }
+  Future<void> deleteProfile  () async {
+    try {
+      await _dio.post('${AppContances.deleteProfilePath}/get');
+    } catch (error) {
+      throw Exception('An error occurred: $error');
+    }
+
+
+  }
+
+
+
+
 }

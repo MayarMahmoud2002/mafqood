@@ -63,6 +63,16 @@ class SelectPhotoEvent    extends AuthenticationEvent
 
   SelectPhotoEvent({required this.source});
 }
+//************************************************************************
+abstract class ProfileEvent {}
+class FetchProfileEvent extends ProfileEvent{}
+class UpdateProfileEvent extends ProfileEvent {
+  final Map<String , dynamic> updatedData;
+
+  UpdateProfileEvent(this.updatedData);
+}
+class DeleteProfileEvent extends ProfileEvent{}
+
 
 
 

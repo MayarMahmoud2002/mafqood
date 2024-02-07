@@ -2,6 +2,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
+import 'package:mafqood/profile_screen/presentation/views/screens/profile_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/otp_screen/otp_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup1_screen/sign_up_screen_1.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup2_screen/sign_up_screen_2.dart';
@@ -11,7 +13,7 @@ import 'package:mafqood/signup_screens/presentation/views/screens/signup5_screen
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
 import 'addPost_screen/views/screens/find_post_screen.dart';
 import 'authentication_bloc/authentication_bloc.dart';
-import 'authentication_bloc/authentication_repository.dart';
+import 'core/utilis/repository.dart';
 import 'home_screen/presentation/views/screen/home_screen.dart';
 import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
@@ -31,6 +33,10 @@ class MyApp extends StatelessWidget {
           BlocProvider<AuthenticationBloc>(
             create: (context) => AuthenticationBloc(AuthenticationRepository()),
           ),
+          BlocProvider<ProfileBloc>(
+            create: (context) => ProfileBloc(ProfileRepository()),
+          ),
+
         ],
         child: MaterialApp(
           supportedLocales: const [
@@ -117,9 +123,7 @@ class MyApp extends StatelessWidget {
             'homeScreen': (context) => HomeScreen(),
             'mainScreen': (context) => MainScreen(),
             'signUpScreen5' : (context) => SignUpScreen5(),
-            'idImagesScreen' : (context) => IdImagesScreen(),
-
-
+            'profileScreen' : (context) => ProfileScreen(),
           },
           localizationsDelegates: const [
             CountryLocalizations.delegate,
@@ -131,7 +135,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: IdImagesScreen(),
+          home: ProfileScreen1(),
         ),
       ),
     );
