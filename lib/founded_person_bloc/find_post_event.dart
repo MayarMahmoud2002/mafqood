@@ -9,3 +9,8 @@ class SubmitFormEvent extends  FindPostEvent
   SubmitFormEvent({required this.fromData});
 
 }
+class SelectGenderEvent extends FindPostEvent {
+  final String gender;
+
+  SelectGenderEvent(this.gender);
+}

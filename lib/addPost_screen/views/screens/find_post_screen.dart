@@ -325,6 +325,7 @@ class FindPostScreen extends StatelessWidget {
                                 ),
                                 Center(
                                   child: Container(
+
                                     width: double.infinity,
                                     child: DropdownButtonHideUnderline(
                                       child: DropdownButton2<String>(
@@ -363,6 +364,10 @@ class FindPostScreen extends StatelessWidget {
                                                 ))
                                             .toList(),
                                         value: selectedValue,
+                                        onChanged: (value)
+                                        {
+                                          context.read<FindPostBloc>().add(SelectGenderEvent(value!));
+                                        },
                                         buttonStyleData: ButtonStyleData(
                                           height: 50,
                                           width: 160,
