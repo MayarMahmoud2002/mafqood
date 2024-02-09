@@ -1,29 +1,22 @@
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import '../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
+
 import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
 
-class LostPostScreen extends StatefulWidget {
-  @override
-  State<LostPostScreen> createState() => _LostPostScreenState();
-}
+class LostPostScreen extends StatelessWidget {
+  const LostPostScreen({super.key});
 
-class _LostPostScreenState extends State<LostPostScreen> {
-  final List<String> items = [
-    'less than 1 year',
-    '2 - 15 year',
-    '16 - 25 year',
-    '26 - 35 year',
-    '46 - 55 year',
-    '56 - 60 year',
-    'older than 60 year',
-  ];
-  String? selectedValue;
   @override
   Widget build(BuildContext context) {
+    final List<String> items = [
+      'Male',
+      'Female',
+    ];
+    String? selectedValue;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -314,9 +307,7 @@ class _LostPostScreenState extends State<LostPostScreen> {
                                         .toList(),
                                     value: selectedValue,
                                     onChanged: (String? value) {
-                                      setState(() {
-                                        selectedValue = value;
-                                      });
+
                                     },
                                     buttonStyleData: ButtonStyleData(
                                       height: 50,
@@ -325,7 +316,7 @@ class _LostPostScreenState extends State<LostPostScreen> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(14),
                                         border: Border.all(
-                                            color: Color.fromRGBO(109, 102, 114, 1.0),
+                                          color: Color.fromRGBO(109, 102, 114, 1.0),
                                         ),
                                         color: Colors.white,
                                       ),
@@ -400,3 +391,4 @@ class _LostPostScreenState extends State<LostPostScreen> {
     );
   }
 }
+

@@ -142,7 +142,7 @@ class AuthenticationRepository {
     }
   }
 }
-//***************************************
+//Profile Repository
 class ProfileRepository {
   final Dio _dio = Dio();
   Future <Map <String , dynamic>> fetchProfile() async {
@@ -181,4 +181,16 @@ class ProfileRepository {
 
 
 
+}
+//Founded Post Repository
+class FoundedPostRepository
+{
+  final Dio _dio = Dio();
+  Future<void> createFoundPost(Map <String, dynamic> postData) async {
+    try {
+      await _dio.post(AppContances.foundedPostPath, data: postData);
+    } catch (error) {
+      throw Exception('An error occurred: $error');
+    }
+  }
 }

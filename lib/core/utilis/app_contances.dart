@@ -9,6 +9,8 @@ class AppContances
   static const String profilePath = '$baseUrl/api/user/get';
   static const String updateProfilePath = '$baseUrl/api/user/update';
   static const String deleteProfilePath = '$baseUrl/api/user/delete';
+  static const String foundedPostPath = '$baseUrl/api/foundedPerson/add';
+
 
 
 }

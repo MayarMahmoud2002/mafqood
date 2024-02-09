@@ -1,10 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafqood/core/shared_widgets/container_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
-import '../../../../authentication_bloc/authentication_bloc.dart';
 import '../../../../core/shared_widgets/back_button_widget.dart';
 import '../../../../core/shared_widgets/text_widget.dart';
 import '../../../../core/utilis/colors.dart';
@@ -18,7 +15,9 @@ class ProfileScreen1 extends StatelessWidget {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is ProfileLoadingState) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator(
+            color: Colors.white,
+          ));
         } else if (state is ProfileLoadedState) {
           return buildProfileContent(state.profileData);
         } else if (state is ProfileErrorState) {
@@ -130,8 +129,6 @@ class ProfileScreen1 extends StatelessWidget {
                       onTap: ()
                       {
                         BlocProvider.of<ProfileBloc>(storedContext).add(DeleteProfileEvent());
-
-
                       },
                       child: ContainerWidget(
                           text: 'delete',
@@ -139,14 +136,8 @@ class ProfileScreen1 extends StatelessWidget {
                           color: Colors.red,
                           radius: 10.0, height: 60.0, width: double.infinity),
                     )
-
                   ],
                 ),
-
-
-
-
-
               ],
             ),
           ),

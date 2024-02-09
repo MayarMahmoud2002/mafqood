@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mafqood/core/utilis/colors.dart';
 import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
 import '../../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
+import '../../../../profile_screen/presentation/views/screens/profile_screen.dart';
 import 'home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -22,11 +23,11 @@ class _MainScreenState extends State<MainScreen> {
           mini: true,
             backgroundColor: ScreensColors.orangeColor,
           shape: StadiumBorder(
-            // side: BorderSide(
-            //   color:  Color.fromRGBO(24, 13, 31, 1.0),  // Set your desired color
-            //   width: 1.0,
-            //
-            // ),
+            side: BorderSide(
+              color:  Color.fromRGBO(24, 13, 31, 1.0),  // Set your desired color
+              width: 1.0,
+
+            ),
           ),
           focusColor: Color(30),
           child: Icon(Icons.add,
@@ -73,5 +74,5 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-  List <Widget> tabs = [HomeScreen(), ProfileScreen()];
+  List <Widget> tabs = [HomeScreen(), ProfileScreen1()];
  }

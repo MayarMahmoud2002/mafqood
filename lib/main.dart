@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
 import 'package:mafqood/profile_bloc/profile_bloc.dart';
-import 'package:mafqood/profile_screen/presentation/views/screens/profile_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/otp_screen/otp_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup1_screen/sign_up_screen_1.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup2_screen/sign_up_screen_2.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup3_screen/sign_up_screen_3.dart';
-import 'package:mafqood/signup_screens/presentation/views/screens/signup4_screen/front_of_id_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup5_screen/sign_up_screen_5.dart';
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
 import 'addPost_screen/views/screens/find_post_screen.dart';
 import 'authentication_bloc/authentication_bloc.dart';
 import 'core/utilis/repository.dart';
+import 'founded_person_bloc/find_post_bloc.dart';
 import 'home_screen/presentation/views/screen/home_screen.dart';
 import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<ProfileBloc>(
             create: (context) => ProfileBloc(ProfileRepository()),
+          ),
+          BlocProvider<FindPostBloc>(
+            create: (context) => FindPostBloc(FoundedPostRepository()),
           ),
 
         ],
@@ -132,11 +135,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: ProfileScreen1(),
+          home: FindPostScreen(),
         ),
       ),
     );
