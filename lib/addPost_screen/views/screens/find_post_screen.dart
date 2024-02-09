@@ -18,15 +18,14 @@ class FindPostScreen extends StatelessWidget {
   final TextEditingController foundedAtController = TextEditingController();
   final TextEditingController imageController = TextEditingController();
   final TextEditingController policeStationController = TextEditingController();
-
-
+  late String selectedGender;
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
       'Male',
       'Female',
     ];
-    String? selectedValue;
+
     return BlocBuilder<FindPostBloc, FindPostState>(
       builder: (context, state) {
         if  (state is FindPostLoadingState)
@@ -38,6 +37,10 @@ class FindPostScreen extends StatelessWidget {
         } else if (state is FindPostErrorState)
         {
           return Text('Authentication failed: ${state.error}');
+        }else if (state is FindPostGenderSelectedState)
+        {
+          selectedGender = state.selectedGender;
+
         }
         return SafeArea(
           child: Scaffold(
@@ -330,15 +333,15 @@ class FindPostScreen extends StatelessWidget {
                                     child: DropdownButtonHideUnderline(
                                       child: DropdownButton2<String>(
                                         isExpanded: true,
-                                        hint: const Row(
+                                        hint:  Row(
                                           children: [
                                             SizedBox(
                                               width: 4,
                                             ),
                                             Expanded(
                                               child: Text(
-                                                'Select Gender',
-                                                style: TextStyle(
+                                                selectedGender != null ? selectedGender : 'Select Gender',
+                                              style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black87,
@@ -363,7 +366,7 @@ class FindPostScreen extends StatelessWidget {
                                                   ),
                                                 ))
                                             .toList(),
-                                        value: selectedValue,
+                                        value: selectedGender,
                                         onChanged: (value)
                                         {
                                           context.read<FindPostBloc>().add(SelectGenderEvent(value!));
@@ -430,7 +433,7 @@ class FindPostScreen extends StatelessWidget {
                                         SubmitFormEvent(fromData:
                                         {
                                           'name' : nameController.text,
-                                          'gender' : genderController.text,
+                                          'gender' : (state as FindPostGenderSelectedState).selectedGender,
                                           'description' : genderController.text,
                                           'country' : countryController.text,
                                           'state' : stateController.text,

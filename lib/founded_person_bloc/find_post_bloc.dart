@@ -18,12 +18,9 @@ class FindPostBloc extends Bloc<FindPostEvent, FindPostState> {
         {
           emit (FindPostErrorState(error : 'Failed to create post'));
         }
-      }
-    });
-    on<FindPostEvent>((event, emit) async*{
-      if (event is SelectGenderEvent)
+      }else if (event is SelectGenderEvent)
       {
-        emit(FindPostGenderSelectedState(event.gender));
+        emit (FindPostGenderSelectedState(event.gender));
       }
     });
 
