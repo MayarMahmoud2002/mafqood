@@ -9,7 +9,7 @@ class AuthenticationRepository {
 
   Future<String> signIn({required String phone, required String password}) async {
     try {
-      final response = await _dio.post(AppContances.loginPath, data: {
+      final response = await _dio.post(AppConstances.loginPath, data: {
         'phone': phone,
         'password': password,
       });
@@ -24,7 +24,7 @@ class AuthenticationRepository {
   }
   Future<String> registerNamePassword({required String name, required String password }) async {
     try {
-      final response = await _dio.post(AppContances.registerPath, data: {
+      final response = await _dio.post(AppConstances.registerPath, data: {
         'phone': name,
         'password': password,
 
@@ -40,7 +40,7 @@ class AuthenticationRepository {
   }
   Future<String> registerResetPassword({required String resetPassword }) async {
     try {
-      final response = await _dio.post(AppContances.restPasswordPath, data: {
+      final response = await _dio.post(AppConstances.restPasswordPath, data: {
         'password': resetPassword,
       });
       if (response.statusCode == 200) {
@@ -54,7 +54,7 @@ class AuthenticationRepository {
   }
   Future<String> registerLocation({required String country, required String city , required String state}) async {
     try {
-      final response = await _dio.post(AppContances.registerPath, data: {
+      final response = await _dio.post(AppConstances.registerPath, data: {
         'country': country,
         'city': city,
         'state': state,
@@ -71,7 +71,7 @@ class AuthenticationRepository {
   }
   Future<String> registerGenderAndImageProfile({required String gender , required String imageProfile}) async {
     try {
-      final response = await _dio.post(AppContances.registerPath, data: {
+      final response = await _dio.post(AppConstances.registerPath, data: {
         'gender': gender,
         'profile_image': imageProfile,
       });
@@ -86,7 +86,7 @@ class AuthenticationRepository {
   }
   Future<String> registerProfileImage({required String profileImage}) async {
     try {
-      final response = await _dio.post(AppContances.registerPath, data: {
+      final response = await _dio.post(AppConstances.registerPath, data: {
         'profile_image': profileImage,
       });
       if (response.statusCode == 200) {
@@ -100,7 +100,7 @@ class AuthenticationRepository {
   }
   Future<String> registerIdImages({required String nationalIdFrontImage,required String nationalIdBackImage}) async {
     try {
-      final response = await _dio.post(AppContances.registerPath, data: {
+      final response = await _dio.post(AppConstances.registerPath, data: {
         'national_id_front_image': nationalIdFrontImage,
         'national_id_back_image': nationalIdBackImage,
       });
@@ -115,7 +115,7 @@ class AuthenticationRepository {
   }
   Future<String> generateOTP({required String phone}) async {
     try {
-      final response = await _dio.post(AppContances.generateOtpCodePath, data: {
+      final response = await _dio.post(AppConstances.generateOtpCodePath, data: {
         'phone': phone,
       });
       if (response.statusCode == 200) {
@@ -129,7 +129,7 @@ class AuthenticationRepository {
   }
   Future<String> checkOTP({required String otp}) async {
     try {
-      final response = await _dio.post(AppContances.checkOtpCodePath, data: {
+      final response = await _dio.post(AppConstances.checkOtpCodePath, data: {
         'otp_code': otp,
       });
       if (response.statusCode == 200) {
@@ -147,7 +147,7 @@ class ProfileRepository {
   final Dio _dio = Dio();
   Future <Map <String , dynamic>> fetchProfile() async {
     try {
-      final response = await _dio.get('${AppContances.profilePath}/get');
+      final response = await _dio.get('${AppConstances.profilePath}/get');
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -161,7 +161,7 @@ class ProfileRepository {
   }
   Future<void> updateProfile  (Map <String , dynamic> updatedData) async {
     try {
-      await _dio.post('${AppContances.updateProfilePath}/get' , data:updatedData);
+      await _dio.post('${AppConstances.updateProfilePath}/get' , data:updatedData);
     } catch (error) {
       throw Exception('An error occurred: $error');
     }
@@ -170,7 +170,7 @@ class ProfileRepository {
   }
   Future<void> deleteProfile  () async {
     try {
-      await _dio.post('${AppContances.deleteProfilePath}/get');
+      await _dio.post('${AppConstances.deleteProfilePath}/get');
     } catch (error) {
       throw Exception('An error occurred: $error');
     }
@@ -188,9 +188,24 @@ class FoundedPostRepository
   final Dio _dio = Dio();
   Future<void> createFoundPost(Map <String, dynamic> postData) async {
     try {
-      await _dio.post(AppContances.foundedPostPath, data: postData);
+      await _dio.post(AppConstances.foundedPostPath, data: postData);
     } catch (error) {
       throw Exception('An error occurred: $error');
+    }
+  }
+}
+
+//Lost post Repository
+class LostPostRepository
+{
+  final Dio _dio = Dio();
+  Future <void> createLostPost (Map <String , dynamic> postData)async
+  {
+    try {
+      await _dio.post(AppConstances.missingPostPath , data: postData);
+    }catch (error)
+    {
+      throw Exception('An error occurred : $error');
     }
   }
 }

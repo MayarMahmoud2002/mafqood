@@ -20,7 +20,7 @@ class FindPostBloc extends Bloc<FindPostEvent, FindPostState> {
         }
       }else if (event is SelectGenderEvent)
       {
-        emit (FindPostGenderSelectedState(event.gender));
+        emit(FindPostGenderSelectedState(event.gender));
       }
     });
 

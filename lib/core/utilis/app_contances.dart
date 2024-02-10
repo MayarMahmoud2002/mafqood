@@ -1,4 +1,4 @@
-class AppContances
+class AppConstances
 {
   static const String baseUrl = 'https://project-mafqoud.000webhostapp.com';
   static const String loginPath = '$baseUrl/api/auth/login';
@@ -10,7 +10,6 @@ class AppContances
   static const String updateProfilePath = '$baseUrl/api/user/update';
   static const String deleteProfilePath = '$baseUrl/api/user/delete';
   static const String foundedPostPath = '$baseUrl/api/foundedPerson/add';
-
-
-
+  static const String missingPostPath = '$baseUrl/api/missingPerson/add';
 }
+

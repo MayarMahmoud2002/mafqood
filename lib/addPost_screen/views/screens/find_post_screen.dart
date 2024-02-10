@@ -8,29 +8,31 @@ import '../../../core/utilis/styles.dart';
 import '../../../founded_person_bloc/find_post_bloc.dart';
 
 class FindPostScreen extends StatelessWidget {
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController stateController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
-  final TextEditingController foundedAtController = TextEditingController();
-  final TextEditingController imageController = TextEditingController();
-  final TextEditingController policeStationController = TextEditingController();
-  late String selectedGender;
+  final TextEditingController nameFindController = TextEditingController();
+  final TextEditingController genderFindController = TextEditingController();
+  final TextEditingController descriptionFindController = TextEditingController();
+  final TextEditingController countryFindController = TextEditingController();
+  final TextEditingController stateFindController = TextEditingController();
+  final TextEditingController cityFindController = TextEditingController();
+  final TextEditingController foundedAtFindController = TextEditingController();
+  final TextEditingController imageFindController = TextEditingController();
+  final TextEditingController policeStationFindController = TextEditingController();
+   String? selectedGender ;
   @override
   Widget build(BuildContext context) {
     final List<String> items = [
       'Male',
       'Female',
     ];
+    selectedGender ??= 'Select Gender';
 
     return BlocBuilder<FindPostBloc, FindPostState>(
       builder: (context, state) {
         if  (state is FindPostLoadingState)
         {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }else if (state is FindPostSuccessState)
         {
           Navigator.pushNamed(context, 'mainScreen');
@@ -41,6 +43,9 @@ class FindPostScreen extends StatelessWidget {
         {
           selectedGender = state.selectedGender;
 
+        }else
+        {
+          selectedGender = 'select Gender';
         }
         return SafeArea(
           child: Scaffold(
@@ -139,7 +144,7 @@ class FindPostScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 TextFormFieldWidget(
-                                  controller: nameController,
+                                  controller: nameFindController,
                                   text:
                                       'Enter the Full name of the person you found',
                                   textInputAction: TextInputAction.next,
@@ -158,12 +163,12 @@ class FindPostScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 TextFormFieldWidget(
-                                  controller: countryController,
+                                  controller: countryFindController,
                                   text:
                                       'Enter the country where you found the person',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -177,12 +182,12 @@ class FindPostScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 TextFormFieldWidget(
-                                  controller: cityController,
+                                  controller: cityFindController,
                                   text:
                                       'Enter the city where you found the person',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -196,12 +201,12 @@ class FindPostScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 TextFormFieldWidget(
-                                  controller: stateController,
+                                  controller: stateFindController,
                                   text:
                                       'Enter the state where you found the person',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -221,11 +226,11 @@ class FindPostScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 TextFormFieldWidget(
-                                  controller: policeStationController,
+                                  controller: policeStationFindController,
                                   text: 'Enter the name of the police station',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -300,7 +305,7 @@ class FindPostScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 TextFormFieldWidget(
-                                  controller: descriptionController,
+                                  controller: descriptionFindController,
                                   text: 'Enter description here..',
                                   textInputAction: TextInputAction.done,
                                   textInputType: TextInputType.text,
@@ -328,20 +333,19 @@ class FindPostScreen extends StatelessWidget {
                                 ),
                                 Center(
                                   child: Container(
-
                                     width: double.infinity,
                                     child: DropdownButtonHideUnderline(
                                       child: DropdownButton2<String>(
                                         isExpanded: true,
-                                        hint:  Row(
+                                        hint: Row(
                                           children: [
                                             SizedBox(
                                               width: 4,
                                             ),
                                             Expanded(
                                               child: Text(
-                                                selectedGender != null ? selectedGender : 'Select Gender',
-                                              style: TextStyle(
+                                                selectedGender ?? 'Select Gender',
+                                                style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black87,
@@ -352,40 +356,32 @@ class FindPostScreen extends StatelessWidget {
                                           ],
                                         ),
                                         items: items
-                                            .map((String item) =>
-                                                DropdownMenuItem<String>(
-                                                  value: item,
-                                                  child: Text(
-                                                    item,
-                                                    style: const TextStyle(
-                                                      fontSize: 13,
-                                                      color: Colors.black87,
-                                                    ),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                ))
+                                            .map((String item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text(
+                                            item,
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black87,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ))
                                             .toList(),
-                                        value: selectedGender,
-                                        onChanged: (value)
-                                        {
+                                        onChanged: (value) {
                                           context.read<FindPostBloc>().add(SelectGenderEvent(value!));
                                         },
                                         buttonStyleData: ButtonStyleData(
                                           height: 50,
                                           width: 160,
-                                          padding: const EdgeInsets.only(
-                                              left: 14, right: 14),
+                                          padding: const EdgeInsets.only(left: 14, right: 14),
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
+                                            borderRadius: BorderRadius.circular(14),
                                             border: Border.all(
-                                              color: Color.fromRGBO(
-                                                  109, 102, 114, 1.0),
+                                              color: Color.fromRGBO(109, 102, 114, 1.0),
                                             ),
                                             color: Colors.white,
                                           ),
-                                          // elevation: 2,
                                         ),
                                         iconStyleData: const IconStyleData(
                                           icon: Icon(
@@ -399,25 +395,19 @@ class FindPostScreen extends StatelessWidget {
                                           maxHeight: 200,
                                           width: 200,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
+                                            borderRadius: BorderRadius.circular(14),
                                             color: Colors.white,
                                           ),
                                           offset: const Offset(-20, 0),
                                           scrollbarTheme: ScrollbarThemeData(
                                             radius: const Radius.circular(40),
-                                            thickness: MaterialStateProperty
-                                                .all<double>(6),
-                                            thumbVisibility:
-                                                MaterialStateProperty.all<bool>(
-                                                    true),
+                                            thickness: MaterialStateProperty.all<double>(6),
+                                            thumbVisibility: MaterialStateProperty.all<bool>(true),
                                           ),
                                         ),
-                                        menuItemStyleData:
-                                            const MenuItemStyleData(
+                                        menuItemStyleData: const MenuItemStyleData(
                                           height: 40,
-                                          padding: EdgeInsets.only(
-                                              left: 14, right: 14),
+                                          padding: EdgeInsets.only(left: 14, right: 14),
                                         ),
                                       ),
                                     ),
@@ -432,15 +422,15 @@ class FindPostScreen extends StatelessWidget {
                                     context.read<FindPostBloc>().add(
                                         SubmitFormEvent(fromData:
                                         {
-                                          'name' : nameController.text,
+                                          'name' : nameFindController.text,
                                           'gender' : (state as FindPostGenderSelectedState).selectedGender,
-                                          'description' : genderController.text,
-                                          'country' : countryController.text,
-                                          'state' : stateController.text,
-                                          'city' : cityController.text,
-                                          'founded_at' : foundedAtController.text,
-                                          'image' : imageController.text ,
-                                          'police_station' : policeStationController.text,
+                                          'description' : descriptionFindController.text,
+                                          'country' : countryFindController.text,
+                                          'state' : stateFindController.text,
+                                          'city' : cityFindController.text,
+                                          'founded_at' : foundedAtFindController.text,
+                                          'image' : imageFindController.text ,
+                                          'police_station' : policeStationFindController.text,
                                         }));
                                   },
                                   child: Container(
