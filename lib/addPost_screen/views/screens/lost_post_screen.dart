@@ -7,7 +7,6 @@ import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
 
-
 class LostPostScreen extends StatelessWidget {
    LostPostScreen({super.key});
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

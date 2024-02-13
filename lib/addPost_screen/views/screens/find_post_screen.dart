@@ -456,6 +456,31 @@ class FindPostScreen extends StatelessWidget {
                                     width: double.infinity,
                                   ),
                                 ),
+                                InkWell(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.bottomRight,
+                                        end: Alignment.bottomLeft,
+                                        colors: [
+                                          Color.fromRGBO(88, 45, 92, 1.0),
+                                          Color.fromRGBO(177, 104, 79, 1.0),
+                                        ],
+                                      ),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(6.0),
+                                    ),
+                                    child: Center(
+                                      child: TextWidget(
+                                        textStyle: Styles.textStyle15White,
+                                        text: 'Update',
+                                      ),
+                                    ),
+                                    height: 48.0,
+                                    width: double.infinity,
+                                  ),
+                                ),
+
                               ],
                             ),
                           ),

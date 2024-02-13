@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 
 import '../core/utilis/repository.dart';
 
-part 'missing_person_event.dart';
-part 'missing_person_state.dart';
+part 'lost_person_event.dart';
+part 'lost_person_state.dart';
 
 class LostPersonBloc extends Bloc<LostPersonEvent, LostPersonState> {
   LostPersonBloc(LostPostRepository lostPostRepository) : super(LostPersonInitial()) {

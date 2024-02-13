@@ -209,3 +209,75 @@ class LostPostRepository
     }
   }
 }
+//Founded Person Repository
+class FoundedPersonsDataRepository
+{
+  final Dio _dio = Dio ();
+  Future <List <Map <String , dynamic>>> fetchFoundedPersons () async
+  {
+    try
+    {
+      final response = await _dio.get(AppConstances.foundedPersonDataPath);
+      return List<Map <String, dynamic>>.from(response.data['data']);
+
+    }catch (e)
+    {
+      throw Exception('Failed to load founded persons: $e');
+    }
+  }
+
+  Future<void> updateFoundedPerson(int personId, Map<String, dynamic> updatedData) async {
+    try {
+      await _dio.put('${AppConstances.updateFoundedPersonPath}/$personId', data: updatedData);
+    } catch (e) {
+      throw Exception('Failed to update founded person: $e');
+    }
+  }
+
+  Future<void> deleteFoundedPerson(int personId) async {
+    try {
+      await _dio.put('${AppConstances.deleteFoundedPersonPath}/$personId',);
+    } catch (e) {
+      throw Exception('Failed to delete founded person: $e');
+    }
+  }
+
+
+}
+
+//Lost Persons Repository
+class LostPersonsDataRepository
+{
+final Dio _dio = Dio ();
+Future <List <Map <String , dynamic>>> fetchLostPersons () async
+{
+  try
+  {
+    final response = await _dio.get(AppConstances.lostPersonDataPath);
+    return List<Map <String, dynamic>>.from(response.data['data']);
+
+  }catch (e)
+  {
+    throw Exception('Failed to load lost persons: $e');
+  }
+}
+
+Future<void> updateLostPerson(int personId, Map<String, dynamic> updatedData) async {
+  try {
+    await _dio.put('${AppConstances.updateLostPersonPath}/$personId', data: updatedData);
+  } catch (e) {
+    throw Exception('Failed to update lost person: $e');
+  }
+}
+
+Future<void> deleteLostPerson(int personId) async {
+  try {
+    await _dio.put('${AppConstances.deleteLostPersonPath}/$personId',);
+  } catch (e) {
+    throw Exception('Failed to delete lost person: $e');
+  }
+}
+
+
+}
+

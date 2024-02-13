@@ -1,4 +1,5 @@
 class AppConstances
+
 {
   static const String baseUrl = 'https://project-mafqoud.000webhostapp.com';
   static const String loginPath = '$baseUrl/api/auth/login';
@@ -11,5 +12,16 @@ class AppConstances
   static const String deleteProfilePath = '$baseUrl/api/user/delete';
   static const String foundedPostPath = '$baseUrl/api/foundedPerson/add';
   static const String missingPostPath = '$baseUrl/api/missingPerson/add';
+  static const String foundedPersonDataPath = '$baseUrl/api/foundedPerson/get/all';
+  static const String updateFoundedPersonPath = '$baseUrl/api/foundedPerson/update';
+  static const String deleteFoundedPersonPath = '$baseUrl/api/foundedPerson/delete';
+  static const String lostPersonDataPath = '$baseUrl/api/missingPerson/get/all';
+  static const String updateLostPersonPath = '$baseUrl/api/missingPerson/update';
+  static const String deleteLostPersonPath = '$baseUrl/api/missingPerson/delete';
+
+
+
+
+
 }
 
