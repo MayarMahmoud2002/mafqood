@@ -18,6 +18,8 @@ class AppConstances
   static const String lostPersonDataPath = '$baseUrl/api/missingPerson/get/all';
   static const String updateLostPersonPath = '$baseUrl/api/missingPerson/update';
   static const String deleteLostPersonPath = '$baseUrl/api/missingPerson/delete';
+  static const String getAllUsersPath = '$baseUrl/api/user/get/all';
+
 
 
 

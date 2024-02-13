@@ -25,6 +25,7 @@ class FindPostBloc extends Bloc<FindPostEvent, FindPostState> {
     });
 
   }
+
 }
 
 

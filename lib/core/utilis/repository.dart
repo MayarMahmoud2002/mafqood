@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import '../../users_bloc/user_data/user_data.dart';
 import 'app_contances.dart';
 
 
@@ -279,5 +280,57 @@ Future<void> deleteLostPerson(int personId) async {
 }
 
 
+}
+//users data Repository
+class UsersDataRepository {
+  final Dio _dio = Dio();
+
+  Future<List<UserData>> fetchUsers() async {
+    try {
+      final response = await _dio.get(AppConstances.getAllUsersPath);
+      final List<dynamic> usersDataJson = response.data['data'];
+      final List<UserData> usersData = usersDataJson.map((userDataJson) {
+        return UserData(
+          user: User(
+            name: userDataJson['user']['name'],
+            phone: userDataJson['user']['phone'],
+            gender: userDataJson['user']['gender'],
+            profileImage: userDataJson['user']['profile_image'],
+          ),
+          missingPeople: (userDataJson['missing_people'] as List<dynamic>).map((missingPersonJson) {
+            return MissingPerson(
+              id: missingPersonJson['id'],
+              name: missingPersonJson['name'],
+              gender: missingPersonJson['gender'],
+              description: missingPersonJson['description'],
+              country: missingPersonJson['country'],
+              state: missingPersonJson['state'],
+              city: missingPersonJson['city'],
+              lostedAt: missingPersonJson['losted_at'],
+              image: missingPersonJson['image'],
+            );
+          }).toList(),
+          foundedPeople: (userDataJson['founded_people'] as List<dynamic>).map((foundedPersonJson) {
+            return FoundedPerson(
+              id: foundedPersonJson['id'],
+              name: foundedPersonJson['name'],
+              gender: foundedPersonJson['gender'],
+              description: foundedPersonJson['description'],
+              country: foundedPersonJson['country'],
+              state: foundedPersonJson['state'],
+              city: foundedPersonJson['city'],
+              policeStation: foundedPersonJson['police_station'],
+              foundedAt: foundedPersonJson['founded_at'],
+              image: foundedPersonJson['image'],
+            );
+          }).toList(),
+        );
+      }).toList();
+
+      return usersData;
+    } catch (e) {
+      throw Exception('Failed to load users: $e');
+    }
+  }
 }
 
