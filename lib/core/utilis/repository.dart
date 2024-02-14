@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-
 import '../../users_bloc/user_data/user_data.dart';
 import 'app_contances.dart';
 
@@ -217,6 +216,14 @@ class LostPostRepository
       throw Exception('An error occurred : $error');
     }
   }
+  Future<void> updateLostPerson(int personId, Map<String, dynamic> updatedData) async {
+    try {
+      await _dio.put('${AppConstances.updateLostPersonPath}/$personId', data: updatedData);
+    } catch (e) {
+      throw Exception('Failed to update lost person: $e');
+    }
+  }
+
 }
 //Founded Person Repository
 class FoundedPersonsDataRepository

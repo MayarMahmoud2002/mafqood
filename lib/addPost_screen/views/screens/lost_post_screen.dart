@@ -2,10 +2,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mafqood/lost_person_bloc/lost_person_bloc.dart';
 import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
+import '../../../lost_person_post_bloc/lost_person_bloc.dart';
 
 class LostPostScreen extends StatelessWidget {
    LostPostScreen({super.key});
@@ -403,6 +403,54 @@ class LostPostScreen extends StatelessWidget {
                                       child: TextWidget(
                                         textStyle: Styles.textStyle15White,
                                         text: 'Create',
+                                      ),
+                                    ),
+                                    height: 48.0,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                //******
+                                SizedBox(
+                                  height : 15.0,
+                                ),
+                                InkWell(
+                                  onTap: ()
+                                  {
+                                    context.read<LostPersonBloc>().add(
+                                        UpdateLostFormEvent(
+                                            personId: 1,
+                                            updatedData:
+                                            {
+                                              'name' : nameLostController.text,
+                                              'gender' : genderLostController.text,
+                                              'description' : descriptionLostController.text,
+                                              'country' : countryLostController.text,
+                                              'state' : stateLostController.text,
+                                              'city' : cityLostController.text,
+                                              'founded_at' : foundedLostAtController.text,
+                                              'image' : imageLostController.text ,
+
+                                            })
+
+                                       );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.bottomRight,
+                                        end: Alignment.bottomLeft,
+                                        colors: [
+                                          Color.fromRGBO(88, 45, 92, 1.0),
+                                          Color.fromRGBO(177, 104, 79, 1.0),
+                                        ],
+                                      ),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(6.0),
+                                    ),
+                                    child: Center(
+                                      child: TextWidget(
+                                        textStyle: Styles.textStyle15White,
+                                        text: 'Update',
                                       ),
                                     ),
                                     height: 48.0,

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
-import '../../../founded_person_bloc/find_post_bloc.dart';
+import '../../../founded_person_post_bloc/find_post_bloc.dart';
 
 class FindPostScreen extends StatelessWidget {
 
@@ -49,11 +49,9 @@ class FindPostScreen extends StatelessWidget {
         }else if (state is FindPostUpdateSuccessState)
         {
           Navigator.pushNamed(context, 'mainScreen');
-
         }else if (state is FindPostUpdateErrorState)
         {
           return Text('Updated failed: ${state.error}');
-
         }
         return SafeArea(
           child: Scaffold(

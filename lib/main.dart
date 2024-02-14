@@ -14,11 +14,11 @@ import 'addPost_screen/views/screens/find_post_screen.dart';
 import 'addPost_screen/views/screens/lost_post_screen.dart';
 import 'authentication_bloc/authentication_bloc.dart';
 import 'core/utilis/repository.dart';
-import 'founded_person_bloc/find_post_bloc.dart';
+import 'founded_person_post_bloc/find_post_bloc.dart';
 import 'home_screen/presentation/views/screen/home_screen.dart';
 import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
-import 'lost_person_bloc/lost_person_bloc.dart';
+import 'lost_person_post_bloc/lost_person_bloc.dart';
 
 
 void main() {
@@ -133,7 +133,6 @@ class MyApp extends StatelessWidget {
             'signUpScreen5' : (context) => SignUpScreen5(),
             'profileScreen' : (context) => ProfileScreen(),
             'lostPostScreen' : (context) => LostPostScreen(),
-
           },
           localizationsDelegates: const [
             CountryLocalizations.delegate,

@@ -21,6 +21,14 @@ class LostPersonBloc extends Bloc<LostPersonEvent, LostPersonState> {
         {
           emit (LostPostErrorState(error : 'Failed to create post'));
         }
+      }else if (event is UpdateLostFormEvent) {
+        emit(LostPostUpdateLoadingState());
+        try {
+          await FoundedPostRepository().updateFoundedPerson(event.personId, event.updatedData);
+          emit(LostPostUpdateSuccessState());
+        } catch (e) {
+          emit(LostPostUpdateErrorState(error: 'Failed to update post'));
+        }
       }
     });
   }
