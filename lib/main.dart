@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
-          home: MainScreen(),
+          home: FindPostScreen(),
         ),
       ),
     );

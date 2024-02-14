@@ -194,6 +194,14 @@ class FoundedPostRepository
       throw Exception('An error occurred: $error');
     }
   }
+  Future<void> updateFoundedPerson(int personId, Map<String, dynamic> updatedData) async {
+    try {
+      await _dio.put('${AppConstances.updateFoundedPersonPath}/$personId', data: updatedData);
+    } catch (e) {
+      throw Exception('Failed to update founded person: $e');
+    }
+  }
+
 }
 
 //Lost post Repository
@@ -227,13 +235,13 @@ class FoundedPersonsDataRepository
     }
   }
 
-  Future<void> updateFoundedPerson(int personId, Map<String, dynamic> updatedData) async {
-    try {
-      await _dio.put('${AppConstances.updateFoundedPersonPath}/$personId', data: updatedData);
-    } catch (e) {
-      throw Exception('Failed to update founded person: $e');
-    }
-  }
+  // Future<void> updateFoundedPerson(int personId, Map<String, dynamic> updatedData) async {
+  //   try {
+  //     await _dio.put('${AppConstances.updateFoundedPersonPath}/$personId', data: updatedData);
+  //   } catch (e) {
+  //     throw Exception('Failed to update founded person: $e');
+  //   }
+  // }
 
   Future<void> deleteFoundedPerson(int personId) async {
     try {

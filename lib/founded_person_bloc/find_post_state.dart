@@ -18,3 +18,11 @@ class FindPostGenderSelectedState extends FindPostState
   final String selectedGender;
   FindPostGenderSelectedState(this.selectedGender);
 }
+
+class FindPostUpdateLoadingState extends FindPostState {}
+class FindPostUpdateSuccessState extends FindPostState {}
+class FindPostUpdateErrorState extends FindPostState {
+  final String error;
+
+  FindPostUpdateErrorState({required this.error});
+}

@@ -43,9 +43,17 @@ class FindPostScreen extends StatelessWidget {
         {
           selectedGender = state.selectedGender;
 
-        }else
+        }else if (state is FindPostUpdateLoadingState)
         {
-          selectedGender = 'select Gender';
+          return Center(child: CircularProgressIndicator());
+        }else if (state is FindPostUpdateSuccessState)
+        {
+          Navigator.pushNamed(context, 'mainScreen');
+
+        }else if (state is FindPostUpdateErrorState)
+        {
+          return Text('Updated failed: ${state.error}');
+
         }
         return SafeArea(
           child: Scaffold(
@@ -456,7 +464,28 @@ class FindPostScreen extends StatelessWidget {
                                     width: double.infinity,
                                   ),
                                 ),
-                                InkWell(
+                                SizedBox(
+                                  height : 15.0,
+                                ),
+                                InkWell(onTap: ()
+                                {
+                                  context.read<FindPostBloc>().add(
+                                      UpdateFormEvent(
+                                          personId:1,
+                                          updatedData:
+                                      {
+                                        'name' : nameFindController.text,
+                                        'gender' : (state as FindPostGenderSelectedState).selectedGender,
+                                        'description' : descriptionFindController.text,
+                                        'country' : countryFindController.text,
+                                        'state' : stateFindController.text,
+                                        'city' : cityFindController.text,
+                                        'founded_at' : foundedAtFindController.text,
+                                        'image' : imageFindController.text ,
+                                        'police_station' : policeStationFindController.text,
+
+                                      }));
+                                },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
@@ -480,7 +509,6 @@ class FindPostScreen extends StatelessWidget {
                                     width: double.infinity,
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
