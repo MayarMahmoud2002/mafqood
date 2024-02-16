@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mafqood/authentication_bloc/authentication_bloc.dart';
 import 'package:mafqood/core/shared_widgets/back_button_widget.dart';
 import 'package:mafqood/core/utilis/colors.dart';
@@ -110,35 +107,13 @@ class SignUpScreen3 extends StatelessWidget {
                                   width: double.infinity,
                                  ),
                               SizedBox(
-                                height: 5.0,
+                                height: 15.0,
                               ),
                               Row(
                                 children: [
-                                  InkWell(
-                                    onTap: (){},
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15.0),
-                                      ),
-                                      height: 60,
-                                      width: 60,
-                                      child: TextWidget(text: 'camera', textStyle: TextStyle(color: Colors.black)),
-                                    ),
-                                  ),
+                                  Expanded(child: ContinueButtonWidget(text: 'Camera',)),
                                   SizedBox(width: 5,),
-                                  InkWell(
-                                    onTap: (){},
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(15.0),
-                                      ),
-                                      height: 60,
-                                      width: 60,
-                                      child: TextWidget(text: 'gallery', textStyle: TextStyle(color: Colors.black)),
-                                    ),
-                                  ),
+                                  Expanded(child: ContinueButtonWidget(text: 'Gallery',)),
                                 ],
                               ),
                             ],

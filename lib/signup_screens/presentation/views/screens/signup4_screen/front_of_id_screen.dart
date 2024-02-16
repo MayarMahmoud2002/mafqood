@@ -71,6 +71,17 @@ class IdImagesScreen extends StatelessWidget {
                         height: 25.0,
                       ),
                       ImageContainerWidget(),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(child: ContinueButtonWidget(text: 'Camera',)),
+                          SizedBox(width: 5,),
+                          Expanded(child: ContinueButtonWidget(text: 'Gallery',)),
+                        ],
+                      ),
+
                     ],
                   ),
                 ),
@@ -91,6 +102,16 @@ class IdImagesScreen extends StatelessWidget {
                         height: 25.0,
                       ),
                       ImageContainerWidget(),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(child: ContinueButtonWidget(text: 'Camera',)),
+                          SizedBox(width: 5,),
+                          Expanded(child: ContinueButtonWidget(text: 'Gallery',)),
+                        ],
+                      ),
                     ],
                   ),
                 ),

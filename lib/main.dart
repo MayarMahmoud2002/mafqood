@@ -20,7 +20,6 @@ import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
 import 'lost_person_post_bloc/lost_person_bloc.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -140,7 +139,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
-          home: FindPostScreen(),
+          home: MainScreen(),
         ),
       ),
     );
