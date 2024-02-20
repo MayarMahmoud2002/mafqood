@@ -1,11 +1,24 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:mafqood/core/utilis/desk_storage.dart';
 import '../../users_bloc/user_data/user_data.dart';
 import 'app_contances.dart';
 
 
 class AuthenticationRepository {
 
-  final Dio _dio = Dio();
+ static Dio _dio = Dio();
+  init () {
+    _dio = Dio(
+        BaseOptions(
+          baseUrl:AppConstances.baseUrl,
+          receiveDataWhenStatusError: true,
+        )
+    );
+  }
 
   Future<String> signIn({required String phone, required String password}) async {
     try {
@@ -14,28 +27,20 @@ class AuthenticationRepository {
         'password': password,
       });
       if (response.statusCode == 200) {
+        print (response.data);
         return response.data['token'];
       } else {
         throw Exception('Authentication failed');
       }
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
   }
-  Future<String> registerNamePassword({required String name, required String password }) async {
+   registerNamePassword({required String name, required String password }) async {
     try {
-      final response = await _dio.post(AppConstances.registerPath, data: {
-        'phone': name,
-        'password': password,
-
-      });
-      if (response.statusCode == 200) {
-        return response.data['token'];
-      } else {
-        throw Exception('Authentication failed');
-      }
+      await DeskStorage().setNameAndPasswordRegistered(name, password);
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
   }
   Future<String> registerResetPassword({required String resetPassword }) async {
@@ -49,82 +54,109 @@ class AuthenticationRepository {
         throw Exception('Authentication failed');
       }
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
   }
-  Future<String> registerLocation({required String country, required String city , required String state}) async {
+  registerLocation({required String country, required String city , required String state}) async {
     try {
-      final response = await _dio.post(AppConstances.registerPath, data: {
-        'country': country,
-        'city': city,
-        'state': state,
+      await DeskStorage().setLocationRegister(country,state,city);
+    } catch (error) {
+      rethrow;
+    }
+  }
+   registerGenderAndImageProfile({required String gender , required String imageProfile}) async {
+    try {
+     await DeskStorage().setGenderAndImageRegister(gender, imageProfile);
+    } catch (error) {
+      rethrow;
+    }
+  }
+ Future<Uint8List> imageFileToUint8List(String filePath) async {
+   // Read the image file as bytes
+   final File imageFile = File(filePath);
+   final Uint8List imageBytes = await imageFile.readAsBytes();
+   return imageBytes;
+ }
+  registerIdImages({required String nationalIdFrontImage,required String nationalIdBackImage}) async {
+    try {
+      await DeskStorage().setIdImagesRegister(nationalIdFrontImage, nationalIdBackImage);
+    } catch (error) {
+      rethrow;
+    }
+  }
+ register({required String phone})async {
+    try {
+      await DeskStorage().getRegisterData().then ((value) async {
+        RegisterData registerData = value;
 
+        List<int> compressedProfileImageBytes = await FlutterImageCompress.compressWithList(
+         await imageFileToUint8List(registerData.imageProfile!),
+          minHeight: 1024,
+          minWidth: 1024,
+          quality: 50,
+        );
+        List<int> compressedFrontIdImageBytes = await FlutterImageCompress.compressWithList(
+          await imageFileToUint8List(registerData.nationalIdFrontImage!),
+          minHeight: 1024,
+          minWidth: 1024,
+          quality: 50,
+        );
+        List<int> compressedBackIdImageBytes = await FlutterImageCompress.compressWithList(
+          await imageFileToUint8List(registerData.nationalIdBackImage!),
+          minHeight: 1024,
+          minWidth: 1024,
+          quality: 50,
+        );
+
+        var formData = FormData.fromMap({
+          'phone': phone,
+          'name': registerData.name,
+          'password': registerData.password,
+          'country': registerData.country,
+          'state': registerData.state,
+          'city': registerData.city,
+          'gender': registerData.gender,
+          'profile_image': await MultipartFile.fromBytes(compressedProfileImageBytes, filename: 'compressedProfileImageBytes_${registerData.name}.png'),
+          'national_id_front_image': await MultipartFile.fromBytes(compressedFrontIdImageBytes, filename: 'compressedFrontIdImageBytes_${registerData.name}.png'),
+          'national_id_back_image': await MultipartFile.fromBytes(compressedBackIdImageBytes, filename: 'compressedBackIdImageBytes_${registerData.name}.png'),
+        });
+        final response = await _dio.post(AppConstances.registerPath,
+            data: formData
+           );
+
+        if (response.statusCode == 200) {
+          if (response.data['status'] != 200) {
+            throw Exception(response.data['error']);
+          } else {
+            return response.data;
+          }
+        } else {
+          throw Exception(response.data['error']);
+        }
       });
-      if (response.statusCode == 200) {
-        return response.data['token'];
-      } else {
-        throw Exception('Authentication failed');
-      }
+
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
-  }
-  Future<String> registerGenderAndImageProfile({required String gender , required String imageProfile}) async {
-    try {
-      final response = await _dio.post(AppConstances.registerPath, data: {
-        'gender': gender,
-        'profile_image': imageProfile,
-      });
-      if (response.statusCode == 200) {
-        return response.data['token'];
-      } else {
-        throw Exception('Authentication failed');
-      }
-    } catch (error) {
-      throw Exception('An error occurred: $error');
-    }
-  }
-  Future<String> registerProfileImage({required String profileImage}) async {
-    try {
-      final response = await _dio.post(AppConstances.registerPath, data: {
-        'profile_image': profileImage,
-      });
-      if (response.statusCode == 200) {
-        return response.data['token'];
-      } else {
-        throw Exception('Authentication failed');
-      }
-    } catch (error) {
-      throw Exception('An error occurred: $error');
-    }
-  }
-  Future<String> registerIdImages({required String nationalIdFrontImage,required String nationalIdBackImage}) async {
-    try {
-      final response = await _dio.post(AppConstances.registerPath, data: {
-        'national_id_front_image': nationalIdFrontImage,
-        'national_id_back_image': nationalIdBackImage,
-      });
-      if (response.statusCode == 200) {
-        return response.data['token'];
-      } else {
-        throw Exception('Authentication failed');
-      }
-    } catch (error) {
-      throw Exception('An error occurred: $error');
-    }
-  }
+
+ }
   Future<String> generateOTP({required String phone}) async {
     try {
       final response = await _dio.post(AppConstances.generateOtpCodePath, data: {
         'phone': phone,
       });
+      print (response.data);
       if (response.statusCode == 200) {
-        return response.data['token'];
+        if (response.data['status'] !=200) {
+          throw Exception( response.data['error']['phone']);
+        } else {
+          return response.data['message'];
+        }
       } else {
         throw Exception('Authentication failed');
       }
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
   }
   Future<String> checkOTP({required String otp}) async {
@@ -138,9 +170,13 @@ class AuthenticationRepository {
         throw Exception('Authentication failed');
       }
     } catch (error) {
-      throw Exception('An error occurred: $error');
+rethrow;
     }
   }
+
+
+
+
 }
 //Profile Repository
 class ProfileRepository {
@@ -154,7 +190,7 @@ class ProfileRepository {
         throw Exception('Failed to fetch profile');
       }
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
 
 
@@ -163,7 +199,7 @@ class ProfileRepository {
     try {
       await _dio.post('${AppConstances.updateProfilePath}/get' , data:updatedData);
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
 
 
@@ -172,7 +208,7 @@ class ProfileRepository {
     try {
       await _dio.post('${AppConstances.deleteProfilePath}/get');
     } catch (error) {
-      throw Exception('An error occurred: $error');
+      rethrow;
     }
 
 

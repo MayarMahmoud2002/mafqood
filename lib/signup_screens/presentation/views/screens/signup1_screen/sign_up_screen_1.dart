@@ -1,35 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mafqood/core/shared_widgets/container_line_widget.dart';
 import 'package:mafqood/core/shared_widgets/container_button_widget.dart';
 import 'package:mafqood/core/utilis/colors.dart';
 import '../../../../../authentication_bloc/authentication_bloc.dart';
 import '../../../../../core/shared_widgets/back_button_widget.dart';
+import '../../../../../core/shared_widgets/flush_bar.dart';
 import '../../../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../../../core/shared_widgets/text_widget.dart';
 import '../../../../../core/shared_widgets/title.dart';
 import '../../../../../core/utilis/styles.dart';
 
-class SignUpScreen1 extends StatelessWidget {
+class SignUpScreen1 extends StatefulWidget {
+  @override
+  State<SignUpScreen1> createState() => _SignUpScreen1State();
+}
+
+class _SignUpScreen1State extends State<SignUpScreen1> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController resetPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state) {
-        if (state is AuthenticationLoading)
-        {
-          return CircularProgressIndicator();
-        }else if (state is AuthenticationSuccess)
-        {
-          Navigator.pushNamed(context, 'signUpScreen2');
-        } else if (state is AuthenticationFailure)
-        {
-          return Text('Authentication failed: ${state.error}');
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state is RegisterNamePasswordLoading) {
+          EasyLoading.show(status: 'loading...');
         }
+        else if (state is RegisterNamePasswordFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        }else if (state is RegisterNamePasswordSuccess)
+        {
+          EasyLoading.dismiss();
+          Navigator.pushNamed(context, 'signUpScreen2');
+        }
+
+      },
+      builder: (context, state) {
         return SafeArea(
           child: Scaffold(
               key: _scaffoldKey,
@@ -116,12 +130,8 @@ class SignUpScreen1 extends StatelessWidget {
                         RegisterNamePasswordEvent(
                           password: passwordController.text,
                           name: nameController.text,
+                          confirmPassword: resetPasswordController.text,
                         ),);
-                      authBloc.add(
-                        RegisterResetPasswordEvent(
-                          password: resetPasswordController.text,
-                        ),
-                      );
                     },
                     child: ContinueButtonWidget(
                       text: 'Continue',

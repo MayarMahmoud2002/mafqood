@@ -1,32 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mafqood/authentication_bloc/authentication_bloc.dart';
 import 'package:mafqood/core/shared_widgets/back_button_widget.dart';
 import 'package:mafqood/core/utilis/colors.dart';
 import '../../../../../core/shared_widgets/container_line_widget.dart';
 import '../../../../../core/shared_widgets/container_button_widget.dart';
+import '../../../../../core/shared_widgets/flush_bar.dart';
 import '../../../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../../../core/shared_widgets/text_widget.dart';
 import '../../../../../core/shared_widgets/title.dart';
 import '../../../../../core/utilis/styles.dart';
 
-class SignUpScreen2 extends StatelessWidget {
+class SignUpScreen2 extends StatefulWidget {
+  @override
+  State<SignUpScreen2> createState() => _SignUpScreen2State();
+}
+
+class _SignUpScreen2State extends State<SignUpScreen2> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final TextEditingController countryController = TextEditingController();
+
   final TextEditingController cityController = TextEditingController();
+
   final TextEditingController stateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state) {
-        if (state is AuthenticationLoading) {
-          return CircularProgressIndicator();
-        } else if (state is AuthenticationSuccess) {
-          Navigator.pushNamed(context, 'signUpScreen3');
-        } else if (state is AuthenticationFailure) {
-          return Text('Authentication failed: ${state.error}');
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state is RegisterLocationLoading) {
+          EasyLoading.show(status: 'loading...');
         }
+        else if (state is RegisterLocationFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        } else if (state is RegisterLocationSuccess) {
+          EasyLoading.dismiss();
+          Navigator.pushNamed(context, 'signUpScreen3');
+        }
+      },
+      builder: (context, state) {
         return SafeArea(
           child: Scaffold(
               key: _scaffoldKey,

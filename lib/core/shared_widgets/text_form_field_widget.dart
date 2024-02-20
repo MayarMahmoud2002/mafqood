@@ -17,6 +17,7 @@ class TextFormFieldWidget extends StatelessWidget {
     return   Container(
       height: heightOfTextFormField,
       child: TextFormField(
+
         controller: controller,
         obscureText: hidePassword,
         style: TextStyle(
@@ -26,6 +27,7 @@ class TextFormFieldWidget extends StatelessWidget {
         cursorColor: color,
         keyboardType: textInputType,
         decoration: InputDecoration(
+
           labelText: '${text}',
           labelStyle: TextStyle(
             fontSize: 11.0,

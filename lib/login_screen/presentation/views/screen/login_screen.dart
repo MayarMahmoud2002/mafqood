@@ -20,13 +20,13 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        if (state is AuthenticationLoading) {
-          return CircularProgressIndicator();
-        } else if (state is AuthenticationSuccess) {
-          Navigator.pushNamed(context, 'mainScreen');
-        } else if (state is AuthenticationFailure) {
-          return Text('Authentication failed: ${state.error}');
-        }
+        // if (state is AuthenticationLoading) {
+        //   return CircularProgressIndicator();
+        // } else if (state is AuthenticationSuccess) {
+        //   Navigator.pushNamed(context, 'mainScreen');
+        // } else if (state is AuthenticationFailure) {
+        //   return Text('Authentication failed: ${state.error}');
+        // }
         return SafeArea(
           child: Scaffold(
             key:_scaffoldKey,

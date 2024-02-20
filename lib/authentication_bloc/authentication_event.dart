@@ -14,8 +14,9 @@ class RegisterNamePasswordEvent extends AuthenticationEvent
 {
   final String name;
   final String password;
+  final String confirmPassword;
 
-  RegisterNamePasswordEvent({required this.name, required this.password,});
+  RegisterNamePasswordEvent({required this.name, required this.password, required this.confirmPassword,});
 }
 class RegisterResetPasswordEvent extends AuthenticationEvent
 {
@@ -45,6 +46,10 @@ class RegisterIdImagesEvent extends AuthenticationEvent
 
   RegisterIdImagesEvent({required this.nationalIdFrontImage, required this.nationalIdBackImage});
 }
+class SendRegisterRequestEvent extends AuthenticationEvent {
+  final String phone;
+  SendRegisterRequestEvent({required this.phone});
+}
 class GenerateOTPEvent  extends AuthenticationEvent
 {
   final String phone;
@@ -63,6 +68,7 @@ class SelectPhotoEvent    extends AuthenticationEvent
 
   SelectPhotoEvent({required this.source});
 }
+
 //************************************************************************
 // abstract class ProfileEvent {}
 // class FetchProfileEvent extends ProfileEvent{}

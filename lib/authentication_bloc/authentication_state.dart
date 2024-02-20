@@ -4,19 +4,67 @@ part of 'authentication_bloc.dart';
 abstract class AuthenticationState {}
 
 class AuthenticationInitial extends AuthenticationState {}
-class AuthenticationLoading extends AuthenticationState {
-}
-class AuthenticationSuccess extends AuthenticationState
-{
-  final String token;
-
-  AuthenticationSuccess({required this.token});
-}
-
-class AuthenticationFailure extends AuthenticationState {
+class RegisterNamePasswordLoading extends AuthenticationState {}
+class RegisterNamePasswordSuccess extends AuthenticationState {}
+class RegisterNamePasswordFailure extends AuthenticationState {
   final String error;
+  RegisterNamePasswordFailure({required this.error});
+}
+class RegisterLocationLoading extends AuthenticationState {}
+class RegisterLocationSuccess extends AuthenticationState {}
+class RegisterLocationFailure extends AuthenticationState {
+  final String error;
+  RegisterLocationFailure({required this.error});
+}
+class RegisterGenderAndImageProfileLoading extends AuthenticationState {}
+class RegisterGenderAndImageProfileSuccess extends AuthenticationState {}
+class RegisterGenderAndImageProfileFailure extends AuthenticationState {
+  final String error;
+  RegisterGenderAndImageProfileFailure({required this.error});
+}
+class RegisterIdImagesLoading extends AuthenticationState {}
+class RegisterIdImagesSuccess extends AuthenticationState {}
+class RegisterIdImagesFailure extends AuthenticationState {
+  final String error;
+  RegisterIdImagesFailure({required this.error});
+}
 
-  AuthenticationFailure({required this.error});
+class SendRegisterRequestLoading extends AuthenticationState {}
+class SendRegisterRequestSuccess extends AuthenticationState {}
+class SendRegisterRequestFailure extends AuthenticationState {
+  final String error;
+  SendRegisterRequestFailure({required this.error});
+}
+
+class GenerateOTPLoading extends AuthenticationState {}
+class GenerateOTPSuccess extends AuthenticationState {}
+class GenerateOTPFailure extends AuthenticationState {
+  final String error;
+  GenerateOTPFailure({required this.error});
+}
+class VerifyOTPLoading extends AuthenticationState {}
+class VerifyOTPSuccess extends AuthenticationState {}
+class VerifyOTPFailure extends AuthenticationState {
+  final String error;
+  VerifyOTPFailure({required this.error});
+}
+
+
+
+class RegisterResetPasswordLoading extends AuthenticationState {}
+class RegisterResetPasswordSuccess extends AuthenticationState {}
+class RegisterResetPasswordFailure extends AuthenticationState {
+  final String error;
+  RegisterResetPasswordFailure({required this.error});
+}
+class SignInLoading extends AuthenticationState {}
+class SignInSuccess extends AuthenticationState {
+  final String token;
+  SignInSuccess({required this.token});
+}
+class SignInFailure extends AuthenticationState {
+  final String error;
+  SignInFailure({required this.error});
 }
 
 //*****************************************************************************

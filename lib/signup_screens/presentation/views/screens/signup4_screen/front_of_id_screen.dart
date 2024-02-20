@@ -1,37 +1,49 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mafqood/authentication_bloc/authentication_bloc.dart';
 import 'package:mafqood/core/shared_widgets/back_button_widget.dart';
 import 'package:mafqood/core/utilis/colors.dart';
 import 'package:mafqood/signup_screens/presentation/views/widgets/signup4_screen_widgets/image_container_widget.dart';
 import '../../../../../core/shared_widgets/container_line_widget.dart';
 import '../../../../../core/shared_widgets/container_button_widget.dart';
+import '../../../../../core/shared_widgets/flush_bar.dart';
 import '../../../../../core/shared_widgets/text_widget.dart';
 import '../../../../../core/shared_widgets/title.dart';
 import '../../../../../core/utilis/styles.dart';
 
-class IdImagesScreen extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController idFrontImageController = TextEditingController();
-  final TextEditingController idBackImageController = TextEditingController();
+class IdImagesScreen extends StatefulWidget {
+  @override
+  State<IdImagesScreen> createState() => _IdImagesScreenState();
+}
 
+class _IdImagesScreenState extends State<IdImagesScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String idFrontImagePath = "";
+  String idBackImagePath = "";
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state is RegisterIdImagesLoading) {
+          EasyLoading.show(status: 'loading...');
+        }
+        else if (state is RegisterIdImagesFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        } else if (state is RegisterIdImagesSuccess) {
+          EasyLoading.dismiss();
+          Navigator.pushNamed(context, 'signUpScreen5');
+        }
+      },
       builder: (context, state) {
-        if (state is AuthenticationLoading)
-          {
-            return CircularProgressIndicator();
-          }else if (state is AuthenticationSuccess)
-          {
-            Navigator.pushNamed(context, 'signUpScreen5');
-          }else if (state is AuthenticationFailure)
-          {
-            return Text('Authentication failed: ${state.error}');
-
-          }
         return Scaffold(
+          key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
           backgroundColor: ScreensColors.primaryColor,
           appBar: AppBar(
@@ -70,15 +82,50 @@ class IdImagesScreen extends StatelessWidget {
                       SizedBox(
                         height: 25.0,
                       ),
-                      ImageContainerWidget(),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                          image:idFrontImagePath.isNotEmpty? DecorationImage(
+                            image: FileImage(File(idFrontImagePath)) as ImageProvider,
+                            fit: BoxFit.cover,
+                          ):null,
+                        ),
+                        height: 180,
+                        width: double.infinity,
+                      ),
                       SizedBox(
                         height: 15.0,
                       ),
                       Row(
                         children: [
-                          Expanded(child: ContinueButtonWidget(text: 'Camera',)),
+                          Expanded(child: ContinueButtonWidget(text: 'Camera',
+                            onTap: () async {
+                              final picker = ImagePicker();
+                              final pickedFile = await picker.pickImage(source: ImageSource.camera);
+                              setState(() {
+                                if (pickedFile != null) {
+                                  idFrontImagePath = pickedFile.path;
+                                } else {
+                                  print('No image selected.');
+                                }
+                              });
+                            },
+                          )),
                           SizedBox(width: 5,),
-                          Expanded(child: ContinueButtonWidget(text: 'Gallery',)),
+                          Expanded(child: ContinueButtonWidget(text: 'Gallery',
+                            onTap: () async {
+                              final picker = ImagePicker();
+                              final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                              setState(() {
+                                if (pickedFile != null) {
+                                  idFrontImagePath = pickedFile.path;
+                                } else {
+                                  print('No image selected.');
+                                }
+                              });
+                            },
+                          )),
                         ],
                       ),
 
@@ -101,15 +148,50 @@ class IdImagesScreen extends StatelessWidget {
                       SizedBox(
                         height: 25.0,
                       ),
-                      ImageContainerWidget(),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                          image:idBackImagePath.isNotEmpty? DecorationImage(
+                            image: FileImage(File(idBackImagePath)) as ImageProvider,
+                            fit: BoxFit.cover,
+                          ):null,
+                        ),
+                        height: 180,
+                        width: double.infinity,
+                      ),
                       SizedBox(
                         height: 15.0,
                       ),
                       Row(
                         children: [
-                          Expanded(child: ContinueButtonWidget(text: 'Camera',)),
+                          Expanded(child: ContinueButtonWidget(text: 'Camera',
+                            onTap: () async {
+                              final picker = ImagePicker();
+                              final pickedFile = await picker.pickImage(source: ImageSource.camera);
+                              setState(() {
+                                if (pickedFile != null) {
+                                  idBackImagePath = pickedFile.path;
+                                } else {
+                                  print('No image selected.');
+                                }
+                              });
+                            },
+                          )),
                           SizedBox(width: 5,),
-                          Expanded(child: ContinueButtonWidget(text: 'Gallery',)),
+                          Expanded(child: ContinueButtonWidget(text: 'Gallery',
+                            onTap: () async {
+                              final picker = ImagePicker();
+                              final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                              setState(() {
+                                if (pickedFile != null) {
+                                  idBackImagePath = pickedFile.path;
+                                } else {
+                                  print('No image selected.');
+                                }
+                              });
+                            },
+                          )),
                         ],
                       ),
                     ],
@@ -124,7 +206,7 @@ class IdImagesScreen extends StatelessWidget {
                       var authBloc =
                       BlocProvider.of<AuthenticationBloc>(context);
                       authBloc.add(
-                        RegisterIdImagesEvent(nationalIdFrontImage: idFrontImageController.toString(), nationalIdBackImage: idBackImageController.toString()),
+                        RegisterIdImagesEvent(nationalIdFrontImage: idFrontImagePath, nationalIdBackImage: idBackImagePath),
                       );
 
                     },

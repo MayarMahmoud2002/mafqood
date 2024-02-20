@@ -11,9 +11,10 @@ class BackButtonWidget extends StatelessWidget {
     return  InkWell(
       onTap: ()
       {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>  SplashScreen()),);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) =>  SplashScreen()),);
+        Navigator.pop(context);
       },
       child: Container(
         child: Icon(
