@@ -372,9 +372,13 @@ class PersonsRepository
         },
         validateStatus: (status) => true,
       ));
+      print (response.data);
       if (response.statusCode == 200) {
         if (response.data['status'] !=200) {
-          throw Exception( response.data['error']);
+          if (response.data['message']=="validation error")
+            throw Exception( response.data['error']);
+          else
+            throw Exception( response.data['message']);
         } else {
           showFlushBar(response.data['message'],isError: false);
           print (response.data);
@@ -384,6 +388,7 @@ class PersonsRepository
         throw Exception('Authentication failed');
       }
     } catch (error) {
+      print (error);
       print ("error in addFoundedPersons");
       rethrow;
     }

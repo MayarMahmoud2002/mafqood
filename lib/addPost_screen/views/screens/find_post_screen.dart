@@ -346,16 +346,9 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                 SizedBox(
                                   height: 40.0,
                                 ),
-                                Row(
-                                  children: [
-                                    TextWidget(
-                                        text: 'Description',
-                                        textStyle: Styles.textStyle15Grey),
-                                    TextWidget(
-                                        text: ' (optional)',
-                                        textStyle: Styles.textStyle15Grey),
-                                  ],
-                                ),
+                                TextWidget(
+                                    text: 'Description',
+                                    textStyle: Styles.textStyle15Grey),
                                 SizedBox(
                                   height: 10.0,
                                 ),
