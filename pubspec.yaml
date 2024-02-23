@@ -54,6 +54,8 @@ dependencies:
   pinput: ^4.0.0
   provider:
   flutter_image_compress:
+  expandable_text: ^2.3.0
+  flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:
   flutter_test:

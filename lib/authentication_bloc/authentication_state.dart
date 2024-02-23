@@ -67,6 +67,13 @@ class SignInFailure extends AuthenticationState {
   SignInFailure({required this.error});
 }
 
+class UpdatePasswordLoading extends AuthenticationState {}
+class UpdatePasswordSuccess extends AuthenticationState {}
+class UpdatePasswordFailure extends AuthenticationState {
+  final String error;
+  UpdatePasswordFailure({required this.error});
+}
+
 //*****************************************************************************
 // abstract class ProfileState{}
 // class ProfileLoading extends ProfileState{}

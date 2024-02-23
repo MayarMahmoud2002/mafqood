@@ -18,12 +18,16 @@ import '../../../../../core/shared_widgets/pin.dart';
 import '../../../../../core/shared_widgets/text_widget.dart';
 import '../../../../../core/shared_widgets/title.dart';
 import '../../../../../core/utilis/styles.dart';
+import '../../../../../forget_password_screen/new_password_screen.dart';
 import '../../../../../home_screen/presentation/views/screen/main_screen.dart';
 import '../../../../../splash_screen/presentation/views/screens/splash_screen.dart';
 import '../signup3_screen/sign_up_screen_3.dart';
 import '../signup5_screen/sign_up_screen_5.dart';
 
 class OtpScreen extends StatefulWidget {
+  OtpScreen({ this.phone="",this.resetPassword=false});
+  String phone="";
+  bool resetPassword=false;
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -59,7 +63,12 @@ class _OtpScreenState extends State<OtpScreen> {
           EasyLoading.dismiss();
         } else if (state is VerifyOTPSuccess) {
           EasyLoading.dismiss();
-          Navigator.pushNamed(context, 'mainScreen');
+
+          if (widget.resetPassword)
+              Navigator.push(context, MaterialPageRoute(builder: (context) => NewPasswordScreen(phone:widget.phone)));
+          else
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SplashScreen()), (route) => false);
+          showFlushBar("OTP verified successfully",isError: false);
         }
       },
       builder: (context, state) {
@@ -143,6 +152,12 @@ class _OtpScreenState extends State<OtpScreen> {
                             child: InkWell(
                               onTap: () {
                                 Provider.of<OTPProvider>(context,listen: false).resendTimer();
+                                var authBloc = BlocProvider.of<AuthenticationBloc>(context);
+                                authBloc.add(
+                                  GenerateOTPEvent(
+                                    phone: widget.phone,
+                                  ),
+                                );
                               },
                               child: TextWidget(
                                   text: 'Resend code via SMS',

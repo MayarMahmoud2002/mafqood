@@ -156,6 +156,31 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
           emit(VerifyOTPFailure(error: e.toString()));
         }
       },);
+    on<UpdatePasswordEvent>((event, emit) async {
+        if (event.phone.isEmpty || event.newPassword.isEmpty || event.confirmPassword.isEmpty) {
+          emit(UpdatePasswordFailure(error: 'phone , new password and confirm password cannot be empty'));
+          return;
+        }else if (event.newPassword.length<8)
+        {
+          emit(UpdatePasswordFailure(error: 'password must be at least 8 characters'));
+          return;
+        }else if (!hasRequiredCharacters(event.newPassword)){
+          emit(UpdatePasswordFailure(error: 'password must contain at least one uppercase letter, one lowercase letter, and one special character'));
+          return;
+        }
+        else if (event.newPassword != event.confirmPassword)
+        {
+          emit(UpdatePasswordFailure(error: 'password and confirm password are not the same'));
+          return;
+        }
+        emit(UpdatePasswordLoading());
+        try {
+          await authenticationRepository.updatePassword(phone: event.phone,newPassword: event.newPassword);
+          emit(UpdatePasswordSuccess());
+        } catch (e) {
+          emit(UpdatePasswordFailure(error: e.toString()));
+        }
+      },);
 
   }
   bool hasRequiredCharacters(String input) {

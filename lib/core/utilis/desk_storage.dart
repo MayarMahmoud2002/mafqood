@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 
-class DeskStorage {
+class DeskStorage with ChangeNotifier{
   static const secureStorage = FlutterSecureStorage();
 
   static String? token;
@@ -31,6 +31,7 @@ class DeskStorage {
     await hive.put('userId', pk);
     await hive.put('userType', usertype);
     await hive.put('mobile', mobileS);
+    notifyListeners();
   }
 
   getAllAuthenticatedData() async {
@@ -44,6 +45,7 @@ class DeskStorage {
     pK = await hive.get('userId');
     userType = await hive.get('userType');
     mobile = await hive.get('mobile');
+    notifyListeners();
   }
 
 
@@ -58,6 +60,7 @@ class DeskStorage {
     await hive.delete('userType');
     await hive.delete('mobile');
     await hive.deleteFromDisk();
+    notifyListeners();
   }
 
 
@@ -76,7 +79,9 @@ class DeskStorage {
     var hive = await Hive.openBox('Settings',
         encryptionCipher: HiveAesCipher(encryptionKey));
     hive.put('language', languageCode);
+
   }
+
 
   getToken() async {
     final key = await secureStorage.read(key: 'key');

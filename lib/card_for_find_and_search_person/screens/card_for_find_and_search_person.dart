@@ -26,7 +26,7 @@ class _CardCustomState extends State<CardCustom> {
                   borderRadius: BorderRadius.circular(10.0),
                   color: ScreensColors.whiteColor,
                 ),
-                height: 500,
+                height: MediaQuery.of(context).size.height * 0.7,
                 width: double.infinity,
                 child: Card(
                   shape: RoundedRectangleBorder(

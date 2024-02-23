@@ -1,43 +1,72 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mafqood/classes/new_post_model.dart';
+import 'package:mafqood/core/shared_widgets/flush_bar.dart';
+import 'package:mafqood/home_screen/presentation/views/screen/main_screen.dart';
+import '../../../classes/post_model.dart';
 import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
+import '../../../core/utilis/shared_methods.dart';
 import '../../../core/utilis/styles.dart';
-import '../../../lost_person_post_bloc/lost_person_bloc.dart';
+import '../../../persons_bloc/persons_bloc.dart';
 
-class LostPostScreen extends StatelessWidget {
+class LostPostScreen extends StatefulWidget {
    LostPostScreen({super.key});
+
+  @override
+  State<LostPostScreen> createState() => _LostPostScreenState();
+}
+
+class _LostPostScreenState extends State<LostPostScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final TextEditingController nameLostController = TextEditingController();
-  final TextEditingController genderLostController = TextEditingController();
+
   final TextEditingController descriptionLostController = TextEditingController();
+
   final TextEditingController countryLostController = TextEditingController();
+
   final TextEditingController stateLostController = TextEditingController();
+
   final TextEditingController cityLostController = TextEditingController();
-  final TextEditingController foundedLostAtController = TextEditingController();
-  final TextEditingController imageLostController = TextEditingController();
+
+   DateTime? foundedLost;
+
+  String imgPath="";
+
+   final List<String> items = [
+     'Male',
+     'Female',
+   ];
+
+   String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
-    final List<String> items = [
-      'Male',
-      'Female',
-    ];
-    String? selectedValue;
-    return BlocBuilder<LostPersonBloc, LostPersonState>(
-      builder: (context, state) {
-        if (state is LostPostLoadingState)
-        {
-          return CircularProgressIndicator();
-        }else if (state is LostPostSuccessState)
-        {
-           Navigator.pushNamed(context, 'mainScreen');
-        }else if (state is LostPostErrorState)
-        {
-          return Text('Authentication failed: ${state.error}');
+    return BlocConsumer<PersonsBloc, PersonsState>(
+      listener: (context, state) {
+        if (state is AddFoundedOrMissingPersonSuccess) {
+          showFlushBar("Added Successfully", isError: false);
+          EasyLoading.dismiss();
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainScreen()), (route) => false);
+          });
+        } else if (state is AddFoundedOrMissingPersonFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        }else if (state is AddFoundedOrMissingPersonLoading) {
+          EasyLoading.show(status: 'loading...');
         }
+      },
+      builder: (context, state) {
         return SafeArea(
           child: Scaffold(
             key: _scaffoldKey,
@@ -150,7 +179,7 @@ class LostPostScreen extends StatelessWidget {
                                   text: 'Enter the country where you lost the person',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -168,7 +197,7 @@ class LostPostScreen extends StatelessWidget {
                                   text: 'Enter the city where you lost the person',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -186,7 +215,7 @@ class LostPostScreen extends StatelessWidget {
                                   text: 'Enter the state where you lost the person',
                                   textInputAction: TextInputAction.next,
                                   textInputType: TextInputType.text,
-                                  hidePassword: true,
+                                  hidePassword: false,
                                   color: Colors.black87,
                                   heightOfTextFormField: 50.0,
                                 ),
@@ -198,9 +227,76 @@ class LostPostScreen extends StatelessWidget {
                                     strokeWidth: 2,
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
-                                      child: Row(
+                                      child:
+                                      (imgPath != "")?
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Image.file(File(imgPath), height: MediaQuery.of(context).size.height*0.5, width: MediaQuery.of(context).size.width*0.85, fit: BoxFit.cover),
+
+                                          Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  imgPath = "";
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(50.0),
+                                                ),
+                                                child: Icon(Icons.close, color: Colors.black,),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ) :
+                                      Row(
                                         children: [
                                           InkWell(
+                                            onTap: () {
+                                              showModalBottomSheet(context: context, builder: (BuildContext context) {
+                                                return Container(
+                                                  height: MediaQuery.of(context).size.height * 0.18,
+                                                  color: Colors.white,
+                                                  child: Column(
+                                                    children: [
+                                                      ListTile(
+                                                        leading: Icon(Icons.camera_alt),
+                                                        title: Text('Camera'),
+                                                        onTap: () async {
+                                                          var image = await ImagePicker().pickImage(source: ImageSource.camera);
+                                                          if (image != null) {
+                                                            setState(() {
+                                                              imgPath = image.path;
+                                                            });
+                                                          }
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                      ListTile(
+                                                        leading: Icon(Icons.photo),
+                                                        title: Text('Gallery'),
+                                                        onTap: () async{
+                                                          var image =await ImagePicker().pickImage(source: ImageSource.gallery);
+                                                          if (image != null) {
+                                                            setState(() {
+                                                              imgPath = image.path;
+                                                            });
+                                                          }
+                                                          Navigator.pop(context);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              });
+                                            },
                                             child: Container(
                                               child: Center(
                                                 child: TextWidget(
@@ -281,7 +377,7 @@ class LostPostScreen extends StatelessWidget {
                                 ),
                                 TextWidget(
                                     text:
-                                        'Please enter the age of the person you lost.',
+                                        'Please enter the gender of the person you lost.',
                                     textStyle: TextStyle(
                                       fontSize: 13.0,
                                     )),
@@ -312,6 +408,11 @@ class LostPostScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedValue = value;
+                                          });
+                                        },
                                         items: items
                                             .map((String item) => DropdownMenuItem<String>(
                                           value: item,
@@ -363,28 +464,122 @@ class LostPostScreen extends StatelessWidget {
                                           height: 40,
                                           padding: EdgeInsets.only(left: 14, right: 14),
                                         ),
+                                        value: selectedValue,
                                       ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(
+                                  height: 25.0,
+                                ),
+                                TextWidget(
+                                    text: 'Lost At',
+                                    textStyle: Styles.textStyle15Grey),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                TextWidget(
+                                    text:
+                                        'Please enter the date when you lost the person.',
+                                    textStyle: TextStyle(
+                                      fontSize: 13.0,
+                                    )),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: DottedBorder(
+                                    color: Color.fromRGBO(217, 217, 217, 1.0),
+                                    strokeWidth: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child:
+
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2023),
+                                                lastDate: DateTime.now(),
+                                              ).then((value) {
+                                                setState(() {
+                                                  foundedLost = value;
+                                                });
+                                              });                                            },
+                                            child: Container(
+                                              child: Center(
+                                                child: TextWidget(
+                                                  text: foundedLost != null
+                                                      ?"Change Date"
+                                                      : 'Select Date',
+                                                  textStyle:
+                                                  Styles.textStyle13Black,
+                                                ),
+                                              ),
+                                              height: 34,
+                                              width: 111,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 0.3,
+                                                    color: Color.fromRGBO(
+                                                        217, 217, 217, 1.0)),
+                                                color: Color.fromRGBO(
+                                                    248, 248, 248, 1.0),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 15),
+                                          Expanded(
+                                            child: foundedLost != null
+                                                ? Align(
+                                                alignment: Alignment.center,
+                                                  child: TextWidget(
+
+                                                  text: foundedLost!.year.toString() +
+                                                      '-' +
+                                                      foundedLost!.month.toString() +
+                                                      '-' +
+                                                      foundedLost!.day.toString(),
+                                                  textStyle: Styles.textStyle15Black),
+                                                )
+                                                : Align(
+                                              alignment: Alignment.center,
+                                              child: TextWidget( text: 'No Date Selected',
+                                                  textStyle: Styles.textStyle15Black),
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+
+                                SizedBox(
                                   height: 40.0,
                                 ),
                                 InkWell(
                                   onTap: ()
-                                  {
-                                    context.read<LostPersonBloc>().add(
-                                        SubmitLostFormEvent(fromData:
-                                        {
-                                          'name' : nameLostController.text,
-                                          'gender' : genderLostController.text,
-                                          'description' : descriptionLostController.text,
-                                          'country' : countryLostController.text,
-                                          'state' : stateLostController.text,
-                                          'city' : cityLostController.text,
-                                          'founded_at' : foundedLostAtController.text,
-                                          'image' : imageLostController.text ,
-                                        }));
+                                  async {
+
+                                    context.read<PersonsBloc>().add(
+                                        AddFoundedOrMissingPersonEvent(postModel:
+                                            NewPostModel(
+                                              personType: PersonType.missingPerson,
+                                              city: cityLostController.text,
+                                              country:  countryLostController.text,
+                                              date:  foundedLost.toString(),
+                                              description: descriptionLostController.text,
+                                              gender:  selectedValue.toString().toLowerCase(),
+                                              name: nameLostController.text,
+                                              image: imgPath,
+                                              state: stateLostController.text,
+                                            ),personType: PersonType.missingPerson
+                                        ));
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -413,50 +608,50 @@ class LostPostScreen extends StatelessWidget {
                                 SizedBox(
                                   height : 15.0,
                                 ),
-                                InkWell(
-                                  onTap: ()
-                                  {
-                                    context.read<LostPersonBloc>().add(
-                                        UpdateLostFormEvent(
-                                            personId: 1,
-                                            updatedData:
-                                            {
-                                              'name' : nameLostController.text,
-                                              'gender' : genderLostController.text,
-                                              'description' : descriptionLostController.text,
-                                              'country' : countryLostController.text,
-                                              'state' : stateLostController.text,
-                                              'city' : cityLostController.text,
-                                              'founded_at' : foundedLostAtController.text,
-                                              'image' : imageLostController.text ,
-
-                                            })
-
-                                       );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.bottomRight,
-                                        end: Alignment.bottomLeft,
-                                        colors: [
-                                          Color.fromRGBO(88, 45, 92, 1.0),
-                                          Color.fromRGBO(177, 104, 79, 1.0),
-                                        ],
-                                      ),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(6.0),
-                                    ),
-                                    child: Center(
-                                      child: TextWidget(
-                                        textStyle: Styles.textStyle15White,
-                                        text: 'Update',
-                                      ),
-                                    ),
-                                    height: 48.0,
-                                    width: double.infinity,
-                                  ),
-                                ),
+                                // InkWell(
+                                //   onTap: ()
+                                //   {
+                                //     // context.read<LostPersonBloc>().add(
+                                //     //     UpdateLostFormEvent(
+                                //     //         personId: 1,
+                                //     //         updatedData:
+                                //     //         {
+                                //     //           'name' : nameLostController.text,
+                                //     //           'gender' : genderLostController.text,
+                                //     //           'description' : descriptionLostController.text,
+                                //     //           'country' : countryLostController.text,
+                                //     //           'state' : stateLostController.text,
+                                //     //           'city' : cityLostController.text,
+                                //     //           'founded_at' : foundedLostAtController.text,
+                                //     //           'image' : imageLostController.text ,
+                                //     //
+                                //     //         })
+                                //     //
+                                //     //    );
+                                //   },
+                                //   child: Container(
+                                //     decoration: BoxDecoration(
+                                //       gradient: LinearGradient(
+                                //         begin: Alignment.bottomRight,
+                                //         end: Alignment.bottomLeft,
+                                //         colors: [
+                                //           Color.fromRGBO(88, 45, 92, 1.0),
+                                //           Color.fromRGBO(177, 104, 79, 1.0),
+                                //         ],
+                                //       ),
+                                //       color: Colors.white,
+                                //       borderRadius: BorderRadius.circular(6.0),
+                                //     ),
+                                //     child: Center(
+                                //       child: TextWidget(
+                                //         textStyle: Styles.textStyle15White,
+                                //         text: 'Update',
+                                //       ),
+                                //     ),
+                                //     height: 48.0,
+                                //     width: double.infinity,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

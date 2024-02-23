@@ -18,6 +18,7 @@ class _PinState extends State<Pin> {
   @override
   void dispose() {
     _focusNode.dispose();
+    widget.controller.text = '';
     super.dispose();
   }
 
@@ -57,11 +58,14 @@ class _PinState extends State<Pin> {
         focusNode: _focusNode,
         defaultPinTheme: defaultPinTheme,
         onCompleted: widget.onComplete,
+
         focusedPinTheme: defaultPinTheme.copyWith(
           height: 68,
           width: 64,
+
           decoration: defaultPinTheme.decoration!.copyWith(
             border: Border.all(color: borderColor),
+
           ),
         ),
         errorPinTheme: defaultPinTheme.copyWith(

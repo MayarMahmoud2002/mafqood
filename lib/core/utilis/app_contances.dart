@@ -5,7 +5,7 @@ import 'navigation_service.dart';
 class AppConstances
 
 {
-  static const String baseUrl = 'http://192.168.1.5:80/';
+  static const String baseUrl = 'https://mafqoud.xyz/';
   static const String loginPath = 'api/auth/login';
   static const String registerPath = 'api/auth/register';
   static const String restPasswordPath = 'api/auth/password/reset';
@@ -25,6 +25,7 @@ class AppConstances
   static const String getAllUsersPath = 'api/user/get/all';
 
   final size = MediaQuery.of(NavigationService.context!).size;
+
 
 
 }

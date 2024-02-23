@@ -9,7 +9,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mafqood/core/utilis/desk_storage.dart';
 import 'package:mafqood/core/utilis/navigation_service.dart';
+import 'package:mafqood/forget_password_screen/forget_password_screen.dart';
 import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
+import 'package:mafqood/persons_bloc/persons_bloc.dart';
 import 'package:mafqood/profile_bloc/profile_bloc.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/otp_screen/otp_screen.dart';
 import 'package:mafqood/signup_screens/presentation/views/screens/signup1_screen/sign_up_screen_1.dart';
@@ -23,18 +25,17 @@ import 'addPost_screen/views/screens/find_post_screen.dart';
 import 'addPost_screen/views/screens/lost_post_screen.dart';
 import 'authentication_bloc/authentication_bloc.dart';
 import 'core/utilis/repository.dart';
-import 'founded_person_post_bloc/find_post_bloc.dart';
 import 'home_screen/presentation/views/screen/home_screen.dart';
 import 'home_screen/presentation/views/screen/main_screen.dart';
 import 'login_screen/presentation/views/screen/login_screen.dart';
-import 'lost_person_post_bloc/lost_person_bloc.dart';
 import 'signup_screens/presentation/views/screens/otp_screen/otp_provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
   await initSecureStorage();
   await AuthenticationRepository().init();
+  await PersonsRepository().init();
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -71,12 +72,10 @@ class MyApp extends StatelessWidget {
           BlocProvider<ProfileBloc>(
             create: (context) => ProfileBloc(ProfileRepository()),
           ),
-          BlocProvider<FindPostBloc>(
-            create: (context) => FindPostBloc(FoundedPostRepository()),
+          BlocProvider<PersonsBloc>(
+            create: (context) => PersonsBloc(PersonsRepository()),
           ),
-          BlocProvider<LostPersonBloc>(
-            create: (context) => LostPersonBloc((LostPostRepository())),
-          ),
+
         ],
         child: MaterialApp(
           navigatorKey: NavigationService.navigatorKey,
@@ -167,6 +166,7 @@ class MyApp extends StatelessWidget {
             'profileScreen' : (context) => ProfileScreen(),
             'lostPostScreen' : (context) => LostPostScreen(),
             'idScreen' : (context) => IdImagesScreen(),
+            "forgotPasswordScreen" :(context) => ForgetPassword(),
           },
           localizationsDelegates: const [
             CountryLocalizations.delegate,
@@ -180,7 +180,11 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data != null) {
+                  DeskStorage().getAllAuthenticatedData();
+                  var personsBloc = BlocProvider.of<PersonsBloc>(context);
+                  personsBloc.add(GetFoundedPersonsEvent());
                   return MainScreen();
+
                 } else {
                   return SplashScreen();
                 }

@@ -69,6 +69,15 @@ class SelectPhotoEvent    extends AuthenticationEvent
   SelectPhotoEvent({required this.source});
 }
 
+class UpdatePasswordEvent extends AuthenticationEvent
+{
+  final String phone;
+  final String newPassword;
+  final String confirmPassword;
+
+  UpdatePasswordEvent({required this.phone, required this.newPassword, required this.confirmPassword});
+}
+
 //************************************************************************
 // abstract class ProfileEvent {}
 // class FetchProfileEvent extends ProfileEvent{}

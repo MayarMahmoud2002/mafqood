@@ -16,6 +16,7 @@ import '../../../../../core/shared_widgets/container_button_widget.dart';
 import '../../../../../core/shared_widgets/flush_bar.dart';
 import '../../../../../core/shared_widgets/title.dart';
 import '../otp_screen/otp_provider.dart';
+import '../otp_screen/otp_screen.dart';
 
 class SignUpScreen5 extends StatefulWidget {
   @override
@@ -45,7 +46,9 @@ class _SignUpScreen5State extends State<SignUpScreen5> {
         }else if (state is GenerateOTPSuccess) {
           EasyLoading.dismiss();
           Provider.of<OTPProvider>(context, listen: false).init();
-          Navigator.pushNamed(context, 'otpScreen');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(
+            phone: phoneNumber!.countryCode+phoneNumber!.number,
+          )));
         }
         else if (state is SendRegisterRequestFailure) {
           showFlushBar(state.error);

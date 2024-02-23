@@ -1,58 +1,81 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../../classes/new_post_model.dart';
+import '../../../classes/post_model.dart';
+import '../../../core/shared_widgets/flush_bar.dart';
 import '../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../core/shared_widgets/text_widget.dart';
 import '../../../core/utilis/styles.dart';
-import '../../../founded_person_post_bloc/find_post_bloc.dart';
+import '../../../home_screen/presentation/views/screen/main_screen.dart';
+import '../../../persons_bloc/persons_bloc.dart';
 
-class FindPostScreen extends StatelessWidget {
+class FindPostScreen extends StatefulWidget {
 
+  @override
+  State<FindPostScreen> createState() => _FindPostScreenState();
+}
+
+class _FindPostScreenState extends State<FindPostScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+
+
+
+  DateTime? foundedLost;
+
+  String imgPath="";
+
+  final List<String> items = [
+    'Male',
+    'Female',
+  ];
+
+  String? selectedValue;
+
+
+
+
   final TextEditingController nameFindController = TextEditingController();
-  final TextEditingController genderFindController = TextEditingController();
+
+
   final TextEditingController descriptionFindController = TextEditingController();
+
   final TextEditingController countryFindController = TextEditingController();
+
   final TextEditingController stateFindController = TextEditingController();
+
   final TextEditingController cityFindController = TextEditingController();
-  final TextEditingController foundedAtFindController = TextEditingController();
-  final TextEditingController imageFindController = TextEditingController();
+
   final TextEditingController policeStationFindController = TextEditingController();
-   String? selectedGender ;
+
+
   @override
   Widget build(BuildContext context) {
-    final List<String> items = [
-      'Male',
-      'Female',
-    ];
-    selectedGender ??= 'Select Gender';
 
-    return BlocBuilder<FindPostBloc, FindPostState>(
-      builder: (context, state) {
-        if  (state is FindPostLoadingState)
-        {
-          return Center(child: CircularProgressIndicator());
-        }else if (state is FindPostSuccessState)
-        {
-          Navigator.pushNamed(context, 'mainScreen');
-        } else if (state is FindPostErrorState)
-        {
-          return Text('Authentication failed: ${state.error}');
-        }else if (state is FindPostGenderSelectedState)
-        {
-          selectedGender = state.selectedGender;
-
-        }else if (state is FindPostUpdateLoadingState)
-        {
-          return Center(child: CircularProgressIndicator());
-        }else if (state is FindPostUpdateSuccessState)
-        {
-          Navigator.pushNamed(context, 'mainScreen');
-        }else if (state is FindPostUpdateErrorState)
-        {
-          return Text('Updated failed: ${state.error}');
+    return BlocConsumer<PersonsBloc, PersonsState>(
+      listener: (context, state) {
+        if (state is AddFoundedOrMissingPersonSuccess) {
+          showFlushBar("Added Successfully", isError: false);
+          EasyLoading.dismiss();
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainScreen()), (route) => false);
+          });
+        } else if (state is AddFoundedOrMissingPersonFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        }else if (state is AddFoundedOrMissingPersonLoading) {
+          EasyLoading.show(status: 'loading...');
         }
+      },
+      builder: (context, state) {
+
         return SafeArea(
           child: Scaffold(
             key: _scaffoldKey,
@@ -248,9 +271,44 @@ class FindPostScreen extends StatelessWidget {
                                     strokeWidth: 2,
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
-                                      child: Row(
+                                      child: (imgPath != "")?Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Image.file(File(imgPath), height: MediaQuery.of(context).size.height*0.5, width: MediaQuery.of(context).size.width*0.85, fit: BoxFit.cover),
+
+                                          Positioned(
+                                            right: 0,
+                                            top: 0,
+                                            child: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  imgPath = "";
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(50.0),
+                                                ),
+                                                child: Icon(Icons.close, color: Colors.black,),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ) :Row(
+
                                         children: [
                                           InkWell(
+                                            onTap: () async {
+                                              var image = await ImagePicker().pickImage(source: ImageSource.camera);
+                                              if (image != null) {
+                                                setState(() {
+                                                  imgPath = image.path;
+                                                });
+                                              }
+                                              },
                                             child: Container(
                                               child: Center(
                                                 child: TextWidget(
@@ -350,7 +408,7 @@ class FindPostScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                selectedGender ?? 'Select Gender',
+                                                'Select Gender',
                                                 style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,
@@ -375,8 +433,9 @@ class FindPostScreen extends StatelessWidget {
                                         ))
                                             .toList(),
                                         onChanged: (value) {
-                                          context.read<FindPostBloc>().add(SelectGenderEvent(value!));
-                                        },
+                                          setState(() {
+                                            selectedValue = value;
+                                          });                                        },
                                         buttonStyleData: ButtonStyleData(
                                           height: 50,
                                           width: 160,
@@ -415,6 +474,95 @@ class FindPostScreen extends StatelessWidget {
                                           height: 40,
                                           padding: EdgeInsets.only(left: 14, right: 14),
                                         ),
+                                        value: selectedValue,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 25.0,
+                                ),
+                                TextWidget(
+                                    text: 'Date Found',
+                                    textStyle: Styles.textStyle15Grey),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                TextWidget(
+                                    text:
+                                    'Please enter the date when you found the person.',
+                                    textStyle: TextStyle(
+                                      fontSize: 13.0,
+                                    )),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: DottedBorder(
+                                    color: Color.fromRGBO(217, 217, 217, 1.0),
+                                    strokeWidth: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child:
+
+                                      Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2023),
+                                                lastDate: DateTime.now(),
+                                              ).then((value) {
+                                                setState(() {
+                                                  foundedLost = value;
+                                                });
+                                              });                                            },
+                                            child: Container(
+                                              child: Center(
+                                                child: TextWidget(
+                                                  text: foundedLost != null
+                                                      ?"Change Date"
+                                                      : 'Select Date',
+                                                  textStyle:
+                                                  Styles.textStyle13Black,
+                                                ),
+                                              ),
+                                              height: 34,
+                                              width: 111,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 0.3,
+                                                    color: Color.fromRGBO(
+                                                        217, 217, 217, 1.0)),
+                                                color: Color.fromRGBO(
+                                                    248, 248, 248, 1.0),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 15),
+                                          Expanded(
+                                            child: foundedLost != null
+                                                ? Align(
+                                              alignment: Alignment.center,
+                                              child: TextWidget(
+
+                                                  text: foundedLost!.year.toString() +
+                                                      '-' +
+                                                      foundedLost!.month.toString() +
+                                                      '-' +
+                                                      foundedLost!.day.toString(),
+                                                  textStyle: Styles.textStyle15Black),
+                                            )
+                                                : Align(
+                                              alignment: Alignment.center,
+                                              child: TextWidget( text: 'No Date Selected',
+                                                  textStyle: Styles.textStyle15Black),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -425,19 +573,21 @@ class FindPostScreen extends StatelessWidget {
                                 InkWell(
                                   onTap: ()
                                   {
-                                    context.read<FindPostBloc>().add(
-                                        SubmitFormEvent(fromData:
-                                        {
-                                          'name' : nameFindController.text,
-                                          'gender' : (state as FindPostGenderSelectedState).selectedGender,
-                                          'description' : descriptionFindController.text,
-                                          'country' : countryFindController.text,
-                                          'state' : stateFindController.text,
-                                          'city' : cityFindController.text,
-                                          'founded_at' : foundedAtFindController.text,
-                                          'image' : imageFindController.text ,
-                                          'police_station' : policeStationFindController.text,
-                                        }));
+                                    context.read<PersonsBloc>().add(
+                                        AddFoundedOrMissingPersonEvent(postModel:
+                                        NewPostModel(
+                                          personType: PersonType.missingPerson,
+                                          city: cityFindController.text,
+                                          country:  countryFindController.text,
+                                          date:  foundedLost.toString(),
+                                          description: descriptionFindController.text,
+                                          gender:  selectedValue.toString().toLowerCase(),
+                                          name: nameFindController.text,
+                                          image: imgPath,
+                                          state: stateFindController.text,
+                                          policeStation: policeStationFindController.text,
+                                        ),personType: PersonType.foundedPerson
+                                        ));
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -465,48 +615,48 @@ class FindPostScreen extends StatelessWidget {
                                 SizedBox(
                                   height : 15.0,
                                 ),
-                                InkWell(onTap: ()
-                                {
-                                  context.read<FindPostBloc>().add(
-                                      UpdateFormEvent(
-                                          personId:1,
-                                          updatedData:
-                                      {
-                                        'name' : nameFindController.text,
-                                        'gender' : (state as FindPostGenderSelectedState).selectedGender,
-                                        'description' : descriptionFindController.text,
-                                        'country' : countryFindController.text,
-                                        'state' : stateFindController.text,
-                                        'city' : cityFindController.text,
-                                        'founded_at' : foundedAtFindController.text,
-                                        'image' : imageFindController.text ,
-                                        'police_station' : policeStationFindController.text,
-
-                                      }));
-                                },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.bottomRight,
-                                        end: Alignment.bottomLeft,
-                                        colors: [
-                                          Color.fromRGBO(88, 45, 92, 1.0),
-                                          Color.fromRGBO(177, 104, 79, 1.0),
-                                        ],
-                                      ),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(6.0),
-                                    ),
-                                    child: Center(
-                                      child: TextWidget(
-                                        textStyle: Styles.textStyle15White,
-                                        text: 'Update',
-                                      ),
-                                    ),
-                                    height: 48.0,
-                                    width: double.infinity,
-                                  ),
-                                ),
+                                // InkWell(onTap: ()
+                                // {
+                                //   // context.read<FindPostBloc>().add(
+                                //   //     UpdateFormEvent(
+                                //   //         personId:1,
+                                //   //         updatedData:
+                                //   //     {
+                                //   //       'name' : nameFindController.text,
+                                //   //       'gender' : (state as FindPostGenderSelectedState).selectedGender,
+                                //   //       'description' : descriptionFindController.text,
+                                //   //       'country' : countryFindController.text,
+                                //   //       'state' : stateFindController.text,
+                                //   //       'city' : cityFindController.text,
+                                //   //       'founded_at' : foundedAtFindController.text,
+                                //   //       'image' : imageFindController.text ,
+                                //   //       'police_station' : policeStationFindController.text,
+                                //   //
+                                //   //     }));
+                                // },
+                                //   child: Container(
+                                //     decoration: BoxDecoration(
+                                //       gradient: LinearGradient(
+                                //         begin: Alignment.bottomRight,
+                                //         end: Alignment.bottomLeft,
+                                //         colors: [
+                                //           Color.fromRGBO(88, 45, 92, 1.0),
+                                //           Color.fromRGBO(177, 104, 79, 1.0),
+                                //         ],
+                                //       ),
+                                //       color: Colors.white,
+                                //       borderRadius: BorderRadius.circular(6.0),
+                                //     ),
+                                //     child: Center(
+                                //       child: TextWidget(
+                                //         textStyle: Styles.textStyle15White,
+                                //         text: 'Update',
+                                //       ),
+                                //     ),
+                                //     height: 48.0,
+                                //     width: double.infinity,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
