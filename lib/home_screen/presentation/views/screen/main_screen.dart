@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafqood/core/utilis/colors.dart';
 import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
 import '../../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
+import '../../../../persons_bloc/persons_bloc.dart';
+import '../../../../profile_bloc/profile_bloc.dart';
 import '../../../../profile_screen/presentation/views/screens/profile_screen.dart';
 import 'home_screen.dart';
 
@@ -10,7 +13,16 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0; // Index of the selected tab
+  int _currentIndex = 1; // Index of the selected tab
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var personsBloc = BlocProvider.of<PersonsBloc>(context);
+    personsBloc.add(GetFoundedOrMissingPersonsEvent());
+    var profileBloc = BlocProvider.of<ProfileBloc>(context);
+    profileBloc.add(GetProfileDataEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

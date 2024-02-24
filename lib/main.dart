@@ -35,6 +35,7 @@ void main() async{
   await initSecureStorage();
   await AuthenticationRepository().init();
   await PersonsRepository().init();
+  await ProfileRepository().init();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -182,9 +183,8 @@ class MyApp extends StatelessWidget {
                 if (snapshot.data != null) {
                   DeskStorage().getAllAuthenticatedData();
                   var personsBloc = BlocProvider.of<PersonsBloc>(context);
-                  personsBloc.add(GetFoundedPersonsEvent());
+                  personsBloc.add(GetFoundedOrMissingPersonsEvent());
                   return MainScreen();
-
                 } else {
                   return SplashScreen();
                 }

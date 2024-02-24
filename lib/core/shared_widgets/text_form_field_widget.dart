@@ -7,17 +7,18 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextInputType textInputType ;
   final bool hidePassword;
   final Color color;
+  bool enabled=true;
   final double? heightOfTextFormField;
   final TextEditingController? controller;
 
-  TextFormFieldWidget({ required this.text, required this.textInputAction, required this.textInputType, required this.hidePassword, required this.color,  this.heightOfTextFormField, this.controller,});
+  TextFormFieldWidget({ required this.text,this.enabled=true, required this.textInputAction, required this.textInputType, required this.hidePassword, required this.color,  this.heightOfTextFormField, this.controller,});
 
   @override
   Widget build(BuildContext context) {
     return   Container(
       height: heightOfTextFormField,
       child: TextFormField(
-
+enabled: enabled,
         controller: controller,
         obscureText: hidePassword,
         style: TextStyle(

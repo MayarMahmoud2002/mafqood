@@ -2,6 +2,8 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:mafqood/addPost_screen/views/screens/find_post_screen.dart';
+import 'package:mafqood/addPost_screen/views/screens/lost_post_screen.dart';
 import 'package:mafqood/core/utilis/desk_storage.dart';
 
 import '../../../../../classes/get_founded_persons_response.dart';
@@ -26,7 +28,7 @@ class PostItem extends StatelessWidget {
               Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25.0),
-                  child:postModel.founderOrReporterProfileImage!=null? Image.network(
+                  child:postModel.founderOrReporterProfileImage!=null &&postModel.founderOrReporterProfileImage!.isNotEmpty ? Image.network(
                     postModel.founderOrReporterProfileImage!,
                     errorBuilder: (context, error, stackTrace) {
                       return Icon(
@@ -35,6 +37,8 @@ class PostItem extends StatelessWidget {
                         size: 30.0,
                       );
                     },
+
+
                     fit: BoxFit.cover,
                   ):Icon(
                     Icons.person,
@@ -91,10 +95,45 @@ class PostItem extends StatelessWidget {
                             ),),
                           ),
                         if (postModel.founderOrReporterPhone==DeskStorage.mobile)
-                      Text("Edit", style: TextStyle(color: Colors.white,
-                       fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ),),
+                      TextButton(
+                        onPressed: () async {
+                          Navigator.pop(context);
+                          if (postModel.personType==PersonType.foundedPerson)
+                            {
+
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>FindPostScreen(
+                              cityFind: postModel.foundedOrMissingPersonCity,
+                              countryFind: postModel.foundedOrMissingPersonCountry,
+                              descriptionFind: postModel.foundedOrMissingPersonDescription,
+                              nameFind: postModel.foundedOrMissingPersonName,
+                             stateFind: postModel.foundedOrMissingPersonState,
+                              policeStationFind: postModel.foundedOrMissingPersonPoliceStation,
+                              selectedValueEdit: postModel.foundedOrMissingPersonGender=="male"?"Male":"Female",
+                              foundedLostEdit: DateTime.parse(postModel.foundedOrMissingPersonFoundedOrMissingAt!),
+                              id: postModel.foundedOrMissingPersonId,
+                            )));
+                            }
+                          else
+                            {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>LostPostScreen(
+                                cityMissed: postModel.foundedOrMissingPersonCity,
+                                countryMissed: postModel.foundedOrMissingPersonCountry,
+                                descriptionMissed: postModel.foundedOrMissingPersonDescription,
+                                nameMissed: postModel.foundedOrMissingPersonName,
+                                stateMissed: postModel.foundedOrMissingPersonState,
+                                selectedValueEdit: postModel.foundedOrMissingPersonGender=="male"?"Male":"Female",
+                                LostEdit: DateTime.parse(postModel.foundedOrMissingPersonFoundedOrMissingAt!
+                                ),
+                                id: postModel.foundedOrMissingPersonId,
+                              )));
+
+                             }
+                           },
+                        child: Text("Edit", style: TextStyle(color: Colors.white,
+                         fontSize: 20,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      ),
                         SizedBox(
                           height: 15,
                         ),

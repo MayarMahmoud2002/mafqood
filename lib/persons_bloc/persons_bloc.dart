@@ -20,9 +20,9 @@ class PersonsBloc extends Bloc<PersonsEvent, PersonsState> {
 
 
   PersonsBloc(this.personsRepository) : super(PersonsInitial()) {
-    on<GetFoundedPersonsEvent>((event, emit) async {
+    on<GetFoundedOrMissingPersonsEvent>((event, emit) async {
       List <PostModel> posts = [];
-      emit(GetFoundedPersonsLoading());
+      emit(GetFoundedPersonsLoading(event: event));
       try {
       var response=  await personsRepository.getFoundedPersons();
       GetFoundedPersonsResponse getFoundedPersonsResponse = GetFoundedPersonsResponse.fromJson(response);
@@ -169,16 +169,15 @@ class PersonsBloc extends Bloc<PersonsEvent, PersonsState> {
           case Gender.all:
             break;
           case Gender.male:
-            posts = posts.where((element) => (element.foundedOrMissingPersonGender=="male"?Gender.male:Gender.female)==Gender.male).toList();
+            posts = posts.where((element) => element.foundedOrMissingPersonGender!.toLowerCase().startsWith("m")).toList();
             break;
           case Gender.female:
-            posts = posts.where((element) => (element.foundedOrMissingPersonGender=="female"?Gender.male:Gender.female)==Gender.female).toList();
+            posts = posts.where((element) => element.foundedOrMissingPersonGender!.toLowerCase().contains("f")).toList();
             break;
         }
 
         emit(GetFoundedPersonsSuccess(posts: posts,event: event));
       } catch (e) {
-        showFlushBar(e.toString());
         emit(GetFoundedPersonsFailure(error: e.toString()));
       }
     },);
@@ -189,7 +188,6 @@ class PersonsBloc extends Bloc<PersonsEvent, PersonsState> {
         showFlushBar("Deleted Successfully", isError: false);
         emit(DeleteFoundedPersonSuccess());
       } catch (e) {
-        showFlushBar(e.toString());
         emit(DeleteFoundedPersonFailure(error: e.toString()));
       }
     },);
@@ -220,15 +218,83 @@ class PersonsBloc extends Bloc<PersonsEvent, PersonsState> {
         }
         else if (event.postModel.image==null || event.postModel.image!.isEmpty) {
               emit (AddFoundedOrMissingPersonFailure(error: 'Please select the image of the person you $variable'));
-        }else if (event.personType==PersonType.foundedPerson&&(event.postModel.policeStation==null || event.postModel.policeStation!.isEmpty)) {
+        }
+        else if (event.personType==PersonType.foundedPerson&&(event.postModel.policeStation==null || event.postModel.policeStation!.isEmpty)) {
           emit (AddFoundedOrMissingPersonFailure(error: "Please enter the police station where you found the person"));
         }
         await personsRepository.addFoundedOrMissingPerson(event.postModel,event.personType);
         emit(AddFoundedOrMissingPersonSuccess());
       } catch (e) {
-        showFlushBar(e.toString());
         emit(AddFoundedOrMissingPersonFailure(error: e.toString()));
       }
     },);
+    on<UpdateFoundedOrMissingPersonEvent>((event, emit) async {
+      emit(UpdateFoundedOrMissingPersonLoading());
+      String variable=event.personType==PersonType.missingPerson?"lost":"found";
+      try{
+        if (event.personType==PersonType.missingPerson&&(event.newPostModel.name==null || event.newPostModel.name!.isEmpty)) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: "Please enter the name of the person you $variable"));
+        }
+        else if (event.newPostModel.description==null || event.newPostModel.description!.isEmpty) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: 'Please enter the description of the person you $variable'));
+        }
+        else if ( event.newPostModel.country==null || event.newPostModel.country!.isEmpty) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: "Please enter the country where you $variable the person"));
+        }
+        else if (event.newPostModel.city==null || event.newPostModel.city!.isEmpty) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: "Please enter the city where you $variable the person"));
+        }
+        else if (event.newPostModel.state==null || event.newPostModel.state!.isEmpty) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: "Please enter the state where you $variable the person"));
+        }
+        else  if (event.newPostModel.gender==null || event.newPostModel.gender!.isEmpty) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: 'Please select the gender of the person you $variable'));
+        }
+        else if (event.newPostModel.date==null || event.newPostModel.date!.isEmpty) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: 'Please select the date when you lost the $variable'));
+        }
+        else if (event.personType==PersonType.foundedPerson&&(event.newPostModel.policeStation==null || event.newPostModel.policeStation!.isEmpty)) {
+          emit (UpdateFoundedOrMissingPersonFailure(error: "Please enter the police station where you found the person"));
+        }
+        NewPostModel newPostModel=NewPostModel(
+          id: event.oldPostModel.id,
+        );
+        if (event.newPostModel.name!=event.oldPostModel.name) {
+          newPostModel.name=event.newPostModel.name;
+        }
+        if (event.newPostModel.state!=event.oldPostModel.state) {
+          newPostModel.state=event.newPostModel.state;
+        }
+        if (event.newPostModel.city!=event.oldPostModel.city) {
+          newPostModel.city=event.newPostModel.city;
+        }
+        if (event.newPostModel.country!=event.oldPostModel.country) {
+          newPostModel.country=event.newPostModel.country;
+        }
+        if (event.newPostModel.date!=event.oldPostModel.date) {
+          newPostModel.date=event.newPostModel.date;
+        }
+        if (event.newPostModel.description!=event.oldPostModel.description) {
+          newPostModel.description=event.newPostModel.description;
+        }
+        if (event.newPostModel.image!=null && event.newPostModel.image!.isNotEmpty){
+          newPostModel.image=event.newPostModel.image;
+        }
+        if (event.personType==PersonType.foundedPerson) {
+          if (event.newPostModel.policeStation!=event.oldPostModel.policeStation) {
+            newPostModel.policeStation=event.newPostModel.policeStation;
+          }
+        }
+        if (event.newPostModel.gender!=event.oldPostModel.gender){
+          newPostModel.gender=event.newPostModel.gender;
+        }
+        await personsRepository.updateFoundedOrMissingPerson(newPostModel,event.personType,event.oldPostModel.id!);
+        emit(UpdateFoundedOrMissingPersonSuccess());
+      }catch(e){
+        emit(UpdateFoundedOrMissingPersonFailure(error: e.toString()));
+      }
+
+    });
+
   }
 }

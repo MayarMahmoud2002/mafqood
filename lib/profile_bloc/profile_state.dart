@@ -5,16 +5,25 @@ abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
 
-class ProfileLoadingState extends ProfileState{}
-class ProfileLoadedState extends ProfileState {
-  final Map <String , dynamic> profileData;
-
-  ProfileLoadedState(this.profileData);
+class GetProfileDataLoading extends ProfileState {
 }
-class ProfileDeletedState extends ProfileState{}
-class ProfileErrorState extends ProfileState{
+class GetProfileDataSuccess extends ProfileState {
+  User user;
+  GetProfileDataSuccess({required this.user});
+}
+class GetProfileDataFailure extends ProfileState {
   final String error;
-
-  ProfileErrorState({required this.error});
+  GetProfileDataFailure({required this.error});
 }
-
+class DeleteProfileLoading extends ProfileState {}
+class DeleteProfileSuccess extends ProfileState {}
+class DeleteProfileFailure extends ProfileState {
+  final String error;
+  DeleteProfileFailure({required this.error});
+}
+class UpdateProfileLoading extends ProfileState {}
+class UpdateProfileSuccess extends ProfileState {}
+class UpdateProfileFailure extends ProfileState {
+  final String error;
+  UpdateProfileFailure({required this.error});
+}

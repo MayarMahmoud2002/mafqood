@@ -2,14 +2,14 @@ part of 'persons_bloc.dart';
 
 @immutable
 abstract class PersonsEvent {}
-class GetFoundedPersonsEvent extends PersonsEvent {
+class GetFoundedOrMissingPersonsEvent extends PersonsEvent {
   String? searchText;
   Gender searchByFoundedGender=Gender.all;
   bool searchFromCustomDate=false;
   DateTime? searchByFoundedOrMissingPersonDateFrom;
   bool sortByLastAdded=true;
   PersonType personType=PersonType.all;
-  GetFoundedPersonsEvent({
+  GetFoundedOrMissingPersonsEvent({
     this.searchText,
     this.searchByFoundedGender=Gender.all,
     this.searchFromCustomDate=false,
@@ -30,6 +30,12 @@ class AddFoundedOrMissingPersonEvent extends PersonsEvent {
   final PersonType personType;
   NewPostModel postModel;
   AddFoundedOrMissingPersonEvent({required this.postModel,required this.personType});
+}
+class UpdateFoundedOrMissingPersonEvent extends PersonsEvent {
+  final PersonType personType;
+  NewPostModel oldPostModel;
+  NewPostModel newPostModel;
+  UpdateFoundedOrMissingPersonEvent({required this.oldPostModel,required this.personType,required this.newPostModel});
 }
 
 

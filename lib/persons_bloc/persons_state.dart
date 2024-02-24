@@ -4,10 +4,13 @@ part of 'persons_bloc.dart';
 abstract class PersonsState {}
 
 class PersonsInitial extends PersonsState {}
-class GetFoundedPersonsLoading extends PersonsState {}
+class GetFoundedPersonsLoading extends PersonsState {
+  GetFoundedOrMissingPersonsEvent event;
+  GetFoundedPersonsLoading({required this.event});
+}
 class GetFoundedPersonsSuccess extends PersonsState {
   final List<PostModel> posts;
-  GetFoundedPersonsEvent event;
+  GetFoundedOrMissingPersonsEvent event;
   GetFoundedPersonsSuccess({required this.posts,required this.event});
 }
 class GetFoundedPersonsFailure extends PersonsState {
@@ -25,4 +28,10 @@ class AddFoundedOrMissingPersonSuccess extends PersonsState {}
 class AddFoundedOrMissingPersonFailure extends PersonsState {
   final String error;
   AddFoundedOrMissingPersonFailure({required this.error});
+}
+class UpdateFoundedOrMissingPersonLoading extends PersonsState {}
+class UpdateFoundedOrMissingPersonSuccess extends PersonsState {}
+class UpdateFoundedOrMissingPersonFailure extends PersonsState {
+  final String error;
+  UpdateFoundedOrMissingPersonFailure({required this.error});
 }

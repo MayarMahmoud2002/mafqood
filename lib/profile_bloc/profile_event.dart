@@ -2,10 +2,16 @@ part of 'profile_bloc.dart';
 
 @immutable
 abstract class ProfileEvent {}
-class FetchProfileEvent extends ProfileEvent{}
+class GetProfileDataEvent extends ProfileEvent{
+}
 class UpdateProfileEvent extends ProfileEvent {
-  final Map<String , dynamic> updatedData;
+  String? name;
+  String? country;
+  String? state;
+  String? city;
+  String? gender;
+  String? imgPath;
 
-  UpdateProfileEvent(this.updatedData);
+  UpdateProfileEvent({this.name, this.country, this.state,this.gender,this.city,this.imgPath});
 }
 class DeleteProfileEvent extends ProfileEvent{}

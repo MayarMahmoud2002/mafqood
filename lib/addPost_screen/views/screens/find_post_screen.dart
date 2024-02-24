@@ -16,6 +16,16 @@ import '../../../home_screen/presentation/views/screen/main_screen.dart';
 import '../../../persons_bloc/persons_bloc.dart';
 
 class FindPostScreen extends StatefulWidget {
+  String? nameFind;
+  String? descriptionFind;
+  String? countryFind;
+  String? stateFind;
+  int? id;
+  String? cityFind;
+  String? policeStationFind;
+  String? selectedValueEdit;
+  DateTime? foundedLostEdit;
+  FindPostScreen({this.nameFind, this.id,this.descriptionFind, this.countryFind, this.stateFind, this.cityFind, this.policeStationFind, this.selectedValueEdit,this.foundedLostEdit});
 
   @override
   State<FindPostScreen> createState() => _FindPostScreenState();
@@ -23,39 +33,32 @@ class FindPostScreen extends StatefulWidget {
 
 class _FindPostScreenState extends State<FindPostScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-
-
-
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameFindController.text = widget.nameFind ?? "";
+    descriptionFindController.text = widget.descriptionFind ?? "";
+    countryFindController.text = widget.countryFind ?? "";
+    stateFindController.text = widget.stateFind ?? "";
+    cityFindController.text = widget.cityFind ?? "";
+    policeStationFindController.text = widget.policeStationFind ?? "";
+    selectedValue = widget.selectedValueEdit ;
+    foundedLost = widget.foundedLostEdit ?? null;
+  }
   DateTime? foundedLost;
-
   String imgPath="";
-
   final List<String> items = [
     'Male',
     'Female',
   ];
-
   String? selectedValue;
-
-
-
-
   final TextEditingController nameFindController = TextEditingController();
-
-
   final TextEditingController descriptionFindController = TextEditingController();
-
   final TextEditingController countryFindController = TextEditingController();
-
   final TextEditingController stateFindController = TextEditingController();
-
   final TextEditingController cityFindController = TextEditingController();
-
   final TextEditingController policeStationFindController = TextEditingController();
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -70,7 +73,17 @@ class _FindPostScreenState extends State<FindPostScreen> {
         } else if (state is AddFoundedOrMissingPersonFailure) {
           showFlushBar(state.error);
           EasyLoading.dismiss();
-        }else if (state is AddFoundedOrMissingPersonLoading) {
+        }else if (state is UpdateFoundedOrMissingPersonSuccess) {
+          showFlushBar("Updated Successfully", isError: false);
+          EasyLoading.dismiss();
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainScreen()), (route) => false);
+          });
+        } else if (state is UpdateFoundedOrMissingPersonFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        }
+        else if (state is AddFoundedOrMissingPersonLoading || state is UpdateFoundedOrMissingPersonLoading) {
           EasyLoading.show(status: 'loading...');
         }
       },
@@ -271,10 +284,11 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                     strokeWidth: 2,
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
-                                      child: (imgPath != "")?Stack(
+                                      child: (imgPath != "")?
+                                      Stack(
                                         alignment: Alignment.center,
                                         children: [
-                                          Image.file(File(imgPath), height: MediaQuery.of(context).size.height*0.5, width: MediaQuery.of(context).size.width*0.85, fit: BoxFit.cover),
+                                             Image.file(File(imgPath), height: MediaQuery.of(context).size.height*0.5, width: MediaQuery.of(context).size.width*0.85, fit: BoxFit.cover),
 
                                           Positioned(
                                             right: 0,
@@ -566,10 +580,13 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                 InkWell(
                                   onTap: ()
                                   {
+                                    print("pressed");
+
+                                    if (widget.id==null)
                                     context.read<PersonsBloc>().add(
                                         AddFoundedOrMissingPersonEvent(postModel:
                                         NewPostModel(
-                                          personType: PersonType.missingPerson,
+                                          personType: PersonType.foundedPerson,
                                           city: cityFindController.text,
                                           country:  countryFindController.text,
                                           date:  foundedLost.toString(),
@@ -581,6 +598,42 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                           policeStation: policeStationFindController.text,
                                         ),personType: PersonType.foundedPerson
                                         ));
+                                    else
+                                      context.read<PersonsBloc>().add(
+                                        UpdateFoundedOrMissingPersonEvent(
+                                            newPostModel: NewPostModel(
+                                              personType: PersonType.foundedPerson,
+                                              city: cityFindController.text,
+                                              country:  countryFindController.text,
+                                              date:  foundedLost.toString(),
+                                              description: descriptionFindController.text,
+                                              gender:  selectedValue.toString().toLowerCase(),
+                                              name: nameFindController.text,
+                                              image: imgPath,
+                                              state: stateFindController.text,
+                                              policeStation: policeStationFindController.text,
+                                              id: widget.id
+                                            ),
+                                          personType: PersonType.foundedPerson,
+                                          oldPostModel: NewPostModel(
+                                              personType: PersonType.foundedPerson,
+                                              city: widget.cityFind,
+                                              country:  widget.countryFind,
+                                              date:  widget.foundedLostEdit.toString(),
+                                              description: widget.descriptionFind,
+                                              gender:  widget.selectedValueEdit.toString().toLowerCase(),
+                                              name: widget.nameFind,
+                                              image: imgPath,
+                                              state: widget.stateFind,
+                                              policeStation: widget.policeStationFind,
+                                              id: widget.id
+                                          )
+                                        ),
+
+
+                                      );
+
+
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -598,7 +651,7 @@ class _FindPostScreenState extends State<FindPostScreen> {
                                     child: Center(
                                       child: TextWidget(
                                         textStyle: Styles.textStyle15White,
-                                        text: 'Create',
+                                        text: widget.id==null?'Create':'Update',
                                       ),
                                     ),
                                     height: 48.0,

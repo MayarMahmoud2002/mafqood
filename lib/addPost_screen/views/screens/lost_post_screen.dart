@@ -19,14 +19,33 @@ import '../../../core/utilis/styles.dart';
 import '../../../persons_bloc/persons_bloc.dart';
 
 class LostPostScreen extends StatefulWidget {
-   LostPostScreen({super.key});
-
+   String? nameMissed;
+   String? descriptionMissed;
+   String? countryMissed;
+   String? stateMissed;
+   int? id;
+   String? cityMissed;
+   String? selectedValueEdit;
+   DateTime? LostEdit;
+   LostPostScreen({this.id,this.cityMissed,this.countryMissed,this.descriptionMissed,this.LostEdit,this.nameMissed,this.selectedValueEdit,this.stateMissed});
   @override
   State<LostPostScreen> createState() => _LostPostScreenState();
 }
 
 class _LostPostScreenState extends State<LostPostScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameLostController.text = widget.nameMissed ?? "";
+    descriptionLostController.text = widget.descriptionMissed ?? "";
+    countryLostController.text = widget.countryMissed ?? "";
+    stateLostController.text = widget.stateMissed ?? "";
+    cityLostController.text = widget.cityMissed ?? "";
+    selectedValue = widget.selectedValueEdit ;
+    foundedLost = widget.LostEdit ?? null;
+  }
 
   final TextEditingController nameLostController = TextEditingController();
 
@@ -62,7 +81,16 @@ class _LostPostScreenState extends State<LostPostScreen> {
         } else if (state is AddFoundedOrMissingPersonFailure) {
           showFlushBar(state.error);
           EasyLoading.dismiss();
-        }else if (state is AddFoundedOrMissingPersonLoading) {
+        }else if (state is UpdateFoundedOrMissingPersonSuccess) {
+          showFlushBar("Updated Successfully", isError: false);
+          EasyLoading.dismiss();
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainScreen()), (route) => false);
+          });
+        } else if (state is UpdateFoundedOrMissingPersonFailure) {
+          showFlushBar(state.error);
+          EasyLoading.dismiss();
+        }else if (state is AddFoundedOrMissingPersonLoading || state is UpdateFoundedOrMissingPersonLoading) {
           EasyLoading.show(status: 'loading...');
         }
       },
@@ -565,21 +593,54 @@ class _LostPostScreenState extends State<LostPostScreen> {
                                 InkWell(
                                   onTap: ()
                                   async {
+                                    if (widget.id==null)
+                                      context.read<PersonsBloc>().add(
+                                          AddFoundedOrMissingPersonEvent(postModel:
+                                          NewPostModel(
+                                            personType: PersonType.missingPerson,
+                                            city: cityLostController.text,
+                                            country:  countryLostController.text,
+                                            date:  foundedLost.toString(),
+                                            description: descriptionLostController.text,
+                                            gender:  selectedValue.toString().toLowerCase(),
+                                            name: nameLostController.text,
+                                            image: imgPath,
+                                            state: stateLostController.text,
+                                          ),personType: PersonType.missingPerson
+                                          ));
+                                    else
+                                      context.read<PersonsBloc>().add(
+                                        UpdateFoundedOrMissingPersonEvent(
 
-                                    context.read<PersonsBloc>().add(
-                                        AddFoundedOrMissingPersonEvent(postModel:
-                                            NewPostModel(
-                                              personType: PersonType.missingPerson,
-                                              city: cityLostController.text,
-                                              country:  countryLostController.text,
-                                              date:  foundedLost.toString(),
-                                              description: descriptionLostController.text,
-                                              gender:  selectedValue.toString().toLowerCase(),
-                                              name: nameLostController.text,
-                                              image: imgPath,
-                                              state: stateLostController.text,
-                                            ),personType: PersonType.missingPerson
-                                        ));
+                                            newPostModel: NewPostModel(
+                                                personType: PersonType.missingPerson,
+                                                city: cityLostController.text,
+                                                country:  countryLostController.text,
+                                                date:  foundedLost.toString(),
+                                                description: descriptionLostController.text,
+                                                gender:  selectedValue.toString().toLowerCase(),
+                                                name: nameLostController.text,
+                                                image: imgPath,
+                                                state: stateLostController.text,
+                                                id: widget.id
+                                            ),
+                                            personType: PersonType.missingPerson,
+                                            oldPostModel: NewPostModel(
+                                                personType: PersonType.missingPerson,
+                                                city: widget.cityMissed,
+                                                country:  widget.countryMissed,
+                                                date:  widget.LostEdit.toString(),
+                                                description: widget.descriptionMissed,
+                                                gender:  widget.selectedValueEdit.toString().toLowerCase(),
+                                                name: widget.nameMissed,
+                                                image: imgPath,
+                                                state: widget.stateMissed,
+                                                id: widget.id
+                                            )
+                                        ),
+
+
+                                      );
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

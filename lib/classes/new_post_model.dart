@@ -10,6 +10,7 @@ class NewPostModel{
   String? date;
   String? policeStation;
   String? image;
+  int? id;
   PersonType? personType;
   NewPostModel({
     this.name,
@@ -21,7 +22,8 @@ class NewPostModel{
   this.date,
   this.policeStation,
   this.image,
-  this.personType
+  this.personType,
+  this.id
   });
 
 

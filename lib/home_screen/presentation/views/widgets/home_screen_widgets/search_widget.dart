@@ -9,7 +9,7 @@ import '../../../../../core/utilis/colors.dart';
 import '../../../../../persons_bloc/persons_bloc.dart';
 
 class SearchWidget extends StatefulWidget {
-  GetFoundedPersonsEvent event;
+  GetFoundedOrMissingPersonsEvent event;
   SearchWidget({required this.event});
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
@@ -124,7 +124,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                         value: Gender.female, groupValue: widget.event.searchByFoundedGender, onChanged: (value) {
                         setMenuState(() {
                           widget.event.searchByFoundedGender=Gender.female;
-                          print (widget.event.searchByFoundedGender);
 
                         });
                       },activeColor: Colors.white,),
@@ -133,7 +132,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                       RadioListTile(title: Text("All", style: TextStyle(color: Colors.white,fontSize: 12),),value: PersonType.all, groupValue: widget.event.personType, onChanged: (value) {
                         setMenuState(() {
                           widget.event.personType=PersonType.all;
-
                         });
                       },activeColor: Colors.white,),
                       RadioListTile(title:  Text("Missing", style: TextStyle(color: Colors.white,fontSize: 12),),
@@ -163,7 +161,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   child: Text('Search', style: TextStyle(color: Colors.white,fontSize: 15),),
                   onPressed: () {
                     Navigator.of(context).pop();
-                    BlocProvider.of<PersonsBloc>(context).add(GetFoundedPersonsEvent(
+                    BlocProvider.of<PersonsBloc>(context).add(GetFoundedOrMissingPersonsEvent(
                       personType: widget.event.personType,
                       searchByFoundedGender: widget.event.searchByFoundedGender,
                       searchByFoundedOrMissingPersonDateFrom: widget.event.searchByFoundedOrMissingPersonDateFrom,

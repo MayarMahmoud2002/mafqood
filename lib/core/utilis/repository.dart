@@ -1,14 +1,17 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mafqood/classes/post_model.dart';
 import 'package:mafqood/core/shared_widgets/flush_bar.dart';
 import 'package:mafqood/core/utilis/desk_storage.dart';
 import 'package:mafqood/core/utilis/shared_methods.dart';
+import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
 import '../../classes/new_post_model.dart';
 import 'app_contances.dart';
+import 'navigation_service.dart';
 
 
 class AuthenticationRepository {
@@ -212,43 +215,103 @@ rethrow;
 }
 //Profile Repository
 class ProfileRepository {
-  final Dio _dio = Dio();
-  Future <Map <String , dynamic>> fetchProfile() async {
+  static Dio _dio = Dio();
+
+  init() {
+    _dio = Dio(
+        BaseOptions(
+          baseUrl: AppConstances.baseUrl,
+          receiveDataWhenStatusError: true,
+        )
+    );
+  }
+
+  Future <Map <String, dynamic>> fetchProfile() async {
     try {
-      final response = await _dio.get('${AppConstances.profilePath}/get');
+      var token = await DeskStorage().getToken();
+      final response = await _dio.get(
+          AppConstances.profilePath, options: Options(
+        headers: { 'Authorization': 'Bearer $token',
+          "Content-Type": "application/json",
+        },
+        validateStatus: (status) => true,
+
+      ));
       if (response.statusCode == 200) {
-        return response.data;
+        if (response.data['status'] != 200) {
+          throw Exception(response.data['error']);
+        } else {
+          return response.data;
+        }
       } else {
-        throw Exception('Failed to fetch profile');
+        throw Exception('Authentication failed');
       }
     } catch (error) {
+      print("error in getProfile");
       rethrow;
     }
-
-
   }
-  Future<void> updateProfile  (Map <String , dynamic> updatedData) async {
+
+  Future<void> updateProfile({
+    String? name,
+    String? country,
+    String? state,
+    String? city,
+    String? gender,
+    String? imgPath}) async {
     try {
-      await _dio.post('${AppConstances.updateProfilePath}/get' , data:updatedData);
+      List<int> compressedImageBytes = [];
+      if (imgPath != null)
+        compressedImageBytes = await FlutterImageCompress.compressWithList(
+          await imageFileToUint8List(imgPath),
+          minHeight: 1024,
+          minWidth: 1024,
+          quality: 50,
+        );
+      FormData formData = FormData.fromMap({
+     if(name!=null&&name.isNotEmpty)   "name": name,
+      if(country!=null&&country.isNotEmpty) "country": country,
+      if(city!=null&&city.isNotEmpty) "city": city,
+      if(state!=null&&state.isNotEmpty) "state": state,
+      if(gender!=null&&gender.isNotEmpty) "gender": gender,
+      if(imgPath!=null&& imgPath.isNotEmpty) 'profile_image': await MultipartFile.fromBytes(
+            compressedImageBytes, filename: 'compressedImageBytes_${name}.png'),
+
+      });
+      print(formData.length);
+      for (var key in formData.fields) {
+        print(key.key);
+        print(key.value);
+      }
+      var token = await DeskStorage().getToken();
+      final response = await _dio.post(AppConstances.updateProfilePath,
+          data: formData,
+          options: Options(
+            headers: { 'Authorization': 'Bearer $token',
+              "Content-Type": "application/json",
+            },
+            validateStatus: (status) => true,
+          ));
+      print(response.data);
+      if (response.statusCode == 200) {
+        if (response.data['status'] != 200) {
+          if (response.data['message'] == "validation error")
+            throw Exception(response.data['error']);
+          else
+            throw Exception(response.data['message']);
+        } else {
+          print(response.data);
+          return response.data;
+        }
+      } else {
+        throw Exception('Authentication failed');
+      }
     } catch (error) {
+      print(error);
+      print("error in addFoundedPersons");
       rethrow;
     }
-
-
   }
-  Future<void> deleteProfile  () async {
-    try {
-      await _dio.post('${AppConstances.deleteProfilePath}/get');
-    } catch (error) {
-      rethrow;
-    }
-
-
-  }
-
-
-
-
 }
 //Founded Post Repository
 class PersonsRepository
@@ -259,6 +322,7 @@ class PersonsRepository
         BaseOptions(
           baseUrl:AppConstances.baseUrl,
           receiveDataWhenStatusError: true,
+
         )
     );
   }
@@ -272,13 +336,16 @@ class PersonsRepository
         validateStatus: (status) => true,
 
       ));
+
       if (response.statusCode == 200) {
         if (response.data['status'] !=200) {
           throw Exception( response.data['error']);
         } else {
+
           return response.data;
         }
       } else {
+
         throw Exception('Authentication failed');
       }
     } catch (error) {
@@ -326,8 +393,6 @@ class PersonsRepository
         if (response.data['status'] !=200) {
           throw Exception( response.data['error']);
         } else {
-          showFlushBar(response.data['message'],isError: false);
-          print (response.data);
           return response.data;
         }
       } else {
@@ -380,7 +445,6 @@ class PersonsRepository
           else
             throw Exception( response.data['message']);
         } else {
-          showFlushBar(response.data['message'],isError: false);
           print (response.data);
           return response.data;
         }
@@ -393,6 +457,65 @@ class PersonsRepository
       rethrow;
     }
 
+  }
+
+  updateFoundedOrMissingPerson(NewPostModel postModel, PersonType personType,int id)async {
+    String path = personType == PersonType.foundedPerson ? AppConstances.updateFoundedPersonPath : AppConstances.updateLostPersonPath;
+    try {
+      List<int> compressedImageBytes=[];
+      if (postModel.image!=null&&postModel.image!="" ) {
+        compressedImageBytes  = await FlutterImageCompress.compressWithList(
+          await imageFileToUint8List(postModel.image!),
+          minHeight: 1024,
+          minWidth: 1024,
+          quality: 50,
+        );
+      }
+      print ("-------------------------");
+
+
+      FormData formData = FormData.fromMap({
+        if (postModel.name!=null)   "name": postModel.name,
+        if (postModel.country!=null)   "country": postModel.country,
+        if (postModel.city!=null)   "city": postModel.city,
+        if (postModel.state!=null)   "state": postModel.state,
+        if (postModel.gender!=null)   "gender":postModel.gender,
+        if (postModel.description!=null)   'description' : postModel.description,
+        if (postModel.date!=null)    if (personType == PersonType.foundedPerson) 'founded_at' : postModel.date,
+        if (postModel.date!=null)    if (personType == PersonType.missingPerson) 'losted_at' : postModel.date,
+        if (postModel.policeStation!=null)    if (personType == PersonType.foundedPerson)'police_station' : postModel.policeStation,
+        if (postModel.image!=null)    if (postModel.image!="") 'image' :await MultipartFile.fromBytes(compressedImageBytes, filename: 'compressedImageBytes_${postModel.name}.png'),
+        'id' : id,
+
+      });
+      var token= await DeskStorage().getToken();
+      final response = await _dio.post(path,
+          data: formData,
+          options: Options(
+            headers: { 'Authorization': 'Bearer $token',
+              "Content-Type": "application/json",
+            },
+            validateStatus: (status) => true,
+          ));
+      print (response.data);
+      if (response.statusCode == 200) {
+        if (response.data['status'] !=200) {
+          if (response.data['message']=="validation error")
+            throw Exception( response.data['error']);
+          else
+            throw Exception( response.data['message']);
+        } else {
+          print (response.data);
+          return response.data;
+        }
+      } else {
+        throw Exception('Authentication failed');
+      }
+    } catch (error) {
+      print (error);
+      print ("error in update Persons");
+      rethrow;
+    }
   }
 
 
