@@ -46,7 +46,6 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
           showFlushBar(state.error);
           EasyLoading.dismiss();
         } else if (state is GetProfileDataSuccess) {
-          selectedValue=state.user.gender=="male"?"Male":"Female";
           EasyLoading.dismiss();
           return buildProfileContent(state.user);
         }else if (state is DeleteProfileLoading) {
