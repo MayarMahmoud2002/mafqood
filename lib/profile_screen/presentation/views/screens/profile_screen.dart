@@ -43,8 +43,13 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
         if (state is GetProfileDataLoading) {
           EasyLoading.show(status: 'loading...');
         } else if (state is GetProfileDataFailure) {
-          showFlushBar(state.error);
           EasyLoading.dismiss();
+          return Scaffold(
+            backgroundColor: ScreensColors.primaryColor,
+            body: Center(
+              child: Text('error'),
+            ),
+          );
         } else if (state is GetProfileDataSuccess) {
           EasyLoading.dismiss();
           return buildProfileContent(state.user);

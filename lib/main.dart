@@ -33,6 +33,7 @@ import 'signup_screens/presentation/views/screens/otp_screen/otp_provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await initSecureStorage();
+  DeskStorage().logout();
   await AuthenticationRepository().init();
   await PersonsRepository().init();
   await ProfileRepository().init();

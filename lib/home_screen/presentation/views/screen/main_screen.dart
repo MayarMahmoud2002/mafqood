@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 1; // Index of the selected tab
+  int _currentIndex = 0; // Index of the selected tab
   @override
   void initState() {
     // TODO: implement initState
