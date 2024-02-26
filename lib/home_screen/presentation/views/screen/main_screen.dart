@@ -14,14 +14,13 @@ class MainScreen extends StatefulWidget {
 }
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0; // Index of the selected tab
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    var personsBloc = BlocProvider.of<PersonsBloc>(context);
-    personsBloc.add(GetFoundedOrMissingPersonsEvent());
-    var profileBloc = BlocProvider.of<ProfileBloc>(context);
-    profileBloc.add(GetProfileDataEvent());
+    BlocProvider.of<PersonsBloc>(context).add(GetFoundedOrMissingPersonsEvent());
+    BlocProvider.of<ProfileBloc>(context).add(GetProfileDataEvent());
   }
 
   @override

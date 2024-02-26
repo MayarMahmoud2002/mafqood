@@ -31,7 +31,9 @@ class DeskStorage with ChangeNotifier{
     await hive.put('userId', pk);
     await hive.put('userType', usertype);
     await hive.put('mobile', mobileS);
-    notifyListeners();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      notifyListeners();
+    });
   }
 
   getAllAuthenticatedData() async {

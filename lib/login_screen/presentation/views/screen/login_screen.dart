@@ -6,6 +6,7 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:mafqood/core/utilis/colors.dart';
+import 'package:mafqood/home_screen/presentation/views/screen/main_screen.dart';
 import '../../../../authentication_bloc/authentication_bloc.dart';
 import '../../../../core/shared_widgets/back_button_widget.dart';
 import '../../../../core/shared_widgets/container_button_widget.dart';
@@ -16,6 +17,8 @@ import '../../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../../core/shared_widgets/text_widget.dart';
 import '../../../../core/shared_widgets/title.dart';
 import '../../../../core/utilis/styles.dart';
+import '../../../../persons_bloc/persons_bloc.dart';
+import '../../../../profile_bloc/profile_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -39,9 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
           EasyLoading.show(status: 'loading...');
         } else if (state is SignInSuccess) {
           EasyLoading.dismiss();
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.pushAndRemoveUntil(context,  MaterialPageRoute(builder: (context) => MainScreen()), (route) => false);
+            showFlushBar('Login Successfully', isError: false);
+          });
 
-          Navigator.pushNamed(context, 'mainScreen');
-          showFlushBar('Login Successfully', isError: false);
         } else if (state is SignInFailure) {
           showFlushBar(state.error);
           EasyLoading.dismiss();

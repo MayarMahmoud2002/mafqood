@@ -23,8 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<PersonsBloc, PersonsState>(
       builder: (context, state) {
         if (state is GetFoundedPersonsFailure ) {
+          showFlushBar(state.error);
           EasyLoading.dismiss();
         }else if (state is DeleteFoundedPersonFailure) {
+          showFlushBar(state.error);
           EasyLoading.dismiss();
         }else if (state is DeleteFoundedPersonSuccess){
           Future.delayed(Duration(seconds: 1),(){
@@ -86,10 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
         }
         else if (state is GetFoundedPersonsLoading || state is DeleteFoundedOrMissingPersonLoading) {
-          if (state is GetFoundedPersonsLoading) {
-            print(state.event.searchByFoundedGender);
-            print("-----------------000000000000000");
-          }
           EasyLoading.show(status: 'loading...');
         }
         return Scaffold(
