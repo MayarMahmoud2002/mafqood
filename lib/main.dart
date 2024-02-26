@@ -33,11 +33,9 @@ import 'signup_screens/presentation/views/screens/otp_screen/otp_provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await initSecureStorage();
-  DeskStorage().logout();
   await AuthenticationRepository().init();
   await PersonsRepository().init();
   await ProfileRepository().init();
-
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -183,8 +181,6 @@ class MyApp extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data != null) {
                   DeskStorage().getAllAuthenticatedData();
-                  var personsBloc = BlocProvider.of<PersonsBloc>(context);
-                  personsBloc.add(GetFoundedOrMissingPersonsEvent());
                   return MainScreen();
                 } else {
                   return SplashScreen();

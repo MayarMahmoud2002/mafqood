@@ -75,10 +75,9 @@ class PostItem extends StatelessWidget {
                 (BuildContext context) {
                   return Container(
                     width: double.infinity,
-
-                    height:(postModel.founderOrReporterPhone!=DeskStorage.mobile)?MediaQuery.of(context).size.height*0.10: MediaQuery.of(context).size.height*0.15,
                     color: ScreensColors.primaryColor,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
                           height: 15.0,),
@@ -149,6 +148,8 @@ class PostItem extends StatelessWidget {
                             fontWeight: FontWeight.bold
                         ),),
                       ),
+                        SizedBox(
+                          height: 15.0,),
 
                       ],
                     ),

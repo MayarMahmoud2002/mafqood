@@ -247,6 +247,7 @@ class ProfileRepository {
         throw Exception('Authentication failed');
       }
     } catch (error) {
+      print (error);
       print("error in getProfile");
       rethrow;
     }

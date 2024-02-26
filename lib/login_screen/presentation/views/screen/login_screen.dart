@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           EasyLoading.show(status: 'loading...');
         } else if (state is SignInSuccess) {
           EasyLoading.dismiss();
+
           Navigator.pushNamed(context, 'mainScreen');
           showFlushBar('Login Successfully', isError: false);
         } else if (state is SignInFailure) {
