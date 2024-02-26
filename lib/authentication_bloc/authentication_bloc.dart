@@ -181,7 +181,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
           emit(UpdatePasswordFailure(error: e.toString()));
         }
       },);
-
   }
   bool hasRequiredCharacters(String input) {
     // Define regex patterns to match uppercase, lowercase, and special characters

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mafqood/core/utilis/colors.dart';
-import 'package:mafqood/home_screen/presentation/views/screen/profile_screen.dart';
 import '../../../../card_for_find_and_search_person/screens/card_for_find_and_search_person.dart';
 import '../../../../persons_bloc/persons_bloc.dart';
 import '../../../../profile_bloc/profile_bloc.dart';
@@ -17,12 +16,10 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     BlocProvider.of<PersonsBloc>(context).add(GetFoundedOrMissingPersonsEvent());
     BlocProvider.of<ProfileBloc>(context).add(GetProfileDataEvent());
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,7 +34,6 @@ class _MainScreenState extends State<MainScreen> {
             side: BorderSide(
               color:  Color.fromRGBO(24, 13, 31, 1.0),  // Set your desired color
               width: 1.0,
-
             ),
           ),
           focusColor: Color(30),

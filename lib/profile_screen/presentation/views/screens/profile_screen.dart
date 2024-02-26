@@ -1,15 +1,11 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mafqood/core/shared_widgets/container_widget.dart';
 import 'package:mafqood/core/utilis/styles.dart';
-import 'package:mafqood/home_screen/presentation/views/screen/main_screen.dart';
 import 'package:mafqood/splash_screen/presentation/views/screens/splash_screen.dart';
 import '../../../../classes/get_profile_data.dart';
-import '../../../../core/shared_widgets/back_button_widget.dart';
 import '../../../../core/shared_widgets/flush_bar.dart';
 import '../../../../core/shared_widgets/text_form_field_widget.dart';
 import '../../../../core/shared_widgets/text_widget.dart';
@@ -118,7 +114,7 @@ class _ProfileScreen1State extends State<ProfileScreen1> {
                             showModalBottomSheet(context: context, builder:
                             (context){
                               return Container(
-                                height: MediaQuery .of(context).size.height*0.15,
+                                height: MediaQuery .of(context).size.height*0.18,
                                 child: Column(
                                   children: [
                                     ListTile(
